@@ -1,0 +1,2938 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Camperkosten</title>
+<meta name="description" content="Houd alle kosten van je camper bij: brandstof, camping, verzekering, MRB, stalling en onderhoud. Overzichtelijk per maand en jaar.">
+<meta name="keywords" content="camperkosten, camper kosten bijhouden, brandstofverbruik camper, kampeerkosten, camper verzekering, MRB camper, campingkosten overzicht">
+<meta name="author" content="Camperkosten">
+<meta name="robots" content="noindex, nofollow">
+
+<!-- PWA -->
+<meta name="theme-color" content="#f59e0b">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Camperkosten">
+<meta name="application-name" content="Camperkosten">
+<meta name="msapplication-TileColor" content="#f59e0b">
+
+<!-- Manifest wordt inline gegenereerd via JS -->
+<link id="pwaManifest" rel="manifest">
+
+<!-- Apple touch icon (inline SVG als data URL) -->
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='114' fill='%23f59e0b'/%3E%3Ctext x='256' y='340' text-anchor='middle' font-size='280' font-family='Arial'>🚐%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='114' fill='%23f59e0b'/%3E%3Ctext x='256' y='340' text-anchor='middle' font-size='280' font-family='Arial'>🚐%3C/text%3E%3C/svg%3E">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Camperkosten bijhouden – Kostentracker">
+<meta property="og:description" content="Houd alle kosten van je camper bij per maand en jaar. Brandstof, camping, verzekering, onderhoud en meer.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='114' fill='%23f59e0b'/%3E%3Ctext x='256' y='340' text-anchor='middle' font-size='280' font-family='Arial'%3E🚐%3C/text%3E%3C/svg%3E">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<link rel="canonical" href="https://trpbt52zt8-hub.github.io/camperkosten">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sb:#1a3a52; --bg:#f5f6f8; --surf:#ffffff; --bdr:#e5e7eb; --bdr2:#f0f1f3;
+  --txt:#111827; --txt2:#374151; --muted:#9ca3af; --muted2:#d1d5db;
+  --acc:#f59e0b; --acc-d:#d97706; --acc-s:#fffbeb; --acc-t:rgba(245,158,11,.12);
+  --grn:#059669; --grn-s:#ecfdf5; --red:#dc2626; --red-s:#fef2f2;
+  --blue:#3b82f6; --blue-s:#eff6ff;
+  --c1:#f59e0b; --c2:#7c3aed; --c3:#059669; --c4:#0ea5e9; --c6:#3b82f6;
+  --font:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono','Courier New',monospace;
+  --r:12px; --rs:8px; --sh:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --sh-md:0 4px 16px rgba(0,0,0,.08); --sw:230px; --ease:cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{display:flex;min-height:100vh;background:var(--bg);color:var(--txt);font-family:var(--font);font-size:14px;-webkit-font-smoothing:antialiased;line-height:1.5;}
+
+/* SIDEBAR */
+.sb{width:var(--sw);background:var(--sb);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;box-shadow:4px 0 24px rgba(0,0,0,.15);}
+.sb-brand{padding:24px 20px 20px;border-bottom:1px solid rgba(255,255,255,.06);}
+.sb-icon{width:40px;height:40px;background:var(--acc);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px;box-shadow:0 4px 12px rgba(245,158,11,.3);transition:transform .2s var(--ease);}
+.sb-icon:hover{transform:scale(1.05);}
+.sb-name{font-size:15px;font-weight:700;color:#fff;letter-spacing:-.3px;}
+.sb-sub{font-size:11px;color:rgba(255,255,255,.3);margin-top:3px;font-family:var(--mono);}
+.yr-ctrl{margin:16px 16px 0;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:10px;display:flex;align-items:center;overflow:hidden;}
+.yr-ctrl button{background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;padding:0 12px;height:36px;font-size:14px;transition:all .15s;font-family:var(--font);}
+.yr-ctrl button:hover{color:var(--acc);background:rgba(255,255,255,.05);}
+.yr-val{flex:1;text-align:center;font-family:var(--mono);font-size:14px;font-weight:500;color:#fff;}
+.nav{padding:16px 12px;flex:1;display:flex;flex-direction:column;gap:3px;overflow-y:auto;}
+.nav-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.2);padding:12px 10px 6px;}
+.ni{display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:9px;cursor:pointer;transition:all .15s var(--ease);color:rgba(255,255,255,.45);font-size:13px;font-weight:500;border:1px solid transparent;background:none;width:100%;text-align:left;}
+.ni:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.8);transform:translateX(2px);}
+.ni.on{background:rgba(245,158,11,.15);color:#fff;border-color:rgba(245,158,11,.3);}
+.ni.on .ni-ic{color:var(--acc);}
+.ni-ic{font-size:15px;width:18px;text-align:center;flex-shrink:0;}
+.sb-ft{padding:14px 20px;border-top:1px solid rgba(255,255,255,.06);font-size:11px;color:rgba(255,255,255,.15);font-family:var(--mono);}
+
+/* MAIN */
+.main{margin-left:var(--sw);flex:1;display:flex;flex-direction:column;}
+.ph{background:var(--surf);border-bottom:1px solid var(--bdr);padding:16px 28px;box-shadow:var(--sh);position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;}
+.ph-title{font-size:17px;font-weight:700;color:var(--txt);letter-spacing:-.4px;}
+.ph-sub{font-size:12px;color:var(--muted);margin-top:1px;}
+.content{padding:24px 28px 80px;}
+.view{display:none;opacity:0;transform:translateY(6px);}
+.view.on{display:block;animation:fadeIn .2s var(--ease) forwards;}
+@keyframes fadeIn{to{opacity:1;transform:translateY(0);}}
+
+/* KPI */
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px;}
+.kpi{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);padding:18px 20px;box-shadow:var(--sh);position:relative;overflow:hidden;transition:transform .2s var(--ease),box-shadow .2s var(--ease);}
+.kpi:hover{transform:translateY(-2px);box-shadow:var(--sh-md);}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--kc,var(--bdr2));border-radius:var(--r) var(--r) 0 0;}
+.kpi.a{--kc:var(--acc);} .kpi.g{--kc:var(--grn);} .kpi.b{--kc:#3b82f6;} .kpi.o{--kc:var(--c1);} .kpi.p{--kc:var(--c6);} .kpi.gr{--kc:var(--muted2);}
+.kpi-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:8px;}
+.kpi-val{font-family:var(--mono);font-size:21px;font-weight:500;color:var(--txt);line-height:1;}
+.kpi.a .kpi-val{color:var(--acc-d);} .kpi.g .kpi-val{color:var(--grn);}
+
+/* CHART */
+.ch-card{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:20px;overflow:hidden;}
+.ch-head{padding:16px 20px;border-bottom:1px solid var(--bdr2);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.ch-title{font-size:13px;font-weight:700;color:var(--txt);}
+.legend{display:flex;gap:14px;flex-wrap:wrap;}
+.ld{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);}
+.ld-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
+.ch-body{padding:16px 20px 12px;}
+#chart,#fuelChart{width:100%;display:block;overflow:visible;}
+
+/* CARDS */
+.card{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:16px;overflow:hidden;transition:box-shadow .2s var(--ease);}
+.card:hover{box-shadow:var(--sh-md);}
+.card-hd{padding:16px 20px;border-bottom:1px solid var(--bdr2);display:flex;align-items:center;justify-content:space-between;}
+.card-t{font-size:14px;font-weight:700;color:var(--txt);letter-spacing:-.2px;}
+.card-s{font-size:12px;color:var(--muted);margin-top:2px;}
+.card-b{padding:20px;}
+.divider{height:1px;background:var(--bdr2);}
+.sec-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:12px;}
+
+/* FORMS */
+.fg{display:grid;gap:12px;align-items:end;}
+.vg{grid-template-columns:140px repeat(5,1fr) auto;}
+.cg{grid-template-columns:140px 160px 100px 78px 118px 1fr auto auto;}
+.kg{grid-template-columns:118px 138px 1fr 100px 74px 96px 102px auto auto;}
+.kmg{grid-template-columns:160px 160px 1fr;}
+.tg{grid-template-columns:140px 140px 140px 1fr 1fr auto auto;}
+.og{grid-template-columns:130px 1fr 100px 100px auto auto;}
+.bg-grid{grid-template-columns:1fr 1fr 1fr auto;}
+.field label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:5px;}
+input,select{width:100%;background:#f9fafb;border:1px solid var(--bdr);border-radius:var(--rs);color:var(--txt);font-family:var(--font);font-size:13px;padding:8px 12px;outline:none;height:37px;transition:border-color .15s,box-shadow .15s,background .15s;appearance:none;}
+input[type="date"]{font-family:var(--mono);font-size:12px;color-scheme:light;}
+input[type="number"]{font-family:var(--mono);font-size:13px;}
+input:focus,select:focus{border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-t);background:#fff;}
+input::placeholder{color:var(--muted2);}
+input:disabled{opacity:.4;cursor:not-allowed;background:var(--bdr2);}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239ca3af'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:28px;}
+.btn{display:inline-flex;align-items:center;gap:6px;border:none;border-radius:var(--rs);font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s var(--ease);white-space:nowrap;height:37px;padding:0 16px;}
+.btn:active{transform:scale(.97);}
+.bp{background:var(--acc);color:#fff;box-shadow:0 2px 8px rgba(245,158,11,.3);}
+.bp:hover{background:var(--acc-d);box-shadow:0 4px 12px rgba(245,158,11,.4);}
+.bg{background:none;border:1px solid var(--bdr);color:var(--txt2);}
+.bg:hover{border-color:var(--acc);color:var(--acc);background:var(--acc-s);}
+.bi{background:none;border:none;color:var(--muted2);cursor:pointer;padding:4px 7px;border-radius:6px;font-size:13px;transition:all .15s;}
+.bi:hover{color:var(--red);background:var(--red-s);}
+.hint{font-size:12px;color:var(--muted);margin-top:10px;display:flex;align-items:center;gap:6px;}
+
+/* TABLE */
+.tw{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;}
+thead th{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);padding:10px 14px;text-align:left;border-bottom:2px solid var(--bdr);background:#fafbfc;white-space:nowrap;}
+th.r{text-align:right;}
+tbody td{padding:10px 14px;border-bottom:1px solid var(--bdr2);font-size:13px;vertical-align:middle;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr{transition:background .1s;}
+tbody tr:nth-child(even){background:var(--bdr2);}
+tbody tr:hover{background:var(--acc-s);}
+.row-huidig{background:var(--acc-s)!important;}
+.row-huidig td:first-child{border-left:3px solid var(--acc);}
+tfoot td{padding:10px 14px;background:#fafbfc;font-family:var(--mono);font-size:12px;font-weight:600;border-top:2px solid var(--bdr);color:var(--txt2);}
+.tm{font-family:var(--font);font-size:13px;color:var(--txt2);text-align:right;}
+.tb{font-family:var(--font);font-size:13px;font-weight:600;color:var(--txt);text-align:right;}
+.ta{font-family:var(--font);font-size:13px;font-weight:600;color:var(--acc-d);text-align:right;}
+.tg{font-family:var(--font);font-size:13px;font-weight:600;color:var(--grn);text-align:right;}
+.tmu{font-family:var(--font);font-size:13px;color:var(--muted);text-align:right;}
+.td{font-family:var(--font);font-size:12px;color:var(--muted);}
+.tn{font-weight:500;color:var(--txt);}
+.tnote{font-size:12px;color:var(--muted);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.empty-r td{text-align:center;color:var(--muted2);padding:40px;font-size:13px;}
+
+/* PILLS */
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;white-space:nowrap;letter-spacing:.2px;}
+.pd{background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;}
+.pt{background:#f5f3ff;color:#6d28d9;border:1px solid #ddd6fe;}
+.pg{background:var(--grn-s);color:var(--grn);border:1px solid #a7f3d0;}
+.pv{background:#f0f9ff;color:#0369a1;border:1px solid #bae6fd;}
+.po{background:#f9fafb;color:#6b7280;border:1px solid #e5e7eb;}
+
+/* STAT ROW */
+.sr{display:flex;gap:28px;flex-wrap:wrap;padding:14px 20px;background:#fafbfc;border-top:1px solid var(--bdr2);}
+.si .sl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);}
+.si .sv{font-family:var(--mono);font-size:15px;font-weight:500;color:var(--txt);margin-top:3px;}
+
+/* DASHBOARD GRID */
+.db-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+
+/* BUDGET PROGRESS */
+.budget-item{margin-bottom:14px;}
+.budget-item:last-child{margin-bottom:0;}
+.budget-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;}
+.budget-label{font-size:13px;font-weight:600;color:var(--txt);}
+.budget-vals{font-family:var(--mono);font-size:12px;color:var(--muted);}
+.progress-track{height:8px;background:var(--bdr);border-radius:10px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:10px;transition:width .6s var(--ease);}
+.progress-fill.ok{background:var(--grn);}
+.progress-fill.warn{background:var(--acc);}
+.progress-fill.over{background:var(--red);}
+
+/* CO2 BADGE */
+.co2-val{font-family:var(--mono);font-size:22px;font-weight:600;color:var(--grn);}
+.co2-sub{font-size:12px;color:var(--muted);margin-top:4px;}
+
+/* COMPARE TABLE */
+.compare-select{display:flex;gap:8px;margin-bottom:16px;align-items:center;}
+.compare-select label{font-size:12px;color:var(--muted);font-weight:600;}
+.compare-select select{width:auto;height:32px;font-size:12px;}
+
+/* TRIP CARD */
+.trip-item{padding:14px 20px;border-bottom:1px solid var(--bdr2);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+.trip-item:last-child{border-bottom:none;}
+.trip-name{font-weight:600;font-size:14px;color:var(--txt);}
+.trip-meta{font-size:12px;color:var(--muted);margin-top:3px;}
+.trip-landen{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px;}
+.land-tag{background:var(--blue-s);color:var(--blue);font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;border:1px solid #bfdbfe;}
+
+/* PWA SAFE AREA & INSTALL */
+body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);}
+.sb{padding-top:max(0px,env(safe-area-inset-top));}
+.mob-nav{padding-bottom:max(10px,env(safe-area-inset-bottom));}
+.install-banner{
+  display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+  background:var(--sb);color:#fff;border-radius:14px;padding:14px 18px;
+  box-shadow:0 8px 32px rgba(0,0,0,.3);z-index:400;max-width:340px;width:90%;
+  animation:slideUp .3s var(--ease) forwards;
+}
+@keyframes slideUp{from{opacity:0;transform:translateX(-50%) translateY(20px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+.install-banner-title{font-weight:700;font-size:14px;margin-bottom:4px;}
+.install-banner-sub{font-size:12px;color:rgba(255,255,255,.6);margin-bottom:12px;line-height:1.5;}
+.install-banner-btns{display:flex;gap:8px;}
+.install-banner-btns button{flex:1;border:none;border-radius:8px;padding:9px;font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;transition:opacity .15s;}
+.install-banner-btns .ib-ok{background:var(--acc);color:#fff;}
+.install-banner-btns .ib-nee{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);}
+.install-ios{display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+  background:var(--sb);color:#fff;border-radius:14px;padding:16px 18px;
+  box-shadow:0 8px 32px rgba(0,0,0,.3);z-index:400;max-width:320px;width:90%;text-align:center;}
+.install-ios::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);
+  border:8px solid transparent;border-top-color:var(--sb);border-bottom:none;}
+.install-ios p{font-size:13px;line-height:1.6;color:rgba(255,255,255,.85);}
+.install-ios strong{color:#fff;}
+
+@media(max-width:960px){:root{--sw:200px;}.kpi-grid{grid-template-columns:repeat(2,1fr);}.vg,.kg,.cg,.og,.tg{grid-template-columns:1fr 1fr;}.btn{grid-column:1/-1;width:100%;justify-content:center;}}
+@media(max-width:640px){
+  :root{--sw:0px;}
+  .sb{display:none;}
+  html,body{overflow-x:hidden;max-width:100vw;}
+  .main{overflow-x:hidden;max-width:100vw;}
+  .content{padding:12px 12px 90px;overflow-x:hidden;}
+  .ph{padding:10px 12px;flex-wrap:wrap;gap:6px;}
+  .ph>div:first-child{flex:1;min-width:0;}
+  .ph>div:last-child{display:flex;gap:6px;flex-wrap:wrap;width:100%;}
+  .ph>div:last-child .btn{flex:1;font-size:11px;padding:0 8px;height:32px;}
+  .ph-title{font-size:15px;}
+  .kpi-grid{grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px;}
+  .kpi{padding:12px 12px;}
+  .kpi-val{font-size:16px;}
+  .kpi-lbl{font-size:10px;}
+  .db-grid{grid-template-columns:1fr;}
+  .ch-body{padding:10px 8px 8px;}
+  .ch-head{padding:12px 14px;flex-wrap:wrap;}
+  .legend{gap:8px;}
+  .ld{font-size:10px;}
+  .card-hd{padding:12px 14px;}
+  .card-b{padding:14px;}
+  .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .sr{gap:16px;padding:12px 14px;}
+  .vg,.kg,.cg,.og,.tg,.bg-grid,.kmg{grid-template-columns:1fr 1fr;}
+  .fg .btn{grid-column:1/-1;}
+  .mob-nav{display:flex !important;}
+}
+
+/* MOBIELE BOTTOM NAV */
+.mob-nav{
+  display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;
+  background:var(--sb);border-top:1px solid rgba(255,255,255,.08);
+  padding:0 4px env(safe-area-inset-bottom,0);
+  box-shadow:0 -4px 20px rgba(0,0,0,.2);
+}
+.mob-nav-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  padding:8px 4px 10px;border:none;background:none;cursor:pointer;
+  color:rgba(255,255,255,.4);font-size:10px;font-weight:600;
+  font-family:var(--font);gap:3px;transition:color .15s;
+  text-align:center;
+}
+.mob-nav-item.on{color:var(--acc);}
+.mob-nav-item span:first-child{font-size:18px;}
+
+/* SNELLE INVOER MODAL */
+.modal-backdrop{
+  display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.4);
+  z-index:300;backdrop-filter:blur(4px);
+  align-items:center;justify-content:center;
+  box-sizing:border-box;
+  padding:env(safe-area-inset-top,16px) 16px env(safe-area-inset-bottom,16px) 16px;
+}
+.modal-backdrop.open{display:flex;}
+.modal{
+  background:var(--surf);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.2);
+  width:100%;max-width:460px;max-height:85vh;overflow-y:auto;overflow-x:hidden;
+  box-sizing:border-box;flex-shrink:0;
+  animation:modalIn .2s var(--ease) forwards;
+}
+@keyframes modalIn{from{opacity:0;transform:scale(.95) translateY(10px);}to{opacity:1;transform:none;}}
+@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.modal-hd{padding:16px 16px 14px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;}
+.modal-title{font-size:16px;font-weight:700;color:var(--txt);}
+.modal-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);padding:4px;border-radius:6px;transition:all .15s;}
+.modal-close:hover{color:var(--txt);background:var(--bdr);}
+.modal-b{padding:16px;}
+.modal-grid{grid-template-columns:1fr 1fr;}
+.modal-ft{padding:14px 16px;border-top:1px solid var(--bdr);display:flex;gap:8px;justify-content:flex-end;}
+@media(max-width:400px){.modal-grid{grid-template-columns:1fr;}}
+
+/* MAAND POPUP */
+.maand-popup{
+  display:none;position:absolute;background:var(--surf);border:1px solid var(--bdr);
+  border-radius:10px;box-shadow:var(--sh-md);padding:14px 16px;
+  font-size:12px;min-width:200px;z-index:10;pointer-events:none;
+}
+.ch-body{position:relative;}
+
+/* APK WAARSCHUWING */
+.apk-alert{
+  background:#fff7ed;border:1px solid #fed7aa;border-radius:var(--rs);
+  padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px;
+  font-size:13px;color:#92400e;
+}
+.apk-alert-icon{font-size:18px;flex-shrink:0;}
+
+/* PRINT */
+@media print{
+  .sb,.ph,.mob-nav,.btn,.bi,.modal-backdrop,.apk-alert{display:none!important;}
+  .main{margin-left:0!important;}
+  .view{display:none!important;}
+  .view.print-show{display:block!important;opacity:1!important;transform:none!important;}
+  body{background:#fff;font-size:12px;}
+  .card{box-shadow:none;border:1px solid #ccc;break-inside:avoid;}
+  .kpi{box-shadow:none;border:1px solid #ccc;}
+  .kpi-grid{grid-template-columns:repeat(3,1fr);}
+  .print-header{display:block!important;}
+}
+.print-header{display:none;padding:0 0 16px;border-bottom:2px solid var(--bdr);margin-bottom:20px;}
+.print-header h1{font-size:20px;font-weight:700;}
+.print-header p{color:var(--muted);font-size:13px;margin-top:4px;}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:#1a3a52;color:#fff;border-radius:10px;padding:10px 20px;
+  font-size:13px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.25);
+  z-index:500;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;
+  display:flex;align-items:center;gap:8px;white-space:nowrap;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast-ok{background:var(--grn);}
+.toast-err{background:var(--red);}
+
+/* PRIVACY MODE */
+.privacy-on .kpi-val,
+.privacy-on .sr .sv,
+.privacy-on tfoot td,
+.privacy-on .budget-vals,
+.privacy-on .co2-val,
+.privacy-on .trip-item [style*="mono"]{
+  filter:blur(5px);user-select:none;transition:filter .2s;
+}
+.privacy-on .kpi-val:hover,
+.privacy-on .sr .sv:hover{filter:blur(0);}
+.priv-btn.on{background:var(--acc-s)!important;border-color:var(--acc)!important;color:var(--acc-d)!important;}
+
+</style>
+</head>
+<body>
+
+<div class="sb">
+  <div class="sb-brand">
+    <div class="sb-icon">🚐</div>
+    <div class="sb-name">Camperkosten</div>
+    <div class="sb-sub">Ducato 2016 · 3.0D</div>
+  </div>
+  <div class="yr-ctrl">
+    <button onclick="cy(-1)">&#8592;</button>
+    <div class="yr-val" id="yv"></div>
+    <button onclick="cy(1)">&#8594;</button>
+  </div>
+  <nav class="nav" aria-label="Hoofdnavigatie">
+    <div class="nav-lbl">Overzicht</div>
+    <button class="ni on" onclick="sv('dash',this)"><span class="ni-ic">⊞</span>Dashboard</button>
+    <button class="ni" onclick="sv('maand',this)"><span class="ni-ic">📅</span>Maandoverzicht</button>
+    <button class="ni" onclick="sv('trips',this)"><span class="ni-ic">🗺️</span>Reislogboek</button>
+    <div class="nav-lbl">Invoer</div>
+    <button class="ni" onclick="sv('vast',this)"><span class="ni-ic">🔒</span>Vaste kosten</button>
+    <button class="ni" onclick="sv('camp',this)"><span class="ni-ic">⛺</span>Camping</button>
+    <button class="ni" onclick="sv('var',this)"><span class="ni-ic">⛽</span>Variabele kosten</button>
+    <button class="ni" onclick="sv('onderhoud',this)"><span class="ni-ic">🔧</span>Onderhoud</button>
+    <button class="ni" onclick="sv('budget',this)"><span class="ni-ic">🎯</span>Budget</button>
+    <div class="nav-lbl">Beheer</div>
+    <button class="ni" onclick="sv('instellingen',this)"><span class="ni-ic">⚙️</span>Instellingen</button>
+    <button class="ni" onclick="sv('handleiding',this)"><span class="ni-ic">📖</span>Handleiding</button>
+  </nav>
+  <div class="sb-ft">Gegevens lokaal opgeslagen</div>
+</div>
+
+<div class="main">
+  <!-- SNELLE INVOER MODAL -->
+  <div class="modal-backdrop" id="snelModal" onclick="if(event.target===this)sluitModal()">
+    <div class="modal">
+      <div class="modal-hd">
+        <div class="modal-title">⛽ Snel tanken</div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <label class="btn bg" style="cursor:pointer;height:32px;padding:0 12px;font-size:12px;margin:0" title="Scan tankbon met camera">
+            📷 Scan bon
+            <input type="file" accept="image/*" capture="environment" onchange="scanTankbon(event)" style="display:none">
+          </label>
+          <button class="modal-close" onclick="sluitModal()">✕</button>
+        </div>
+      </div>
+      <div id="scanStatus" style="display:none;padding:10px 16px;background:var(--acc-s);border-bottom:1px solid #fde68a;font-size:12px;color:var(--acc-d);align-items:center;gap:8px">
+        <span id="scanSpinner" style="animation:spin 1s linear infinite;display:inline-block">⏳</span>
+        <span id="scanMsg">Bon wordt gelezen...</span>
+      </div>
+      <div class="modal-b">
+        <div class="fg modal-grid">
+          <div class="field"><label>Datum</label><input type="date" id="snelDatum"></div>
+          <div class="field"><label>Bedrag (€)</label><input type="number" inputmode="decimal" id="snelBedrag" placeholder="0.00" step="0.01"></div>
+          <div class="field"><label>Liters</label><input type="number" inputmode="decimal" id="snelLiters" placeholder="—" step="0.01"></div>
+          <div class="field"><label>€/liter</label><input type="number" inputmode="decimal" id="snelPpl" placeholder="—" step="0.001"></div>
+          <div class="field" style="grid-column:1/-1"><label>KM stand</label><input type="number" inputmode="numeric" id="snelKm" placeholder="—"></div>
+        </div>
+      </div>
+      <div class="modal-ft">
+        <button class="btn bg" onclick="sluitModal()">Annuleer</button>
+        <button class="btn bp" onclick="snelTanken()">Opslaan</button>
+      </div>
+    </div>
+  </div>
+  <div class="ph">
+    <div>
+      <div class="ph-title" id="ptitle">Dashboard</div>
+      <div class="ph-sub" id="psub"></div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="btn bp" onclick="openModal()" style="gap:6px">⛽ Snel tanken</button>
+      <button class="btn bg" onclick="exportJSON()">&#8595; Back-up</button>
+      <label class="btn bg" style="cursor:pointer;margin:0">
+        &#8593; Importeer
+        <input type="file" accept=".json" onchange="importJSON(event)" style="display:none">
+      </label>
+      <button class="btn bg" id="expBtn" style="display:none" onclick="exportCSV()">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8 11L3 6h3V1h4v5h3zm-6 3h12v2H2z"/></svg>
+        CSV
+      </button>
+      <button class="btn bg priv-btn" id="privBtn" onclick="togglePrivacy()" title="Privacy modus aan/uit">👁</button>
+      <button class="btn bg" onclick="printOverzicht()" title="Afdrukken / opslaan als PDF">🖨️</button>
+      <button class="btn bg" onclick="verwijderAlles()" style="color:var(--red);border-color:#fca5a5" title="Alle data verwijderen">🗑 Wis alles</button>
+    </div>
+  </div>
+  <!-- TOAST -->
+  <div class="toast" id="toastEl"></div>
+
+  <div class="content">
+
+    <!-- ═══ DASHBOARD ═══ -->
+    <div class="view on" id="v-dash">
+      <div id="apkAlert"></div>
+      <div class="print-header" id="printHeader">
+        <h1 id="printTitle">Camperkosten overzicht</h1>
+        <p id="printSub"></p>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi a"><div class="kpi-lbl"><span id="kpiLbl0">Totaal </span><span id="ky"></span></div><div class="kpi-val" id="kTot">—</div></div>
+        <div class="kpi g"><div class="kpi-lbl" id="kpiLbl1">Kampeerkosten</div><div class="kpi-val" id="kKamp">—</div></div>
+        <div class="kpi b"><div class="kpi-lbl" id="kpiLbl2">Zonder stalling</div><div class="kpi-val" id="kZS">—</div></div>
+        <div class="kpi o"><div class="kpi-lbl" id="kpiLbl3">Brandstof</div><div class="kpi-val" id="kBrand">—</div></div>
+        <div class="kpi p"><div class="kpi-lbl" id="kpiLbl4">Camping</div><div class="kpi-val" id="kCamp">—</div></div>
+        <div class="kpi gr"><div class="kpi-lbl" id="kpiLbl5">Gem. dieselprijs</div><div class="kpi-val" id="kDieselPpl">—</div></div>
+      </div>
+      <div id="vastPerDagEl" style="font-size:12px;color:var(--muted);margin-top:-10px;margin-bottom:16px;font-family:var(--mono)"></div>
+
+      <!-- Staafdiagram maandkosten -->
+      <div class="ch-card">
+        <div class="ch-head">
+          <div class="ch-title"><span id="chartTitle">Maandkosten </span><span id="chY"></span></div>
+          <div class="legend">
+            <div class="ld"><div class="ld-dot" style="background:var(--c1)"></div><span id="legBrand">Brandstof</span></div>
+            <div class="ld"><div class="ld-dot" style="background:var(--c6)"></div><span id="legCamp">Camping</span></div>
+            <div class="ld"><div class="ld-dot" style="background:#8C95A6"></div><span id="legVast">Vaste kosten</span></div>
+            <div class="ld"><div class="ld-dot" style="background:var(--c2)"></div><span id="legOverig">Overig</span></div>
+          </div>
+        </div>
+        <div class="ch-body"><svg id="chart" height="170"></svg></div>
+      </div>
+
+      <!-- Brandstofprijsgrafiek -->
+      <div class="ch-card">
+        <div class="ch-head">
+          <div class="ch-title"><span id="fuelChTitle">Dieselprijs per liter </span><span id="fuelChY"></span></div>
+          <div class="legend">
+            <div class="ld"><div class="ld-dot" style="background:var(--acc);border-radius:50%"></div><span id="legPpl">€/liter per tankbeurt</span></div>
+          </div>
+        </div>
+        <div class="ch-body"><svg id="fuelChart" height="120"></svg></div>
+      </div>
+
+      <div class="db-grid">
+        <div class="card">
+          <div class="card-hd"><div class="card-t" id="dcsTitel">Kosten campings</div></div>
+          <div class="sr" id="dcs" style="border-top:none"></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="card-t"><span id="dkmTitel">Kilometers </span><span id="dkmY"></span></div></div>
+          <div class="sr" id="dkm" style="border-top:none"></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><div class="card-t"><span id="co2Titel">CO₂-uitstoot </span><span id="co2Y"></span></div></div>
+          <div class="card-b" id="co2Card"></div>
+        </div>
+        <div class="card">
+          <div class="card-hd">
+            <div class="card-t"><span id="budgetTitel">Budget </span><span id="budgetY"></span></div>
+            <button class="btn bg" id="budgetInstelBtn" style="height:28px;font-size:11px;padding:0 10px" onclick="sv('budget',document.querySelector('[onclick*=budget]'))">Instellen</button>
+          </div>
+          <div class="card-b" id="budgetProgress"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ MAANDOVERZICHT ═══ -->
+    <div class="view" id="v-maand">
+      <div class="card">
+        <div class="card-hd">
+          <div><div class="card-t">Maandoverzicht</div><div class="card-s" id="ms"></div></div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <div class="compare-select">
+              <label>Vergelijk met:</label>
+              <select id="cmpYear" onchange="rMaand()">
+                <option value="">— geen vergelijking —</option>
+              </select>
+            </div>
+            <button class="btn bg" style="height:30px;font-size:12px" onclick="exportCSV()">&#8595; CSV</button>
+          </div>
+        </div>
+        <div class="tw">
+          <table>
+            <thead><tr id="maandHead"></tr></thead>
+            <tbody id="maandB"></tbody>
+            <tfoot><tr id="maandF"></tr></tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ REISLOGBOEK ═══ -->
+    <div class="view" id="v-trips">
+      <div class="card">
+        <div class="card-hd"><div><div class="card-t">Reislogboek</div><div class="card-s">Registreer reizen met bestemming, landen en kosten</div></div></div>
+        <div class="card-b">
+          <div class="sec-lbl">Nieuwe reis toevoegen</div>
+          <div class="fg tg">
+            <div class="field"><label>Naam reis</label><input type="text" id="trNaam" placeholder="bijv. Zomerreis Italië"></div>
+            <div class="field"><label>Vertrek</label><input type="date" id="trVan"></div>
+            <div class="field"><label>Terug</label><input type="date" id="trTot"></div>
+            <div class="field"><label>Landen (komma's)</label><input type="text" id="trLanden" placeholder="bijv. Duitsland, Zwitserland, Italië"></div>
+            <div class="field"><label>Notitie</label><input type="text" id="trNote" placeholder="Hoogtepunten, bijzonderheden..."></div>
+            <input type="hidden" id="trEditId">
+            <button class="btn bp" id="trSaveBtn" onclick="addTrip()">Toevoegen</button>
+            <button class="btn bg" id="trCancelBtn" onclick="cancelTrip()" style="display:none">Annuleer</button>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div id="tripsList"></div>
+      </div>
+    </div>
+
+    <!-- ═══ VASTE KOSTEN ═══ -->
+    <div class="view" id="v-vast">
+      <div class="card">
+        <div class="card-hd"><div><div class="card-t">Vaste kosten</div><div class="card-s">Klik op ✎ om een maand te bewerken</div></div></div>
+        <div class="card-b">
+          <div class="sec-lbl">Nieuwe regel toevoegen</div>
+          <div class="fg vg">
+            <div class="field">
+              <label>Maand</label>
+              <select id="vM"><option value="1">Januari</option><option value="2">Februari</option><option value="3">Maart</option><option value="4">April</option><option value="5">Mei</option><option value="6">Juni</option><option value="7">Juli</option><option value="8">Augustus</option><option value="9">September</option><option value="10">Oktober</option><option value="11">November</option><option value="12">December</option></select>
+            </div>
+            <div class="field"><label>Verzekering</label><input type="number" inputmode="decimal" id="vV" placeholder="0.00" step="0.01"></div>
+            <div class="field"><label>MRB</label><input type="number" inputmode="decimal" id="vR" placeholder="0.00" step="0.01"></div>
+            <div class="field"><label>Stalling</label><input type="number" inputmode="decimal" id="vS" placeholder="0.00" step="0.01"></div>
+            <div class="field"><label>Afschrijving</label><input type="number" inputmode="decimal" id="vA" placeholder="0.00" step="0.01"></div>
+            <div class="field"><label>Overig vast</label><input type="number" inputmode="decimal" id="vO" placeholder="0.00" step="0.01"></div>
+            <button class="btn bp" onclick="saveVast()">Opslaan</button>
+          </div>
+          <p class="hint">&#9432; Laat een veld leeg als er geen kosten zijn voor die maand.</p>
+        </div>
+        <div class="divider"></div>
+        <div class="tw">
+          <table>
+            <thead><tr><th>Maand</th><th class="r">Verzekering</th><th class="r">MRB</th><th class="r">Stalling</th><th class="r">Afschrijving</th><th class="r">Overig vast</th><th class="r">Subtotaal</th><th></th></tr></thead>
+            <tbody id="vastB"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ CAMPING ═══ -->
+    <div class="view" id="v-camp">
+      <div class="card">
+        <div class="card-hd"><div><div class="card-t">Campingregistratie</div><div class="card-s">Registreer campings en overnachtingen per reis</div></div></div>
+        <div class="card-b">
+          <div class="sec-lbl">Nieuwe regel toevoegen</div>
+          <div class="fg cg">
+            <div class="field"><label>Datum aankomst</label><input type="date" id="cD"></div>
+            <div class="field"><label>Camping</label><input type="text" id="cN" placeholder="Naam van de camping"></div>
+            <div class="field"><label>Land</label><input type="text" id="cLand" placeholder="bijv. Italië"></div>
+            <div class="field"><label>Nachten</label><input type="number" inputmode="numeric" id="cNa" placeholder="1" min="1"></div>
+            <div class="field"><label>Prijs (€)</label><input type="number" inputmode="decimal" id="cP" placeholder="0.00" step="0.01"></div>
+            <div class="field"><label>Notitie</label><input type="text" id="cNo" placeholder="Beoordeling, wifi, pitchnummer..."></div>
+            <input type="hidden" id="cEditId">
+            <button class="btn bp" id="cSaveBtn" onclick="addCamp()">Toevoegen</button>
+            <button class="btn bg" id="cCancelBtn" onclick="cancelEdit()" style="display:none">Annuleer</button>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="tw">
+          <table>
+            <thead><tr><th>Datum</th><th>Camping</th><th>Land</th><th class="r">Nachten</th><th class="r">Totaal</th><th class="r">Per nacht</th><th>Notitie</th><th></th></tr></thead>
+            <tbody id="campB"></tbody>
+          </table>
+        </div>
+        <div class="sr" id="campS"></div>
+      </div>
+      <!-- Landen statistieken -->
+      <div class="card">
+        <div class="card-hd"><div class="card-t">Gemiddelde prijs per land</div></div>
+        <div class="tw"><table>
+          <thead><tr><th>Land</th><th class="r">Campings</th><th class="r">Nachten</th><th class="r">Totaal</th><th class="r">Gem. per nacht</th></tr></thead>
+          <tbody id="landenB"></tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- ═══ VARIABELE KOSTEN ═══ -->
+    <div class="view" id="v-var">
+      <div class="card">
+        <div class="card-hd"><div><div class="card-t">Kilometerstand per jaar</div><div class="card-s">Vul begin- en eindstand in om kosten per km te berekenen</div></div></div>
+        <div class="card-b">
+          <div class="fg kmg">
+            <div class="field"><label>Begin jaar (1 jan)</label><input type="number" inputmode="numeric" id="kmB" placeholder="bijv. 48319" oninput="saveKm()"></div>
+            <div class="field"><label>Einde jaar (31 dec)</label><input type="number" inputmode="numeric" id="kmE" placeholder="bijv. 55349" oninput="saveKm()"></div>
+            <div style="align-self:end;padding-bottom:1px" id="kmR"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hd"><div><div class="card-t">Variabele kosten</div><div class="card-s">Brandstof, tol, gas, vignetten en overige kosten</div></div></div>
+        <div class="card-b">
+          <div class="sec-lbl">Nieuwe regel toevoegen</div>
+          <div class="fg kg">
+            <div class="field"><label>Datum</label><input type="date" id="kD"></div>
+            <div class="field"><label>Categorie</label>
+              <select id="kC" onchange="td()">
+                <option value="diesel">⛽ Diesel</option><option value="tol">🛣️ Tol</option>
+                <option value="gas">🔥 Gas</option><option value="vignet">🗺️ Vignet</option>
+                <option value="onderhoud">🔧 Onderhoud</option><option value="reparatie">🛠️ Reparatie</option>
+                <option value="overig">📦 Overig</option>
+              </select>
+            </div>
+            <div class="field"><label>Omschrijving</label><input type="text" id="kO" placeholder="bijv. Tanken A2 Duitsland"></div>
+            <div class="field"><label>Bedrag (€)</label><input type="number" inputmode="decimal" id="kP" placeholder="0.00" step="0.01"></div>
+            <div class="field" id="fL"><label>Liters</label><input type="number" inputmode="decimal" id="kL" placeholder="—" step="0.01"></div>
+            <div class="field" id="fPpl"><label>€/liter</label><input type="number" inputmode="decimal" id="kPl" placeholder="—" step="0.001"></div>
+            <div class="field" id="fK"><label>KM stand</label><input type="number" inputmode="numeric" id="kKm" placeholder="—"></div>
+            <input type="hidden" id="kEditId">
+            <button class="btn bp" id="kSaveBtn" onclick="addVar()">Toevoegen</button>
+            <button class="btn bg" id="kCancelBtn" onclick="cancelEditVar()" style="display:none">Annuleer</button>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="tw">
+          <table>
+            <thead><tr><th>Datum</th><th>Categorie</th><th>Omschrijving</th><th class="r">Bedrag</th><th class="r">Liters</th><th class="r">€/L</th><th class="r">KM stand</th><th class="r">L/100km</th><th></th></tr></thead>
+            <tbody id="varB"></tbody>
+          </table>
+        </div>
+        <div class="sr" id="varS"></div>
+      </div>
+    </div>
+
+    <!-- ═══ ONDERHOUD ═══ -->
+    <div class="view" id="v-onderhoud">
+      <div class="card">
+        <div class="card-hd"><div><div class="card-t">Onderhoudslogboek</div><div class="card-s">APK, banden, riem, olie en overig onderhoud</div></div></div>
+        <div class="card-b">
+          <div class="sec-lbl">Nieuwe regel toevoegen</div>
+          <div class="fg og">
+            <div class="field"><label>Datum</label><input type="date" id="oD"></div>
+            <div class="field"><label>Omschrijving</label><input type="text" id="oOmschr" placeholder="bijv. APK, banden, olie verversen"></div>
+            <div class="field"><label>Bedrag (€)</label><input type="number" inputmode="decimal" id="oPrijs" placeholder="0.00" step="0.01"></div>
+            <div class="field"><label>KM stand</label><input type="number" inputmode="numeric" id="oKm" placeholder="—"></div>
+            <input type="hidden" id="oEditId">
+            <button class="btn bp" id="oSaveBtn" onclick="addOnderhoud()">Toevoegen</button>
+            <button class="btn bg" id="oCancelBtn" onclick="cancelOnderhoud()" style="display:none">Annuleer</button>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="tw">
+          <table>
+            <thead><tr><th>Datum</th><th>Omschrijving</th><th class="r">Bedrag</th><th class="r">KM stand</th><th></th></tr></thead>
+            <tbody id="onderhoudB"></tbody>
+          </table>
+        </div>
+        <div class="sr" id="onderhoudS"></div>
+      </div>
+    </div>
+
+    <!-- ═══ BUDGET ═══ -->
+    <div class="view" id="v-budget">
+      <div class="card">
+        <div class="card-hd"><div><div class="card-t">Jaarbudget instellen</div><div class="card-s">Stel een budget per categorie in voor het geselecteerde jaar</div></div></div>
+        <div class="card-b">
+          <div class="fg bg-grid">
+            <div class="field"><label>Totaal budget (€)</label><input type="number" inputmode="decimal" id="budgTot" placeholder="bijv. 8000" oninput="saveBudget()"></div>
+            <div class="field"><label>Brandstof budget (€)</label><input type="number" inputmode="decimal" id="budgBrand" placeholder="bijv. 2000" oninput="saveBudget()"></div>
+            <div class="field"><label>Camping budget (€)</label><input type="number" inputmode="decimal" id="budgCamp" placeholder="bijv. 2500" oninput="saveBudget()"></div>
+            <div class="field"><label>Onderhoud budget (€)</label><input type="number" inputmode="decimal" id="budgOnderh" placeholder="bijv. 500" oninput="saveBudget()"></div>
+          </div>
+          <p class="hint">&#9432; Bedragen worden automatisch opgeslagen en getoond op het dashboard.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hd"><div class="card-t">Voortgang <span id="budgetViewY"></span></div></div>
+        <div class="card-b" id="budgetDetail"></div>
+      </div>
+    </div>
+
+    <!-- ═══ INSTELLINGEN ═══ -->
+    <div class="view" id="v-instellingen">
+
+      <!-- Taal kiezen -->
+      <div class="card">
+        <div class="card-hd"><div><div class="card-t">🌍 Taal / Language / Sprache / Langue / Idioma</div><div class="card-s">Kies de taal van de app</div></div></div>
+        <div class="card-b">
+          <div id="langSelector" style="display:flex;flex-direction:column;gap:8px;max-width:360px"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hd"><div><div class="card-t" id="sett_camper_titel_el">Camper gegevens</div><div class="card-s" id="camperCardSub">Vul je kenteken in om gegevens automatisch op te halen via het RDW</div></div></div>
+        <div class="card-b">
+          <div id="rdwSection">
+            <div class="sec-lbl" id="rdw_lbl_sectie">Kenteken opzoeken</div>
+            <div style="display:flex;gap:10px;align-items:end;margin-bottom:16px">
+              <div class="field" style="flex:0 0 160px">
+                <label id="rdw_lbl_kenteken">Kenteken</label>
+                <input type="text" id="rdwKenteken" placeholder="bijv. 12-BCD-3" style="text-transform:uppercase;font-family:var(--mono);letter-spacing:1px" oninput="this.value=this.value.toUpperCase()">
+              </div>
+              <button class="btn bp" onclick="rdwOpzoeken()" id="rdwBtn">🔍 Ophalen via RDW</button>
+            </div>
+            <div id="rdwResult" style="display:none;background:var(--grn-s);border:1px solid #a7f3d0;border-radius:var(--rs);padding:14px 16px;margin-bottom:16px;font-size:13px"></div>
+            <div id="rdwError" style="display:none;background:var(--red-s);border:1px solid #fca5a5;border-radius:var(--rs);padding:14px 16px;margin-bottom:16px;font-size:13px;color:var(--red)"></div>
+          </div>
+          <div class="sec-lbl" id="sett_camper_data_lbl">Campergegevens</div>
+          <div class="fg" style="grid-template-columns:1fr 1fr 1fr">
+            <div class="field"><label id="lbl_cam_naam_el">Naam / bijnaam</label><input type="text" id="camperNaam" placeholder="bijv. Mijn Ducato"></div>
+            <div class="field"><label id="lbl_cam_merk_el">Merk</label><input type="text" id="camperMerk" placeholder="bijv. Fiat"></div>
+            <div class="field"><label id="lbl_cam_model_el">Model</label><input type="text" id="camperModel" placeholder="bijv. Ducato"></div>
+            <div class="field"><label id="lbl_cam_jaar_el">Bouwjaar</label><input type="number" inputmode="numeric" id="camperJaar" placeholder="bijv. 2016"></div>
+            <div class="field"><label id="lbl_cam_brand_el">Brandstof</label><input type="text" id="camperBrandstof" placeholder="bijv. Diesel"></div>
+            <div class="field"><label id="lbl_cam_cc_el">Cilinderinhoud</label><input type="text" id="camperCc" placeholder="bijv. 2999 cc"></div>
+            <div class="field"><label id="lbl_cam_pk_el">Vermogen</label><input type="text" id="camperPk" placeholder="bijv. 130 pk"></div>
+            <div class="field"><label id="lbl_cam_massa_el">Massa rijklaar</label><input type="text" id="camperMassa" placeholder="bijv. 3500 kg"></div>
+            <div class="field"><label id="lbl_cam_apk_el">APK vervaldatum</label><input type="date" id="camperApk"></div>
+          </div>
+          <div style="height:14px"></div>
+          <button class="btn bp" id="btn_saveCamper" onclick="saveCamper()">Opslaan</button>
+        </div>
+      </div>
+
+      <!-- Meerdere campers -->
+      <div class="card">
+        <div class="card-hd">
+          <div><div class="card-t" id="sett_mijn_campers_el">Mijn campers</div><div class="card-s" id="sett_mijn_campers_sub_el">Wissel tussen meerdere campers — elke camper heeft zijn eigen kostendata</div></div>
+        </div>
+        <div id="campersList"></div>
+        <div style="padding:16px 20px;border-top:1px solid var(--bdr2)">
+          <button class="btn bg" id="btn_nieuwe_camper" onclick="addCamper()">+ Nieuwe camper toevoegen</button>
+        </div>
+      </div>
+
+      <!-- Handleiding link (mobiel) -->
+      <div class="card" style="cursor:pointer" onclick="sv('handleiding',document.querySelector('[onclick*=handleiding]'))">
+        <div class="card-hd" style="border-bottom:none">
+          <div><div class="card-t">📖 Handleiding</div><div class="card-s">Alles over het gebruik van deze app</div></div>
+          <span style="color:var(--muted);font-size:18px">→</span>
+        </div>
+      </div>
+
+      <div style="text-align:center;padding:16px 0 8px;font-size:11px;color:var(--muted);font-family:var(--mono)">Camperkosten v7.4.26.01</div>
+    </div>
+
+    <!-- ═══ HANDLEIDING ═══ -->
+    <div class="view" id="v-handleiding">
+      <div id="handleidingContent"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════
+// TALEN / TRANSLATIONS
+// ═══════════════════════════════════════
+let lang = localStorage.getItem('ck-lang') || 'nl';
+
+const TRANS = {
+nl: {
+  appName:'Camperkosten',
+  // Nav
+  nav_overview:'Overzicht', nav_dashboard:'Dashboard', nav_maand:'Maandoverzicht', nav_trips:'Reislogboek',
+  nav_invoer:'Invoer', nav_vast:'Vaste kosten', nav_camp:'Camping', nav_var:'Variabele kosten',
+  nav_onderhoud:'Onderhoud', nav_budget:'Budget', nav_beheer:'Beheer', nav_instellingen:'Instellingen',
+  nav_handleiding:'Handleiding', nav_footer:'Gegevens lokaal opgeslagen',
+  // Header
+  btn_backup:'↓ Back-up', btn_import:'↑ Importeer', btn_csv:'CSV', btn_print:'🖨️',
+  btn_snel_tanken:'⛽ Snel tanken',
+  // Views
+  v_dash:'Dashboard', v_dash_sub:'Jaarkosten overzicht ',
+  v_maand:'Maandoverzicht', v_maand_sub:'Alle kosten per maand — ',
+  v_trips:'Reislogboek', v_trips_sub:'Overzicht van al je reizen',
+  v_vast:'Vaste kosten', v_vast_sub:'Verzekering, MRB, stalling en afschrijving',
+  v_camp:'Camping', v_camp_sub:'Overnachtingen en kampeerkosten per jaar',
+  v_var:'Variabele kosten', v_var_sub:'Brandstof, tol, gas, vignetten en overige kosten',
+  v_onderhoud:'Onderhoud', v_onderhoud_sub:'APK, banden, olie en overig onderhoud',
+  v_budget:'Budget', v_budget_sub:'Jaarbudget instellen en voortgang bijhouden',
+  v_instellingen:'Instellingen', v_instellingen_sub:'Campergegevens en kenteken',
+  v_handleiding:'Handleiding', v_handleiding_sub:'Alles over het gebruik van deze app',
+  // KPI
+  kpi_totaal:'Totaal', kpi_kamp:'Kampeerkosten', kpi_zs:'Zonder stalling',
+  kpi_brand:'Brandstof', kpi_camp:'Camping', kpi_diesel_ppl:'Gem. dieselprijs',
+  // Dashboard cards
+  kosten_campings:'Kosten campings', kilometers:'Kilometers',
+  co2_titel:'CO₂-uitstoot', budget_titel:'Budget',
+  btn_instellen:'Instellen',
+  // Chart
+  chart_title:'Maandkosten', fuel_chart_title:'Dieselprijs per liter',
+  leg_brandstof:'Brandstof', leg_camping:'Camping', leg_vast:'Vaste kosten', leg_overig:'Overig',
+  leg_ppl:'€/liter per tankbeurt',
+  // Stat labels
+  sl_nachten:'Nachten', sl_totaal:'Totaal', sl_gem_nacht:'Gemiddeld per nacht',
+  sl_beginstand:'Beginstand', sl_eindstand:'Eindstand', sl_gereden:'Gereden',
+  sl_diesel_km:'Diesel / km', sl_totaal_km:'Totaal / km',
+  sl_gem_verbruik:'Gemiddeld verbruik', sl_tankbeurten:'Aantal tankbeurten',
+  sl_totaal_var:'Totaal variabele kosten',
+  // Table headers
+  th_maand:'Maand', th_verz:'Verzekering', th_mrb:'MRB', th_stall:'Stalling',
+  th_afschr:'Afschrijving', th_overig_vast:'Overig vast', th_subtotaal:'Subtotaal',
+  th_brand:'Brandstof', th_onderh:'Onderhoud', th_camp:'Camping', th_overig:'Overig',
+  th_kamp:'Kampeerkosten', th_totaal:'Totaal', th_datum:'Datum', th_naam:'Naam',
+  th_land:'Land', th_nacht:'Nachten', th_per_nacht:'Per nacht', th_notitie:'Notitie',
+  th_cat:'Categorie', th_omschr:'Omschrijving', th_bedrag:'Bedrag', th_liters:'Liters',
+  th_ppl:'€/L', th_km_stand:'KM stand', th_lp100:'L/100km', th_km:'KM stand',
+  th_campings:'Campings', th_gem_nacht:'Gem. per nacht',
+  // Forms - Vaste kosten
+  lbl_maand:'Maand', lbl_verz:'Verzekering', lbl_mrb:'MRB', lbl_stall:'Stalling',
+  lbl_afschr:'Afschrijving', lbl_overig_vast:'Overig vast',
+  btn_opslaan:'Opslaan', hint_vast:'Laat een veld leeg als er geen kosten zijn voor die maand.',
+  // Forms - Camping
+  lbl_datum_aankomst:'Datum aankomst', lbl_camping:'Camping', lbl_land:'Land',
+  lbl_nachten:'Nachten', lbl_prijs:'Prijs (€)', lbl_notitie:'Notitie',
+  ph_camping:'Naam van de camping', ph_land:'bijv. Italië', ph_notitie:'Beoordeling, wifi, pitchnummer...',
+  btn_toevoegen:'Toevoegen', btn_annuleer:'Annuleer',
+  // Forms - Variabele kosten
+  lbl_datum:'Datum', lbl_categorie:'Categorie', lbl_omschr:'Omschrijving',
+  lbl_bedrag:'Bedrag (€)', lbl_liters:'Liters', lbl_ppl:'€/liter', lbl_km_stand:'KM stand',
+  ph_omschr:'bijv. Tanken A2 Duitsland',
+  lbl_begin_jaar:'Begin jaar (1 jan)', lbl_einde_jaar:'Einde jaar (31 dec)',
+  ph_begin:'bijv. 48319', ph_einde:'bijv. 55349',
+  // Forms - Onderhoud
+  lbl_onderhoud_omschr:'Omschrijving', ph_onderhoud:'bijv. APK, banden, olie verversen',
+  // Forms - Trips
+  lbl_reis_naam:'Naam reis', lbl_vertrek:'Vertrek', lbl_terug:'Terug',
+  lbl_landen:'Landen (komma\'s)', lbl_trip_note:'Notitie',
+  ph_reis_naam:'bijv. Zomerreis Italië', ph_landen:'bijv. Duitsland, Zwitserland, Italië',
+  ph_trip_note:'Hoogtepunten, bijzonderheden...',
+  // Budget
+  lbl_budg_tot:'Totaal budget (€)', lbl_budg_brand:'Brandstof budget (€)',
+  lbl_budg_camp:'Camping budget (€)', lbl_budg_onderh:'Onderhoud budget (€)',
+  ph_budg_tot:'bijv. 8000', ph_budg_brand:'bijv. 2000', ph_budg_camp:'bijv. 2500', ph_budg_onderh:'bijv. 500',
+  hint_budget:'Bedragen worden automatisch opgeslagen en getoond op het dashboard.',
+  budg_voortgang:'Voortgang', budg_instellen:'Jaarbudget instellen',
+  budg_instellen_sub:'Stel een budget per categorie in voor het geselecteerde jaar',
+  budg_nog_niet:'Nog geen budget ingesteld.',
+  // Instellingen
+  sett_camper_titel:'Camper gegevens',
+  sett_camper_sub:'Vul je kenteken in om gegevens automatisch op te halen via het RDW',
+  sett_kenteken_lbl:'Kenteken opzoeken', lbl_kenteken:'Kenteken', ph_kenteken:'bijv. 12-BCD-3',
+  btn_rdw:'🔍 Ophalen via RDW', btn_rdw_bezig:'⏳ Ophalen...',
+  sett_camper_data:'Campergegevens',
+  lbl_cam_naam:'Naam / bijnaam', lbl_cam_merk:'Merk', lbl_cam_model:'Model',
+  lbl_cam_jaar:'Bouwjaar', lbl_cam_brand:'Brandstof', lbl_cam_cc:'Cilinderinhoud',
+  lbl_cam_pk:'Vermogen', lbl_cam_massa:'Massa rijklaar', lbl_cam_apk:'APK vervaldatum',
+  ph_cam_naam:'bijv. Mijn Ducato', ph_cam_merk:'bijv. Fiat', ph_cam_model:'bijv. Ducato',
+  ph_cam_jaar:'bijv. 2016', ph_cam_brand:'bijv. Diesel', ph_cam_cc:'bijv. 2999 cc',
+  ph_cam_pk:'bijv. 130 pk', ph_cam_massa:'bijv. 3500 kg',
+  sett_mijn_campers:'Mijn campers',
+  sett_mijn_campers_sub:'Wissel tussen meerdere campers — elke camper heeft zijn eigen kostendata',
+  btn_nieuwe_camper:'+ Nieuwe camper toevoegen',
+  cam_actief:'Actief', btn_activeren:'Activeren',
+  // Modal snel tanken
+  modal_titel:'⛽ Snel tanken',
+  // Empty states
+  empty_vast:'Nog geen vaste kosten ingevoerd voor ',
+  empty_camp:'Nog geen campings geregistreerd voor ',
+  empty_var:'Nog geen variabele kosten ingevoerd voor ',
+  empty_onderhoud:'Nog geen onderhoud geregistreerd voor ',
+  empty_trips:'Nog geen reizen toegevoegd. Voeg je eerste reis toe hierboven.',
+  empty_landen:'Voeg een land toe bij camping registraties.',
+  // CO2
+  co2_sub1:' liter diesel · 2,64 kg CO₂ per liter',
+  co2_sub2:' g CO₂ per km',
+  co2_leeg:'Voeg tankbeurten met liters toe om CO₂-uitstoot te berekenen.',
+  km_leeg:'Vul de KM-stand in bij Variabele kosten.',
+  verbruik_leeg:'Voeg KM-stand en liters toe om verbruik te berekenen.',
+  // APK
+  apk_binnenkort:'APK verloopt over ', apk_binnenkort2:' dagen',
+  apk_verlopen:'APK is verlopen!',
+  apk_tip:'Zorg dat je tijdig een afspraak maakt.',
+  apk_fout:'Je mag niet rijden met een verlopen APK.',
+  // Alerts
+  alert_verplicht:'Vul alle verplichte velden in.',
+  alert_datum_bedrag:'Vul datum en bedrag in.',
+  alert_reis_verplicht:'Vul minimaal een naam en vertrekdatum in.',
+  alert_camper_opgeslagen:'Campergegevens opgeslagen!',
+  alert_camper_nieuw:'Vul de gegevens in voor je nieuwe camper en klik op Opslaan.',
+  alert_import_ok:'Import geslaagd — ',
+  alert_import_deel:' campings, ',
+  alert_import_deel2:' kostenposten ingeladen.',
+  alert_import_fout:'Fout bij importeren: ',
+  alert_rdw_niet_gevonden:'Kenteken niet gevonden in het RDW register.',
+  rdw_gevonden:'✓ Gevonden: ',
+  rdw_gevonden2:' — Velden zijn ingevuld. Klik op Opslaan om op te slaan.',
+  // Landen stats
+  landen_titel:'Gemiddelde prijs per land',
+  gem_reiskosten:'geschatte reiskosten',
+  // Vergelijk
+  vergelijk_met:'Vergelijk met:', vergelijk_geen:'— geen vergelijking —',
+  // Mob nav
+  mob_dashboard:'Dashboard', mob_maand:'Maand', mob_kosten:'Kosten',
+  mob_camping:'Camping', mob_meer:'Meer',
+  // Maanden
+  maanden:['Januari','Februari','Maart','April','Mei','Juni','Juli','Augustus','September','Oktober','November','December'],
+  maanden_kort:['J','F','M','A','M','J','J','A','S','O','N','D'],
+  // Categorieën
+  cat_diesel:'⛽ Diesel', cat_tol:'🛣️ Tol', cat_gas:'🔥 Gas', cat_vignet:'🗺️ Vignet', cat_onderhoud:'🔧 Onderhoud', cat_reparatie:'🛠️ Reparatie', cat_overig:'📦 Overig',
+  // Handleiding
+  hnd_welkom:'🚐 Welkom bij Camperkosten',
+  hnd_intro:'Camperkosten helpt je alle kosten van je camper bijhouden — van verzekering en MRB tot brandstof, camping en onderhoud. Alles wordt lokaal opgeslagen in je browser. Maak regelmatig een back-up via de knop rechtsboven.',
+  hnd_tip1_t:'⛽ Snel tanken', hnd_tip1_d:'Gebruik de knop rechtsboven voor snelle invoer van een tankbeurt.',
+  hnd_tip2_t:'💾 Back-up maken', hnd_tip2_d:'Download regelmatig een back-up via "Back-up" zodat je nooit data verliest.',
+  hnd_tip3_t:'🖨️ PDF exporteren', hnd_tip3_d:'Klik op 🖨️ rechtsboven voor een overzicht als PDF of afdruk.',
+},
+en: {
+  appName:'CamperCosts',
+  nav_overview:'Overview', nav_dashboard:'Dashboard', nav_maand:'Monthly overview', nav_trips:'Travel log',
+  nav_invoer:'Enter', nav_vast:'Fixed costs', nav_camp:'Camping', nav_var:'Variable costs',
+  nav_onderhoud:'Maintenance', nav_budget:'Budget', nav_beheer:'Manage', nav_instellingen:'Settings',
+  nav_handleiding:'User guide', nav_footer:'Data stored locally',
+  btn_backup:'↓ Backup', btn_import:'↑ Import', btn_csv:'CSV', btn_print:'🖨️',
+  btn_snel_tanken:'⛽ Quick fuel entry',
+  v_dash:'Dashboard', v_dash_sub:'Annual costs overview ',
+  v_maand:'Monthly overview', v_maand_sub:'All costs per month — ',
+  v_trips:'Travel log', v_trips_sub:'Overview of all your trips',
+  v_vast:'Fixed costs', v_vast_sub:'Insurance, road tax, storage and depreciation',
+  v_camp:'Camping', v_camp_sub:'Overnight stays and camping costs per year',
+  v_var:'Variable costs', v_var_sub:'Fuel, tolls, gas, vignettes and other costs',
+  v_onderhoud:'Maintenance', v_onderhoud_sub:'MOT, tyres, oil and other maintenance',
+  v_budget:'Budget', v_budget_sub:'Set annual budget and track progress',
+  v_instellingen:'Settings', v_instellingen_sub:'Camper details and licence plate',
+  v_handleiding:'User guide', v_handleiding_sub:'Everything about using this app',
+  kpi_totaal:'Total', kpi_kamp:'Camping costs', kpi_zs:'Without storage',
+  kpi_brand:'Fuel', kpi_camp:'Camping', kpi_diesel_ppl:'Avg. diesel price',
+  kosten_campings:'Camping costs', kilometers:'Kilometres',
+  co2_titel:'CO₂ emissions', budget_titel:'Budget', btn_instellen:'Set budget',
+  chart_title:'Monthly costs', fuel_chart_title:'Diesel price per litre',
+  leg_brandstof:'Fuel', leg_camping:'Camping', leg_vast:'Fixed costs', leg_overig:'Other',
+  leg_ppl:'€/litre per refuel',
+  sl_nachten:'Nights', sl_totaal:'Total', sl_gem_nacht:'Average per night',
+  sl_beginstand:'Start mileage', sl_eindstand:'End mileage', sl_gereden:'Driven',
+  sl_diesel_km:'Diesel / km', sl_totaal_km:'Total / km',
+  sl_gem_verbruik:'Avg. consumption', sl_tankbeurten:'Number of refuels',
+  sl_totaal_var:'Total variable costs',
+  th_maand:'Month', th_verz:'Insurance', th_mrb:'Road tax', th_stall:'Storage',
+  th_afschr:'Depreciation', th_overig_vast:'Other fixed', th_subtotaal:'Subtotal',
+  th_brand:'Fuel', th_onderh:'Maintenance', th_camp:'Camping', th_overig:'Other',
+  th_kamp:'Camping costs', th_totaal:'Total', th_datum:'Date', th_naam:'Name',
+  th_land:'Country', th_nacht:'Nights', th_per_nacht:'Per night', th_notitie:'Note',
+  th_cat:'Category', th_omschr:'Description', th_bedrag:'Amount', th_liters:'Litres',
+  th_ppl:'€/L', th_km_stand:'Mileage', th_lp100:'L/100km', th_km:'Mileage',
+  th_campings:'Campings', th_gem_nacht:'Avg. per night',
+  lbl_maand:'Month', lbl_verz:'Insurance', lbl_mrb:'Road tax', lbl_stall:'Storage',
+  lbl_afschr:'Depreciation', lbl_overig_vast:'Other fixed',
+  btn_opslaan:'Save', hint_vast:'Leave a field empty if there are no costs for that month.',
+  lbl_datum_aankomst:'Arrival date', lbl_camping:'Campsite', lbl_land:'Country',
+  lbl_nachten:'Nights', lbl_prijs:'Price (€)', lbl_notitie:'Note',
+  ph_camping:'Name of campsite', ph_land:'e.g. Italy', ph_notitie:'Rating, wifi, pitch number...',
+  btn_toevoegen:'Add', btn_annuleer:'Cancel',
+  lbl_datum:'Date', lbl_categorie:'Category', lbl_omschr:'Description',
+  lbl_bedrag:'Amount (€)', lbl_liters:'Litres', lbl_ppl:'€/litre', lbl_km_stand:'Mileage',
+  ph_omschr:'e.g. Refuel A2 Germany',
+  lbl_begin_jaar:'Start of year (1 Jan)', lbl_einde_jaar:'End of year (31 Dec)',
+  ph_begin:'e.g. 48319', ph_einde:'e.g. 55349',
+  lbl_onderhoud_omschr:'Description', ph_onderhoud:'e.g. MOT, tyres, oil change',
+  lbl_reis_naam:'Trip name', lbl_vertrek:'Departure', lbl_terug:'Return',
+  lbl_landen:'Countries (comma-separated)', lbl_trip_note:'Note',
+  ph_reis_naam:'e.g. Summer trip Italy', ph_landen:'e.g. Germany, Switzerland, Italy',
+  ph_trip_note:'Highlights, notes...',
+  lbl_budg_tot:'Total budget (€)', lbl_budg_brand:'Fuel budget (€)',
+  lbl_budg_camp:'Camping budget (€)', lbl_budg_onderh:'Maintenance budget (€)',
+  ph_budg_tot:'e.g. 8000', ph_budg_brand:'e.g. 2000', ph_budg_camp:'e.g. 2500', ph_budg_onderh:'e.g. 500',
+  hint_budget:'Amounts are saved automatically and shown on the dashboard.',
+  budg_voortgang:'Progress', budg_instellen:'Set annual budget',
+  budg_instellen_sub:'Set a budget per category for the selected year',
+  budg_nog_niet:'No budget set yet.',
+  sett_camper_titel:'Camper details',
+  sett_camper_sub:'Enter your licence plate to automatically retrieve details via the RDW',
+  sett_kenteken_lbl:'Look up licence plate', lbl_kenteken:'Licence plate', ph_kenteken:'e.g. 12-BCD-3',
+  btn_rdw:'🔍 Retrieve from RDW', btn_rdw_bezig:'⏳ Retrieving...',
+  sett_camper_data:'Camper details',
+  lbl_cam_naam:'Name / nickname', lbl_cam_merk:'Make', lbl_cam_model:'Model',
+  lbl_cam_jaar:'Year', lbl_cam_brand:'Fuel type', lbl_cam_cc:'Engine size',
+  lbl_cam_pk:'Power', lbl_cam_massa:'Kerb weight', lbl_cam_apk:'MOT expiry date',
+  ph_cam_naam:'e.g. My Ducato', ph_cam_merk:'e.g. Fiat', ph_cam_model:'e.g. Ducato',
+  ph_cam_jaar:'e.g. 2016', ph_cam_brand:'e.g. Diesel', ph_cam_cc:'e.g. 2999 cc',
+  ph_cam_pk:'e.g. 130 hp', ph_cam_massa:'e.g. 3500 kg',
+  sett_mijn_campers:'My campers',
+  sett_mijn_campers_sub:'Switch between multiple campers',
+  btn_nieuwe_camper:'+ Add new camper',
+  cam_actief:'Active', btn_activeren:'Activate',
+  modal_titel:'⛽ Quick fuel entry',
+  empty_vast:'No fixed costs entered for ',
+  empty_camp:'No campsites registered for ',
+  empty_var:'No variable costs entered for ',
+  empty_onderhoud:'No maintenance registered for ',
+  empty_trips:'No trips added yet. Add your first trip above.',
+  empty_landen:'Add a country to your camping entries.',
+  co2_sub1:' litres of diesel · 2.64 kg CO₂ per litre',
+  co2_sub2:' g CO₂ per km',
+  co2_leeg:'Add fuel entries with litres to calculate CO₂ emissions.',
+  km_leeg:'Enter mileage under Variable costs.',
+  verbruik_leeg:'Add mileage and litres to calculate fuel consumption.',
+  apk_binnenkort:'MOT expires in ', apk_binnenkort2:' days',
+  apk_verlopen:'MOT has expired!',
+  apk_tip:'Make sure to book an appointment in time.',
+  apk_fout:'You may not drive with an expired MOT.',
+  alert_verplicht:'Please fill in all required fields.',
+  alert_datum_bedrag:'Please enter date and amount.',
+  alert_reis_verplicht:'Please enter at least a name and departure date.',
+  alert_camper_opgeslagen:'Camper details saved!',
+  alert_camper_nieuw:'Fill in the details for your new camper and click Save.',
+  alert_import_ok:'Import successful — ',
+  alert_import_deel:' campsites, ',
+  alert_import_deel2:' cost entries loaded.',
+  alert_import_fout:'Import error: ',
+  alert_rdw_niet_gevonden:'Licence plate not found in the RDW register.',
+  rdw_gevonden:'✓ Found: ',
+  rdw_gevonden2:' — Fields have been filled in. Click Save to store.',
+  landen_titel:'Average price per country',
+  gem_reiskosten:'estimated trip costs',
+  vergelijk_met:'Compare with:', vergelijk_geen:'— no comparison —',
+  mob_dashboard:'Dashboard', mob_maand:'Monthly', mob_kosten:'Costs',
+  mob_camping:'Camping', mob_meer:'More',
+  maanden:['January','February','March','April','May','June','July','August','September','October','November','December'],
+  maanden_kort:['J','F','M','A','M','J','J','A','S','O','N','D'],
+  cat_diesel:'⛽ Diesel', cat_tol:'🛣️ Toll', cat_gas:'🔥 Gas', cat_vignet:'🗺️ Vignette', cat_onderhoud:'🔧 Maintenance', cat_reparatie:'🛠️ Repair', cat_overig:'📦 Other',
+  hnd_welkom:'🚐 Welcome to CamperCosts',
+  hnd_intro:'CamperCosts helps you track all costs for your camper — from insurance and road tax to fuel, camping and maintenance. All data is stored locally in your browser. Make regular backups using the button in the top right.',
+  hnd_tip1_t:'⛽ Quick fuel entry', hnd_tip1_d:'Use the button in the top right for quick fuel entry on the road.',
+  hnd_tip2_t:'💾 Make a backup', hnd_tip2_d:'Regularly download a backup via "Backup" so you never lose data.',
+  hnd_tip3_t:'🖨️ Export to PDF', hnd_tip3_d:'Click 🖨️ in the top right for an overview as PDF or printout.',
+},
+de: {
+  appName:'Camperkosten',
+  nav_overview:'Übersicht', nav_dashboard:'Dashboard', nav_maand:'Monatsübersicht', nav_trips:'Reisetagebuch',
+  nav_invoer:'Eingabe', nav_vast:'Fixkosten', nav_camp:'Camping', nav_var:'Variable Kosten',
+  nav_onderhoud:'Wartung', nav_budget:'Budget', nav_beheer:'Verwaltung', nav_instellingen:'Einstellungen',
+  nav_handleiding:'Anleitung', nav_footer:'Daten lokal gespeichert',
+  btn_backup:'↓ Sichern', btn_import:'↑ Importieren', btn_csv:'CSV', btn_print:'🖨️',
+  btn_snel_tanken:'⛽ Schnell tanken',
+  v_dash:'Dashboard', v_dash_sub:'Jahreskostenübersicht ',
+  v_maand:'Monatsübersicht', v_maand_sub:'Alle Kosten pro Monat — ',
+  v_trips:'Reisetagebuch', v_trips_sub:'Übersicht aller Reisen',
+  v_vast:'Fixkosten', v_vast_sub:'Versicherung, KFZ-Steuer, Lagerung und Abschreibung',
+  v_camp:'Camping', v_camp_sub:'Übernachtungen und Campingkosten pro Jahr',
+  v_var:'Variable Kosten', v_var_sub:'Kraftstoff, Maut, Gas, Vignetten und sonstige Kosten',
+  v_onderhoud:'Wartung', v_onderhoud_sub:'HU/TÜV, Reifen, Öl und andere Wartungsarbeiten',
+  v_budget:'Budget', v_budget_sub:'Jahresbudget festlegen und Fortschritt verfolgen',
+  v_instellingen:'Einstellungen', v_instellingen_sub:'Fahrzeugdaten und Kennzeichen',
+  v_handleiding:'Anleitung', v_handleiding_sub:'Alles über die Nutzung dieser App',
+  kpi_totaal:'Gesamt', kpi_kamp:'Campingkosten', kpi_zs:'Ohne Lagerung',
+  kpi_brand:'Kraftstoff', kpi_camp:'Camping', kpi_diesel_ppl:'Ø Dieselpreis',
+  kosten_campings:'Campingkosten', kilometers:'Kilometer',
+  co2_titel:'CO₂-Ausstoß', budget_titel:'Budget', btn_instellen:'Festlegen',
+  chart_title:'Monatskosten', fuel_chart_title:'Dieselpreis pro Liter',
+  leg_brandstof:'Kraftstoff', leg_camping:'Camping', leg_vast:'Fixkosten', leg_overig:'Sonstiges',
+  leg_ppl:'€/Liter pro Tankfüllung',
+  sl_nachten:'Nächte', sl_totaal:'Gesamt', sl_gem_nacht:'Durchschnitt pro Nacht',
+  sl_beginstand:'Anfangskilometerstand', sl_eindstand:'Endkilometerstand', sl_gereden:'Gefahren',
+  sl_diesel_km:'Diesel / km', sl_totaal_km:'Gesamt / km',
+  sl_gem_verbruik:'Ø Verbrauch', sl_tankbeurten:'Anzahl Tankfüllungen',
+  sl_totaal_var:'Gesamte variable Kosten',
+  th_maand:'Monat', th_verz:'Versicherung', th_mrb:'KFZ-Steuer', th_stall:'Lagerung',
+  th_afschr:'Abschreibung', th_overig_vast:'Sonstige Fixkosten', th_subtotaal:'Zwischensumme',
+  th_brand:'Kraftstoff', th_onderh:'Wartung', th_camp:'Camping', th_overig:'Sonstiges',
+  th_kamp:'Campingkosten', th_totaal:'Gesamt', th_datum:'Datum', th_naam:'Name',
+  th_land:'Land', th_nacht:'Nächte', th_per_nacht:'Pro Nacht', th_notitie:'Notiz',
+  th_cat:'Kategorie', th_omschr:'Beschreibung', th_bedrag:'Betrag', th_liters:'Liter',
+  th_ppl:'€/L', th_km_stand:'Kilometerstand', th_lp100:'L/100km', th_km:'Kilometerstand',
+  th_campings:'Campingplätze', th_gem_nacht:'Ø pro Nacht',
+  lbl_maand:'Monat', lbl_verz:'Versicherung', lbl_mrb:'KFZ-Steuer', lbl_stall:'Lagerung',
+  lbl_afschr:'Abschreibung', lbl_overig_vast:'Sonstige Fixkosten',
+  btn_opslaan:'Speichern', hint_vast:'Lassen Sie ein Feld leer, wenn keine Kosten für diesen Monat anfallen.',
+  lbl_datum_aankomst:'Ankunftsdatum', lbl_camping:'Campingplatz', lbl_land:'Land',
+  lbl_nachten:'Nächte', lbl_prijs:'Preis (€)', lbl_notitie:'Notiz',
+  ph_camping:'Name des Campingplatzes', ph_land:'z.B. Italien', ph_notitie:'Bewertung, WLAN, Stellplatznummer...',
+  btn_toevoegen:'Hinzufügen', btn_annuleer:'Abbrechen',
+  lbl_datum:'Datum', lbl_categorie:'Kategorie', lbl_omschr:'Beschreibung',
+  lbl_bedrag:'Betrag (€)', lbl_liters:'Liter', lbl_ppl:'€/Liter', lbl_km_stand:'Kilometerstand',
+  ph_omschr:'z.B. Tanken A2 Deutschland',
+  lbl_begin_jaar:'Jahresbeginn (1. Jan)', lbl_einde_jaar:'Jahresende (31. Dez)',
+  ph_begin:'z.B. 48319', ph_einde:'z.B. 55349',
+  lbl_onderhoud_omschr:'Beschreibung', ph_onderhoud:'z.B. HU/TÜV, Reifen, Ölwechsel',
+  lbl_reis_naam:'Reisename', lbl_vertrek:'Abfahrt', lbl_terug:'Rückkehr',
+  lbl_landen:'Länder (kommagetrennt)', lbl_trip_note:'Notiz',
+  ph_reis_naam:'z.B. Sommerreise Italien', ph_landen:'z.B. Deutschland, Schweiz, Italien',
+  ph_trip_note:'Höhepunkte, Besonderheiten...',
+  lbl_budg_tot:'Gesamtbudget (€)', lbl_budg_brand:'Kraftstoffbudget (€)',
+  lbl_budg_camp:'Campingbudget (€)', lbl_budg_onderh:'Wartungsbudget (€)',
+  ph_budg_tot:'z.B. 8000', ph_budg_brand:'z.B. 2000', ph_budg_camp:'z.B. 2500', ph_budg_onderh:'z.B. 500',
+  hint_budget:'Beträge werden automatisch gespeichert und im Dashboard angezeigt.',
+  budg_voortgang:'Fortschritt', budg_instellen:'Jahresbudget festlegen',
+  budg_instellen_sub:'Budget pro Kategorie für das ausgewählte Jahr festlegen',
+  budg_nog_niet:'Noch kein Budget festgelegt.',
+  sett_camper_titel:'Fahrzeugdaten',
+  sett_camper_sub:'Geben Sie Ihr Kennzeichen ein, um Daten automatisch über das RDW abzurufen',
+  sett_kenteken_lbl:'Kennzeichen suchen', lbl_kenteken:'Kennzeichen', ph_kenteken:'z.B. 12-BCD-3',
+  btn_rdw:'🔍 Über RDW abrufen', btn_rdw_bezig:'⏳ Wird abgerufen...',
+  sett_camper_data:'Fahrzeugdaten',
+  lbl_cam_naam:'Name / Spitzname', lbl_cam_merk:'Marke', lbl_cam_model:'Modell',
+  lbl_cam_jaar:'Baujahr', lbl_cam_brand:'Kraftstoff', lbl_cam_cc:'Hubraum',
+  lbl_cam_pk:'Leistung', lbl_cam_massa:'Leergewicht', lbl_cam_apk:'HU-Ablaufdatum',
+  ph_cam_naam:'z.B. Mein Ducato', ph_cam_merk:'z.B. Fiat', ph_cam_model:'z.B. Ducato',
+  ph_cam_jaar:'z.B. 2016', ph_cam_brand:'z.B. Diesel', ph_cam_cc:'z.B. 2999 ccm',
+  ph_cam_pk:'z.B. 130 PS', ph_cam_massa:'z.B. 3500 kg',
+  sett_mijn_campers:'Meine Wohnmobile',
+  sett_mijn_campers_sub:'Zwischen mehreren Wohnmobilen wechseln',
+  btn_nieuwe_camper:'+ Neues Wohnmobil hinzufügen',
+  cam_actief:'Aktiv', btn_activeren:'Aktivieren',
+  modal_titel:'⛽ Schnell tanken',
+  empty_vast:'Keine Fixkosten eingetragen für ',
+  empty_camp:'Keine Campingplätze registriert für ',
+  empty_var:'Keine variablen Kosten eingetragen für ',
+  empty_onderhoud:'Keine Wartung registriert für ',
+  empty_trips:'Noch keine Reisen hinzugefügt. Fügen Sie oben Ihre erste Reise hinzu.',
+  empty_landen:'Fügen Sie bei Campingeinträgen ein Land hinzu.',
+  co2_sub1:' Liter Diesel · 2,64 kg CO₂ pro Liter',
+  co2_sub2:' g CO₂ pro km',
+  co2_leeg:'Fügen Sie Tankfüllungen mit Litern hinzu, um CO₂-Emissionen zu berechnen.',
+  km_leeg:'Geben Sie den Kilometerstand unter Variable Kosten ein.',
+  verbruik_leeg:'Kilometerstand und Liter hinzufügen, um Verbrauch zu berechnen.',
+  apk_binnenkort:'HU läuft ab in ', apk_binnenkort2:' Tagen',
+  apk_verlopen:'HU ist abgelaufen!',
+  apk_tip:'Stellen Sie sicher, dass Sie rechtzeitig einen Termin buchen.',
+  apk_fout:'Sie dürfen nicht mit abgelaufener HU fahren.',
+  alert_verplicht:'Bitte alle Pflichtfelder ausfüllen.',
+  alert_datum_bedrag:'Bitte Datum und Betrag eingeben.',
+  alert_reis_verplicht:'Bitte mindestens einen Namen und ein Abfahrtsdatum eingeben.',
+  alert_camper_opgeslagen:'Fahrzeugdaten gespeichert!',
+  alert_camper_nieuw:'Füllen Sie die Daten für Ihr neues Wohnmobil aus und klicken Sie auf Speichern.',
+  alert_import_ok:'Import erfolgreich — ',
+  alert_import_deel:' Campingplätze, ',
+  alert_import_deel2:' Kostenpositionen geladen.',
+  alert_import_fout:'Importfehler: ',
+  alert_rdw_niet_gevonden:'Kennzeichen nicht im RDW-Register gefunden.',
+  rdw_gevonden:'✓ Gefunden: ',
+  rdw_gevonden2:' — Felder wurden ausgefüllt. Klicken Sie auf Speichern.',
+  landen_titel:'Durchschnittspreis pro Land',
+  gem_reiskosten:'geschätzte Reisekosten',
+  vergelijk_met:'Vergleichen mit:', vergelijk_geen:'— kein Vergleich —',
+  mob_dashboard:'Dashboard', mob_maand:'Monatlich', mob_kosten:'Kosten',
+  mob_camping:'Camping', mob_meer:'Mehr',
+  maanden:['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
+  maanden_kort:['J','F','M','A','M','J','J','A','S','O','N','D'],
+  cat_diesel:'⛽ Diesel', cat_tol:'🛣️ Maut', cat_gas:'🔥 Gas', cat_vignet:'🗺️ Vignette', cat_onderhoud:'🔧 Wartung', cat_reparatie:'🛠️ Reparatur', cat_overig:'📦 Sonstiges',
+  hnd_welkom:'🚐 Willkommen bei Camperkosten',
+  hnd_intro:'Camperkosten hilft Ihnen, alle Kosten für Ihr Wohnmobil zu verfolgen — von Versicherung und KFZ-Steuer bis hin zu Kraftstoff, Camping und Wartung. Alle Daten werden lokal in Ihrem Browser gespeichert. Erstellen Sie regelmäßig Sicherungskopien.',
+  hnd_tip1_t:'⛽ Schnell tanken', hnd_tip1_d:'Nutzen Sie die Schaltfläche oben rechts für schnelle Kraftstoffeingaben.',
+  hnd_tip2_t:'💾 Sicherung erstellen', hnd_tip2_d:'Laden Sie regelmäßig eine Sicherungskopie herunter, damit Sie keine Daten verlieren.',
+  hnd_tip3_t:'🖨️ PDF exportieren', hnd_tip3_d:'Klicken Sie auf 🖨️ oben rechts für eine Übersicht als PDF oder Ausdruck.',
+},
+fr: {
+  appName:'Coûts Camping-Car',
+  nav_overview:'Aperçu', nav_dashboard:'Tableau de bord', nav_maand:'Vue mensuelle', nav_trips:'Journal de voyage',
+  nav_invoer:'Saisir', nav_vast:'Coûts fixes', nav_camp:'Camping', nav_var:'Coûts variables',
+  nav_onderhoud:'Entretien', nav_budget:'Budget', nav_beheer:'Gestion', nav_instellingen:'Paramètres',
+  nav_handleiding:'Guide d\'utilisation', nav_footer:'Données stockées localement',
+  btn_backup:'↓ Sauvegarde', btn_import:'↑ Importer', btn_csv:'CSV', btn_print:'🖨️',
+  btn_snel_tanken:'⛽ Plein rapide',
+  v_dash:'Tableau de bord', v_dash_sub:'Vue annuelle des coûts ',
+  v_maand:'Vue mensuelle', v_maand_sub:'Tous les coûts par mois — ',
+  v_trips:'Journal de voyage', v_trips_sub:'Aperçu de tous vos voyages',
+  v_vast:'Coûts fixes', v_vast_sub:'Assurance, taxe, stockage et dépréciation',
+  v_camp:'Camping', v_camp_sub:'Nuitées et frais de camping par an',
+  v_var:'Coûts variables', v_var_sub:'Carburant, péages, gaz, vignettes et autres frais',
+  v_onderhoud:'Entretien', v_onderhoud_sub:'Contrôle technique, pneus, huile et autres entretiens',
+  v_budget:'Budget', v_budget_sub:'Définir le budget annuel et suivre les progrès',
+  v_instellingen:'Paramètres', v_instellingen_sub:'Informations sur le camping-car et plaque d\'immatriculation',
+  v_handleiding:'Guide d\'utilisation', v_handleiding_sub:'Tout sur l\'utilisation de cette application',
+  kpi_totaal:'Total', kpi_kamp:'Frais de camping', kpi_zs:'Sans stockage',
+  kpi_brand:'Carburant', kpi_camp:'Camping', kpi_diesel_ppl:'Prix diesel moyen',
+  kosten_campings:'Frais de camping', kilometers:'Kilomètres',
+  co2_titel:'Émissions CO₂', budget_titel:'Budget', btn_instellen:'Configurer',
+  chart_title:'Coûts mensuels', fuel_chart_title:'Prix du diesel par litre',
+  leg_brandstof:'Carburant', leg_camping:'Camping', leg_vast:'Coûts fixes', leg_overig:'Autre',
+  leg_ppl:'€/litre par plein',
+  sl_nachten:'Nuits', sl_totaal:'Total', sl_gem_nacht:'Moyenne par nuit',
+  sl_beginstand:'Kilométrage début', sl_eindstand:'Kilométrage fin', sl_gereden:'Parcouru',
+  sl_diesel_km:'Diesel / km', sl_totaal_km:'Total / km',
+  sl_gem_verbruik:'Conso. moyenne', sl_tankbeurten:'Nombre de pleins',
+  sl_totaal_var:'Total coûts variables',
+  th_maand:'Mois', th_verz:'Assurance', th_mrb:'Taxe véhicule', th_stall:'Stockage',
+  th_afschr:'Dépréciation', th_overig_vast:'Autres fixes', th_subtotaal:'Sous-total',
+  th_brand:'Carburant', th_onderh:'Entretien', th_camp:'Camping', th_overig:'Autre',
+  th_kamp:'Frais camping', th_totaal:'Total', th_datum:'Date', th_naam:'Nom',
+  th_land:'Pays', th_nacht:'Nuits', th_per_nacht:'Par nuit', th_notitie:'Note',
+  th_cat:'Catégorie', th_omschr:'Description', th_bedrag:'Montant', th_liters:'Litres',
+  th_ppl:'€/L', th_km_stand:'Kilométrage', th_lp100:'L/100km', th_km:'Kilométrage',
+  th_campings:'Campings', th_gem_nacht:'Moy. par nuit',
+  lbl_maand:'Mois', lbl_verz:'Assurance', lbl_mrb:'Taxe véhicule', lbl_stall:'Stockage',
+  lbl_afschr:'Dépréciation', lbl_overig_vast:'Autres fixes',
+  btn_opslaan:'Enregistrer', hint_vast:'Laissez un champ vide s\'il n\'y a pas de coûts pour ce mois.',
+  lbl_datum_aankomst:'Date d\'arrivée', lbl_camping:'Camping', lbl_land:'Pays',
+  lbl_nachten:'Nuits', lbl_prijs:'Prix (€)', lbl_notitie:'Note',
+  ph_camping:'Nom du camping', ph_land:'ex. Italie', ph_notitie:'Évaluation, wifi, numéro emplacement...',
+  btn_toevoegen:'Ajouter', btn_annuleer:'Annuler',
+  lbl_datum:'Date', lbl_categorie:'Catégorie', lbl_omschr:'Description',
+  lbl_bedrag:'Montant (€)', lbl_liters:'Litres', lbl_ppl:'€/litre', lbl_km_stand:'Kilométrage',
+  ph_omschr:'ex. Plein autoroute A2',
+  lbl_begin_jaar:'Début d\'année (1er jan)', lbl_einde_jaar:'Fin d\'année (31 déc)',
+  ph_begin:'ex. 48319', ph_einde:'ex. 55349',
+  lbl_onderhoud_omschr:'Description', ph_onderhoud:'ex. CT, pneus, vidange',
+  lbl_reis_naam:'Nom du voyage', lbl_vertrek:'Départ', lbl_terug:'Retour',
+  lbl_landen:'Pays (séparés par virgule)', lbl_trip_note:'Note',
+  ph_reis_naam:'ex. Voyage d\'été Italie', ph_landen:'ex. Allemagne, Suisse, Italie',
+  ph_trip_note:'Points forts, remarques...',
+  lbl_budg_tot:'Budget total (€)', lbl_budg_brand:'Budget carburant (€)',
+  lbl_budg_camp:'Budget camping (€)', lbl_budg_onderh:'Budget entretien (€)',
+  ph_budg_tot:'ex. 8000', ph_budg_brand:'ex. 2000', ph_budg_camp:'ex. 2500', ph_budg_onderh:'ex. 500',
+  hint_budget:'Les montants sont sauvegardés automatiquement et affichés dans le tableau de bord.',
+  budg_voortgang:'Progression', budg_instellen:'Définir le budget annuel',
+  budg_instellen_sub:'Définir un budget par catégorie pour l\'année sélectionnée',
+  budg_nog_niet:'Aucun budget défini.',
+  sett_camper_titel:'Informations camping-car',
+  sett_camper_sub:'Entrez votre plaque pour récupérer automatiquement les données via le RDW',
+  sett_kenteken_lbl:'Rechercher plaque', lbl_kenteken:'Plaque', ph_kenteken:'ex. 12-BCD-3',
+  btn_rdw:'🔍 Récupérer via RDW', btn_rdw_bezig:'⏳ Récupération...',
+  sett_camper_data:'Données du camping-car',
+  lbl_cam_naam:'Nom / surnom', lbl_cam_merk:'Marque', lbl_cam_model:'Modèle',
+  lbl_cam_jaar:'Année', lbl_cam_brand:'Carburant', lbl_cam_cc:'Cylindrée',
+  lbl_cam_pk:'Puissance', lbl_cam_massa:'Poids à vide', lbl_cam_apk:'Date de contrôle technique',
+  ph_cam_naam:'ex. Mon Ducato', ph_cam_merk:'ex. Fiat', ph_cam_model:'ex. Ducato',
+  ph_cam_jaar:'ex. 2016', ph_cam_brand:'ex. Diesel', ph_cam_cc:'ex. 2999 cc',
+  ph_cam_pk:'ex. 130 ch', ph_cam_massa:'ex. 3500 kg',
+  sett_mijn_campers:'Mes camping-cars',
+  sett_mijn_campers_sub:'Basculer entre plusieurs camping-cars',
+  btn_nieuwe_camper:'+ Ajouter un nouveau camping-car',
+  cam_actief:'Actif', btn_activeren:'Activer',
+  modal_titel:'⛽ Plein rapide',
+  empty_vast:'Aucun coût fixe saisi pour ',
+  empty_camp:'Aucun camping enregistré pour ',
+  empty_var:'Aucun coût variable saisi pour ',
+  empty_onderhoud:'Aucun entretien enregistré pour ',
+  empty_trips:'Aucun voyage ajouté. Ajoutez votre premier voyage ci-dessus.',
+  empty_landen:'Ajoutez un pays à vos entrées de camping.',
+  co2_sub1:' litres de diesel · 2,64 kg CO₂ par litre',
+  co2_sub2:' g CO₂ par km',
+  co2_leeg:'Ajoutez des entrées de carburant avec les litres pour calculer les émissions CO₂.',
+  km_leeg:'Entrez le kilométrage sous Coûts variables.',
+  verbruik_leeg:'Ajoutez le kilométrage et les litres pour calculer la consommation.',
+  apk_binnenkort:'Le CT expire dans ', apk_binnenkort2:' jours',
+  apk_verlopen:'Le CT est expiré !',
+  apk_tip:'Assurez-vous de prendre rendez-vous à temps.',
+  apk_fout:'Vous ne pouvez pas conduire avec un CT expiré.',
+  alert_verplicht:'Veuillez remplir tous les champs obligatoires.',
+  alert_datum_bedrag:'Veuillez saisir la date et le montant.',
+  alert_reis_verplicht:'Veuillez saisir au moins un nom et une date de départ.',
+  alert_camper_opgeslagen:'Données du camping-car sauvegardées !',
+  alert_camper_nieuw:'Remplissez les données de votre nouveau camping-car et cliquez sur Enregistrer.',
+  alert_import_ok:'Import réussi — ',
+  alert_import_deel:' campings, ',
+  alert_import_deel2:' entrées de coûts chargées.',
+  alert_import_fout:'Erreur d\'import : ',
+  alert_rdw_niet_gevonden:'Plaque non trouvée dans le registre RDW.',
+  rdw_gevonden:'✓ Trouvé : ',
+  rdw_gevonden2:' — Les champs ont été remplis. Cliquez sur Enregistrer.',
+  landen_titel:'Prix moyen par pays',
+  gem_reiskosten:'coûts de voyage estimés',
+  vergelijk_met:'Comparer avec :', vergelijk_geen:'— pas de comparaison —',
+  mob_dashboard:'Tableau', mob_maand:'Mensuel', mob_kosten:'Coûts',
+  mob_camping:'Camping', mob_meer:'Plus',
+  maanden:['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+  maanden_kort:['J','F','M','A','M','J','J','A','S','O','N','D'],
+  cat_diesel:'⛽ Diesel', cat_tol:'🛣️ Péage', cat_gas:'🔥 Gaz', cat_vignet:'🗺️ Vignette', cat_onderhoud:'🔧 Entretien', cat_reparatie:'🛠️ Réparation', cat_overig:'📦 Autre',
+  hnd_welkom:'🚐 Bienvenue dans Coûts Camping-Car',
+  hnd_intro:'Cette application vous aide à suivre tous les coûts de votre camping-car — de l\'assurance et de la taxe aux carburant, camping et entretien. Toutes les données sont stockées localement dans votre navigateur. Faites des sauvegardes régulières.',
+  hnd_tip1_t:'⛽ Plein rapide', hnd_tip1_d:'Utilisez le bouton en haut à droite pour une saisie rapide du carburant.',
+  hnd_tip2_t:'💾 Faire une sauvegarde', hnd_tip2_d:'Téléchargez régulièrement une sauvegarde pour ne jamais perdre de données.',
+  hnd_tip3_t:'🖨️ Exporter en PDF', hnd_tip3_d:'Cliquez sur 🖨️ en haut à droite pour un aperçu en PDF ou impression.',
+},
+es: {
+  appName:'Costes Autocaravana',
+  nav_overview:'Resumen', nav_dashboard:'Panel', nav_maand:'Vista mensual', nav_trips:'Diario de viajes',
+  nav_invoer:'Introducir', nav_vast:'Costes fijos', nav_camp:'Camping', nav_var:'Costes variables',
+  nav_onderhoud:'Mantenimiento', nav_budget:'Presupuesto', nav_beheer:'Gestión', nav_instellingen:'Ajustes',
+  nav_handleiding:'Guía de uso', nav_footer:'Datos guardados localmente',
+  btn_backup:'↓ Copia de seguridad', btn_import:'↑ Importar', btn_csv:'CSV', btn_print:'🖨️',
+  btn_snel_tanken:'⛽ Repostar rápido',
+  v_dash:'Panel', v_dash_sub:'Resumen de costes anuales ',
+  v_maand:'Vista mensual', v_maand_sub:'Todos los costes por mes — ',
+  v_trips:'Diario de viajes', v_trips_sub:'Resumen de todos tus viajes',
+  v_vast:'Costes fijos', v_vast_sub:'Seguro, impuesto, almacenamiento y depreciación',
+  v_camp:'Camping', v_camp_sub:'Pernoctaciones y costes de camping por año',
+  v_var:'Costes variables', v_var_sub:'Combustible, peajes, gas, vignetas y otros costes',
+  v_onderhoud:'Mantenimiento', v_onderhoud_sub:'ITV, neumáticos, aceite y otros mantenimientos',
+  v_budget:'Presupuesto', v_budget_sub:'Establecer presupuesto anual y seguir el progreso',
+  v_instellingen:'Ajustes', v_instellingen_sub:'Datos de la autocaravana y matrícula',
+  v_handleiding:'Guía de uso', v_handleiding_sub:'Todo sobre el uso de esta aplicación',
+  kpi_totaal:'Total', kpi_kamp:'Costes camping', kpi_zs:'Sin almacenamiento',
+  kpi_brand:'Combustible', kpi_camp:'Camping', kpi_diesel_ppl:'Precio diesel medio',
+  kosten_campings:'Costes camping', kilometers:'Kilómetros',
+  co2_titel:'Emisiones CO₂', budget_titel:'Presupuesto', btn_instellen:'Configurar',
+  chart_title:'Costes mensuales', fuel_chart_title:'Precio del diesel por litro',
+  leg_brandstof:'Combustible', leg_camping:'Camping', leg_vast:'Costes fijos', leg_overig:'Otros',
+  leg_ppl:'€/litro por repostaje',
+  sl_nachten:'Noches', sl_totaal:'Total', sl_gem_nacht:'Media por noche',
+  sl_beginstand:'Km inicio', sl_eindstand:'Km final', sl_gereden:'Recorrido',
+  sl_diesel_km:'Diesel / km', sl_totaal_km:'Total / km',
+  sl_gem_verbruik:'Consumo medio', sl_tankbeurten:'Número de repostajes',
+  sl_totaal_var:'Total costes variables',
+  th_maand:'Mes', th_verz:'Seguro', th_mrb:'Impuesto vehículo', th_stall:'Almacenamiento',
+  th_afschr:'Depreciación', th_overig_vast:'Otros fijos', th_subtotaal:'Subtotal',
+  th_brand:'Combustible', th_onderh:'Mantenimiento', th_camp:'Camping', th_overig:'Otros',
+  th_kamp:'Costes camping', th_totaal:'Total', th_datum:'Fecha', th_naam:'Nombre',
+  th_land:'País', th_nacht:'Noches', th_per_nacht:'Por noche', th_notitie:'Nota',
+  th_cat:'Categoría', th_omschr:'Descripción', th_bedrag:'Importe', th_liters:'Litros',
+  th_ppl:'€/L', th_km_stand:'Cuentakilómetros', th_lp100:'L/100km', th_km:'Cuentakilómetros',
+  th_campings:'Campings', th_gem_nacht:'Media por noche',
+  lbl_maand:'Mes', lbl_verz:'Seguro', lbl_mrb:'Impuesto vehículo', lbl_stall:'Almacenamiento',
+  lbl_afschr:'Depreciación', lbl_overig_vast:'Otros fijos',
+  btn_opslaan:'Guardar', hint_vast:'Deje un campo vacío si no hay costes para ese mes.',
+  lbl_datum_aankomst:'Fecha de llegada', lbl_camping:'Camping', lbl_land:'País',
+  lbl_nachten:'Noches', lbl_prijs:'Precio (€)', lbl_notitie:'Nota',
+  ph_camping:'Nombre del camping', ph_land:'ej. Italia', ph_notitie:'Valoración, wifi, número parcela...',
+  btn_toevoegen:'Añadir', btn_annuleer:'Cancelar',
+  lbl_datum:'Fecha', lbl_categorie:'Categoría', lbl_omschr:'Descripción',
+  lbl_bedrag:'Importe (€)', lbl_liters:'Litros', lbl_ppl:'€/litro', lbl_km_stand:'Cuentakilómetros',
+  ph_omschr:'ej. Repostar A2 Alemania',
+  lbl_begin_jaar:'Inicio de año (1 ene)', lbl_einde_jaar:'Fin de año (31 dic)',
+  ph_begin:'ej. 48319', ph_einde:'ej. 55349',
+  lbl_onderhoud_omschr:'Descripción', ph_onderhoud:'ej. ITV, neumáticos, cambio de aceite',
+  lbl_reis_naam:'Nombre del viaje', lbl_vertrek:'Salida', lbl_terug:'Regreso',
+  lbl_landen:'Países (separados por coma)', lbl_trip_note:'Nota',
+  ph_reis_naam:'ej. Viaje de verano Italia', ph_landen:'ej. Alemania, Suiza, Italia',
+  ph_trip_note:'Puntos destacados, observaciones...',
+  lbl_budg_tot:'Presupuesto total (€)', lbl_budg_brand:'Presupuesto combustible (€)',
+  lbl_budg_camp:'Presupuesto camping (€)', lbl_budg_onderh:'Presupuesto mantenimiento (€)',
+  ph_budg_tot:'ej. 8000', ph_budg_brand:'ej. 2000', ph_budg_camp:'ej. 2500', ph_budg_onderh:'ej. 500',
+  hint_budget:'Los importes se guardan automáticamente y se muestran en el panel.',
+  budg_voortgang:'Progreso', budg_instellen:'Establecer presupuesto anual',
+  budg_instellen_sub:'Establecer un presupuesto por categoría para el año seleccionado',
+  budg_nog_niet:'Aún no se ha establecido ningún presupuesto.',
+  sett_camper_titel:'Datos de la autocaravana',
+  sett_camper_sub:'Introduzca su matrícula para recuperar los datos automáticamente a través del RDW',
+  sett_kenteken_lbl:'Buscar matrícula', lbl_kenteken:'Matrícula', ph_kenteken:'ej. 12-BCD-3',
+  btn_rdw:'🔍 Obtener del RDW', btn_rdw_bezig:'⏳ Obteniendo...',
+  sett_camper_data:'Datos de la autocaravana',
+  lbl_cam_naam:'Nombre / apodo', lbl_cam_merk:'Marca', lbl_cam_model:'Modelo',
+  lbl_cam_jaar:'Año', lbl_cam_brand:'Combustible', lbl_cam_cc:'Cilindrada',
+  lbl_cam_pk:'Potencia', lbl_cam_massa:'Tara', lbl_cam_apk:'Fecha de la ITV',
+  ph_cam_naam:'ej. Mi Ducato', ph_cam_merk:'ej. Fiat', ph_cam_model:'ej. Ducato',
+  ph_cam_jaar:'ej. 2016', ph_cam_brand:'ej. Diesel', ph_cam_cc:'ej. 2999 cc',
+  ph_cam_pk:'ej. 130 cv', ph_cam_massa:'ej. 3500 kg',
+  sett_mijn_campers:'Mis autocaravanas',
+  sett_mijn_campers_sub:'Cambiar entre varias autocaravanas',
+  btn_nieuwe_camper:'+ Añadir nueva autocaravana',
+  cam_actief:'Activo', btn_activeren:'Activar',
+  modal_titel:'⛽ Repostar rápido',
+  empty_vast:'No hay costes fijos introducidos para ',
+  empty_camp:'No hay campings registrados para ',
+  empty_var:'No hay costes variables introducidos para ',
+  empty_onderhoud:'No hay mantenimiento registrado para ',
+  empty_trips:'No hay viajes añadidos. Añade tu primer viaje arriba.',
+  empty_landen:'Añade un país a tus entradas de camping.',
+  co2_sub1:' litros de diesel · 2,64 kg CO₂ por litro',
+  co2_sub2:' g CO₂ por km',
+  co2_leeg:'Añade entradas de combustible con litros para calcular las emisiones de CO₂.',
+  km_leeg:'Introduce el cuentakilómetros en Costes variables.',
+  verbruik_leeg:'Añade cuentakilómetros y litros para calcular el consumo.',
+  apk_binnenkort:'La ITV vence en ', apk_binnenkort2:' días',
+  apk_verlopen:'¡La ITV ha caducado!',
+  apk_tip:'Asegúrese de reservar una cita a tiempo.',
+  apk_fout:'No puede conducir con la ITV caducada.',
+  alert_verplicht:'Por favor rellene todos los campos obligatorios.',
+  alert_datum_bedrag:'Por favor introduzca fecha e importe.',
+  alert_reis_verplicht:'Por favor introduzca al menos un nombre y una fecha de salida.',
+  alert_camper_opgeslagen:'¡Datos de la autocaravana guardados!',
+  alert_camper_nieuw:'Rellene los datos de su nueva autocaravana y haga clic en Guardar.',
+  alert_import_ok:'Importación correcta — ',
+  alert_import_deel:' campings, ',
+  alert_import_deel2:' entradas de costes cargadas.',
+  alert_import_fout:'Error de importación: ',
+  alert_rdw_niet_gevonden:'Matrícula no encontrada en el registro RDW.',
+  rdw_gevonden:'✓ Encontrado: ',
+  rdw_gevonden2:' — Los campos se han rellenado. Haga clic en Guardar.',
+  landen_titel:'Precio medio por país',
+  gem_reiskosten:'costes de viaje estimados',
+  vergelijk_met:'Comparar con:', vergelijk_geen:'— sin comparación —',
+  mob_dashboard:'Panel', mob_maand:'Mensual', mob_kosten:'Costes',
+  mob_camping:'Camping', mob_meer:'Más',
+  maanden:['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+  maanden_kort:['E','F','M','A','M','J','J','A','S','O','N','D'],
+  cat_diesel:'⛽ Diesel', cat_tol:'🛣️ Peaje', cat_gas:'🔥 Gas', cat_vignet:'🗺️ Vigneta', cat_onderhoud:'🔧 Mantenimiento', cat_reparatie:'🛠️ Reparación', cat_overig:'📦 Otros',
+  hnd_welkom:'🚐 Bienvenido a Costes Autocaravana',
+  hnd_intro:'Esta aplicación te ayuda a registrar todos los costes de tu autocaravana — desde el seguro y el impuesto hasta el combustible, el camping y el mantenimiento. Todos los datos se almacenan localmente en tu navegador. Haz copias de seguridad con regularidad.',
+  hnd_tip1_t:'⛽ Repostar rápido', hnd_tip1_d:'Usa el botón de arriba a la derecha para una entrada rápida de combustible.',
+  hnd_tip2_t:'💾 Hacer copia de seguridad', hnd_tip2_d:'Descarga regularmente una copia de seguridad para no perder datos.',
+  hnd_tip3_t:'🖨️ Exportar a PDF', hnd_tip3_d:'Haz clic en 🖨️ arriba a la derecha para un resumen en PDF o impresión.',
+}
+};
+
+function t(key){return (TRANS[lang]&&TRANS[lang][key])||TRANS.nl[key]||key;}
+function MO(){return t('maanden');}
+function MOS(){return t('maanden_kort');}
+function CL(){return {diesel:t('cat_diesel'),tol:t('cat_tol'),gas:t('cat_gas'),vignet:t('cat_vignet'),onderhoud:t('cat_onderhoud'),reparatie:t('cat_reparatie'),overig:t('cat_overig')};}
+function PC_map(){return {diesel:'pd',tol:'pt',gas:'pg',vignet:'pv',onderhoud:'po',reparatie:'po',overig:'po'};}
+
+function setLang(l){
+  lang=l;
+  localStorage.setItem('ck-lang',l);
+  applyLangToDOM();
+  ra();
+}
+
+function applyLangToDOM(){
+  // Sidebar
+  document.querySelector('.sb-name').textContent=t('appName');
+  document.querySelector('.sb-ft').textContent=t('nav_footer');
+  // Nav items
+  const navMap={dash:'nav_dashboard',maand:'nav_maand',trips:'nav_trips',vast:'nav_vast',camp:'nav_camp',var:'nav_var',onderhoud:'nav_onderhoud',budget:'nav_budget',instellingen:'nav_instellingen',handleiding:'nav_handleiding'};
+  document.querySelectorAll('.ni').forEach(btn=>{
+    const match=btn.getAttribute('onclick')?.match(/'([^']+)'/);
+    if(match&&navMap[match[1]]){
+      const ic=btn.querySelector('.ni-ic')?.outerHTML||'';
+      btn.innerHTML=ic+t(navMap[match[1]]);
+      if(btn.querySelector('.ni-ic')===null&&ic)btn.insertAdjacentHTML('afterbegin',ic);
+    }
+  });
+  // Nav labels
+  const labels=document.querySelectorAll('.nav-lbl');
+  const labelTexts=[t('nav_overview'),t('nav_invoer'),t('nav_beheer')];
+  labels.forEach((el,i)=>{if(labelTexts[i])el.textContent=labelTexts[i];});
+  // Header buttons
+  document.title=t('appName')+' – Kostentracker';
+  // Mobile nav
+  const mnMap={dash:'mob_dashboard',maand:'mob_maand',var:'mob_kosten',camp:'mob_camping',instellingen:'mob_meer'};
+  document.querySelectorAll('.mob-nav-item').forEach(btn=>{
+    const match=btn.getAttribute('onclick')?.match(/'([^']+)'/);
+    if(match&&mnMap[match[1]]){
+      const ic=btn.querySelector('span')?.outerHTML||'';
+      btn.innerHTML=ic+t(mnMap[match[1]]);
+    }
+  });
+  // RDW sectie alleen zichtbaar in Nederlands
+  const rdwSec=document.getElementById('rdwSection');
+  const camperSub=document.getElementById('camperCardSub');
+  if(rdwSec){rdwSec.style.display=lang==='nl'?'':'none';}
+  if(camperSub){camperSub.textContent=lang==='nl'?'Vul je kenteken in om gegevens automatisch op te halen via het RDW':t('sett_camper_data');}
+  // Instellingen labels
+  const settMap={
+    'sett_camper_titel_el':'sett_camper_titel','sett_camper_data_lbl':'sett_camper_data',
+    'lbl_cam_naam_el':'lbl_cam_naam','lbl_cam_merk_el':'lbl_cam_merk','lbl_cam_model_el':'lbl_cam_model',
+    'lbl_cam_jaar_el':'lbl_cam_jaar','lbl_cam_brand_el':'lbl_cam_brand','lbl_cam_cc_el':'lbl_cam_cc',
+    'lbl_cam_pk_el':'lbl_cam_pk','lbl_cam_massa_el':'lbl_cam_massa','lbl_cam_apk_el':'lbl_cam_apk',
+    'btn_saveCamper':'btn_opslaan','sett_mijn_campers_el':'sett_mijn_campers',
+    'sett_mijn_campers_sub_el':'sett_mijn_campers_sub','btn_nieuwe_camper':'btn_nieuwe_camper'
+  };
+  Object.entries(settMap).forEach(([id,key])=>{const el=document.getElementById(id);if(el)el.textContent=t(key);});
+  // Placeholders
+  const phMap={
+    'camperNaam':'ph_cam_naam','camperMerk':'ph_cam_merk','camperModel':'ph_cam_model',
+    'camperJaar':'ph_cam_jaar','camperBrandstof':'ph_cam_brand','camperCc':'ph_cam_cc',
+    'camperPk':'ph_cam_pk','camperMassa':'ph_cam_massa'
+  };
+  Object.entries(phMap).forEach(([id,key])=>{const el=document.getElementById(id);if(el)el.placeholder=t(key);});
+  // Language selector value
+  const sel=document.getElementById('langSel');
+  if(sel)sel.value=lang;
+}
+
+// ═══════════════════════════════════════
+// TAAL-KEUZE RENDER IN INSTELLINGEN
+// ═══════════════════════════════════════
+function rLangSelector(){
+  const el=document.getElementById('langSelector');
+  if(!el)return;
+  const flags={nl:'🇳🇱',en:'🇬🇧',de:'🇩🇪',fr:'🇫🇷',es:'🇪🇸'};
+  const names={nl:'Nederlands',en:'English',de:'Deutsch',fr:'Français',es:'Español'};
+  el.innerHTML=Object.keys(flags).map(l=>
+    `<button onclick="setLang('${l}')" style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:${lang===l?'var(--acc-s)':'var(--bg)'};border:1px solid ${lang===l?'#fde68a':'var(--bdr)'};border-radius:var(--rs);cursor:pointer;font-family:var(--font);font-size:14px;font-weight:${lang===l?'600':'400'};transition:all .15s;width:100%;text-align:left">
+      <span style="font-size:22px">${flags[l]}</span>
+      <span>${names[l]}</span>
+      ${lang===l?'<span style="margin-left:auto;color:var(--acc-d);font-size:12px">✓ Actief</span>':''}
+    </button>`
+  ).join('');
+}
+
+let yr = new Date().getFullYear();
+
+let vast={};
+let camps=[];
+let costs=[];
+let km={};
+let trips=[];
+let onderhoud=[];
+let budget={};
+let camperSettings={naam:'',merk:'',model:'',jaar:'',brandstof:'',cc:'',pk:'',massa:'',apk:'',kenteken:''};
+let campersList=[];
+
+// MO, MOS, CL, PC zijn nu functies die de actieve taal gebruiken (zie t()-systeem hierboven)
+
+// ═══════════════════════════════════════
+// STORAGE
+// ═══════════════════════════════════════
+async function save(){
+  const d={vast:JSON.stringify(vast),camp:JSON.stringify(camps),kosten:JSON.stringify(costs),km:JSON.stringify(km),trips:JSON.stringify(trips),onderhoud:JSON.stringify(onderhoud),budget:JSON.stringify(budget),camper:JSON.stringify(camperSettings),campers:JSON.stringify(campersList)};
+  try{for(const[k,v] of Object.entries(d))await window.storage.set('cv6-'+k,v);}catch(e){}
+  try{for(const[k,v] of Object.entries(d))localStorage.setItem('cv6-'+k,v);}catch(e){}
+}
+async function loadKey(k){
+  // Probeer nieuwe sleutel (cv6-)
+  try{const r=await window.storage.get('cv6-'+k);if(r&&r.value)return JSON.parse(r.value);}catch(e){}
+  try{const r=localStorage.getItem('cv6-'+k);if(r)return JSON.parse(r);}catch(e){}
+  // Fallback: oude sleutel (cv5-)
+  try{const r=await window.storage.get('cv5-'+k);if(r&&r.value)return JSON.parse(r.value);}catch(e){}
+  try{const r=localStorage.getItem('cv5-'+k);if(r)return JSON.parse(r);}catch(e){}
+  // Fallback: alleroudste sleutel (ck2-)
+  const ck2map={vast:'vast',camp:'camp',kosten:'kosten',km:'km'};
+  if(ck2map[k]){
+    try{const r=await window.storage.get('ck2-'+ck2map[k]);if(r&&r.value)return JSON.parse(r.value);}catch(e){}
+    try{const r=localStorage.getItem('ck2-'+ck2map[k]);if(r)return JSON.parse(r);}catch(e){}
+  }
+  return null;
+}
+async function load(){
+  ra(); // render hardcoded data first
+  const sv=await loadKey('vast'), sc=await loadKey('camp'), sk=await loadKey('kosten'),
+        sd=await loadKey('km'), st=await loadKey('trips'), so=await loadKey('onderhoud'), sb=await loadKey('budget');
+  if(sv&&Object.keys(sv).length>0)Object.assign(vast,sv);
+  if(sc&&sc.length>0){const ids=new Set(camps.map(e=>e.id));sc.forEach(e=>{if(!ids.has(e.id))camps.push(e);});}
+  if(sk&&sk.length>0){const ids=new Set(costs.map(e=>e.id));sk.forEach(e=>{if(!ids.has(e.id))costs.push(e);});}
+  if(sd&&Object.keys(sd).length>0)Object.assign(km,sd);
+  if(st&&st.length>0)trips=st;
+  if(so&&so.length>0)onderhoud=so;
+  if(sb&&Object.keys(sb).length>0)budget=sb;
+  const sc2=await loadKey('camper'), sl=await loadKey('campers');
+  if(sc2&&sc2.naam)camperSettings=sc2;
+  if(sl&&sl.length>0)campersList=sl;
+  ra();
+}
+
+// ═══════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════
+function fmt(v){if(!v||isNaN(v)||v===0)return'—';return'€\u202f'+v.toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');}
+function fn(v,d=2){return(v==null||isNaN(v))?'—':v.toFixed(d).replace('.',',');}
+function gm(y,m){
+  const pre=y+'-'+String(m).padStart(2,'0'),v=vast[y+'-'+m]||{};
+  const cp=camps.filter(e=>e.date.startsWith(pre)).reduce((s,e)=>s+e.prijs,0);
+  const mk=costs.filter(e=>e.date.startsWith(pre));
+  const ond=onderhoud.filter(e=>e.date.startsWith(pre)).reduce((s,e)=>s+e.prijs,0);
+  return{verz:v.verz||0,mrb:v.mrb||0,stall:v.stall||0,afschr:v.afschr||0,onderh:(v.onderh||0)+ond,
+         brand:mk.filter(e=>e.cat==='diesel').reduce((s,e)=>s+e.prijs,0),
+         camp:cp,overig:mk.filter(e=>e.cat!=='diesel').reduce((s,e)=>s+e.prijs,0)};
+}
+function gtot(y){let t=0;for(let m=1;m<=12;m++){const d=gm(y,m);t+=d.verz+d.mrb+d.stall+d.afschr+d.onderh+d.brand+d.camp+d.overig;}return t;}
+
+// ═══════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════
+function getViews(){return{
+  'dash':[t('v_dash'),t('v_dash_sub')],
+  'maand':[t('v_maand'),t('v_maand_sub')],
+  'trips':[t('v_trips'),t('v_trips_sub')],
+  'vast':[t('v_vast'),t('v_vast_sub')],
+  'camp':[t('v_camp'),t('v_camp_sub')],
+  'var':[t('v_var'),t('v_var_sub')],
+  'onderhoud':[t('v_onderhoud'),t('v_onderhoud_sub')],
+  'budget':[t('v_budget'),t('v_budget_sub')],
+  'instellingen':[t('v_instellingen'),t('v_instellingen_sub')],
+  'handleiding':[t('v_handleiding'),t('v_handleiding_sub')]
+};}
+const VIEWS={get:(k)=>getViews()[k]};
+function sv(name,btn){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  document.querySelectorAll('.ni').forEach(b=>b.classList.remove('on'));
+  document.getElementById('v-'+name).classList.add('on');
+  btn.classList.add('on');
+  const vw=VIEWS.get(name);
+  document.getElementById('ptitle').textContent=vw[0];
+  document.getElementById('psub').textContent=vw[1]+(name==='dash'||name==='maand'?yr:'');
+  document.getElementById('expBtn').style.display=name==='maand'?'':'none';
+  ra();
+}
+function cy(d){
+  yr+=d;
+  document.getElementById('yv').textContent=yr;
+  const av=document.querySelector('.view.on');
+  if(av){const n=av.id.replace('v-','');const vw=VIEWS.get(n);if(n==='dash'||n==='maand')document.getElementById('psub').textContent=vw[1]+yr;}
+  ra();
+}
+
+// ═══════════════════════════════════════
+// VASTE KOSTEN
+// ═══════════════════════════════════════
+function saveVast(){
+  const m=parseInt(document.getElementById('vM').value);
+  vast[yr+'-'+m]={verz:parseFloat(document.getElementById('vV').value)||0,mrb:parseFloat(document.getElementById('vR').value)||0,stall:parseFloat(document.getElementById('vS').value)||0,afschr:parseFloat(document.getElementById('vA').value)||0,onderh:parseFloat(document.getElementById('vO').value)||0};
+  save();rVast();rDash();rMaand();toast('✓ Opgeslagen');
+  ['vV','vR','vS','vA','vO'].forEach(id=>document.getElementById(id).value='');
+}
+function eVast(key){
+  const d=vast[key];if(!d)return;
+  document.getElementById('vM').value=key.split('-')[1];
+  document.getElementById('vV').value=d.verz||'';document.getElementById('vR').value=d.mrb||'';
+  document.getElementById('vS').value=d.stall||'';document.getElementById('vA').value=d.afschr||'';document.getElementById('vO').value=d.onderh||'';
+}
+function dVast(key){delete vast[key];save();rVast();rDash();rMaand();}
+function rVast(){
+  const tb=document.getElementById('vastB');tb.innerHTML='';let any=false;
+  for(let m=1;m<=12;m++){
+    const key=yr+'-'+m,d=vast[key];if(!d)continue;any=true;
+    const sub=d.verz+d.mrb+d.stall+d.afschr+d.onderh;
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class="tn">${MO()[m-1]}</td><td class="tm">${fmt(d.verz)}</td><td class="tm">${fmt(d.mrb)}</td><td class="tm">${fmt(d.stall)}</td><td class="tm">${fmt(d.afschr)}</td><td class="tm">${fmt(d.onderh)}</td><td class="tb">${fmt(sub)}</td><td style="text-align:center;white-space:nowrap"><button class="bi" onclick="eVast('${key}')" style="color:var(--muted)">&#9998;</button><button class="bi" onclick="dVast('${key}')">&#10005;</button></td>`;
+    tb.appendChild(tr);
+  }
+  if(!any)tb.innerHTML=`<tr class="empty-r"><td colspan="8">${t('empty_vast')}${yr}.</td></tr>`;
+}
+
+// ═══════════════════════════════════════
+// CAMPING
+// ═══════════════════════════════════════
+function addCamp(){
+  const date=document.getElementById('cD').value,naam=document.getElementById('cN').value.trim();
+  const land=document.getElementById('cLand').value.trim();
+  const nacht=parseInt(document.getElementById('cNa').value),prijs=parseFloat(document.getElementById('cP').value);
+  const note=document.getElementById('cNo').value.trim();
+  const editId=document.getElementById('cEditId').value;
+  if(!date||!naam||isNaN(nacht)||isNaN(prijs)){alert(t('alert_verplicht'));return;}
+  if(editId){
+    const idx=camps.findIndex(e=>e.id===parseInt(editId));
+    if(idx>-1)camps[idx]={...camps[idx],date,naam,land,nachten:nacht,prijs,note};
+    document.getElementById('cEditId').value='';
+    document.getElementById('cSaveBtn').textContent='Toevoegen';
+    document.getElementById('cCancelBtn').style.display='none';
+  } else {
+    camps.push({id:Date.now(),date,naam,land,nachten:nacht,prijs,note});
+  }
+  save();toast('⛺ Camping opgeslagen');
+  ['cN','cLand','cNa','cP','cNo'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('cD').value=new Date().toISOString().slice(0,10);
+  rCamp();rDash();rMaand();
+}
+function editCamp(id){
+  const e=camps.find(c=>c.id===id);if(!e)return;
+  document.getElementById('cD').value=e.date;document.getElementById('cN').value=e.naam;
+  document.getElementById('cLand').value=e.land||'';
+  document.getElementById('cNa').value=e.nachten;document.getElementById('cP').value=e.prijs;
+  document.getElementById('cNo').value=e.note||e.notitie||'';
+  document.getElementById('cEditId').value=id;
+  document.getElementById('cSaveBtn').textContent='Opslaan';
+  document.getElementById('cCancelBtn').style.display='inline-flex';
+  document.getElementById('cN').focus();
+}
+function cancelEdit(){
+  ['cN','cLand','cNa','cP','cNo'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('cD').value=new Date().toISOString().slice(0,10);
+  document.getElementById('cEditId').value='';
+  document.getElementById('cSaveBtn').textContent='Toevoegen';
+  document.getElementById('cCancelBtn').style.display='none';
+}
+function dCamp(id){camps=camps.filter(e=>e.id!==id);save();rCamp();rDash();rMaand();}
+function rCamp(){
+  const rows=camps.filter(e=>e.date.startsWith(yr+'')).sort((a,b)=>a.date.localeCompare(b.date));
+  const tb=document.getElementById('campB');tb.innerHTML='';
+  if(!rows.length){tb.innerHTML=`<tr class="empty-r"><td colspan="8">${t('empty_camp')}${yr}.</td></tr>`;}
+  else rows.forEach(e=>{
+    const pn=e.prijs/e.nachten,tr=document.createElement('tr');
+    tr.innerHTML=`<td class="td">${e.date}</td><td class="tn">${e.naam}</td><td style="font-size:12px;color:var(--muted)">${e.land||'—'}</td><td class="tm">${e.nachten}</td><td class="tm">${fmt(e.prijs)}</td><td class="tb">${fmt(pn)}</td><td class="tnote" title="${e.note||''}">${e.note||'—'}</td><td style="text-align:center;white-space:nowrap"><button class="bi" onclick="editCamp(${e.id})" style="color:var(--muted)">&#9998;</button><button class="bi" onclick="dCamp(${e.id})">&#10005;</button></td>`;
+    tb.appendChild(tr);
+  });
+  const tn=rows.reduce((s,e)=>s+e.nachten,0),tp=rows.reduce((s,e)=>s+e.prijs,0);
+  document.getElementById('campS').innerHTML=`<div class="si"><div class="sl">${t('sl_nachten')}</div><div class="sv">${tn}</div></div><div class="si"><div class="sl">${t('sl_totaal')}</div><div class="sv">${fmt(tp)}</div></div><div class="si"><div class="sl">${t('sl_gem_nacht')}</div><div class="sv">${tn?fmt(tp/tn):'—'}</div></div>`;
+  // Landen statistieken
+  const landenMap={};
+  rows.forEach(e=>{
+    const l=e.land||'Onbekend';
+    if(!landenMap[l])landenMap[l]={n:0,nachten:0,prijs:0};
+    landenMap[l].n++;landenMap[l].nachten+=e.nachten;landenMap[l].prijs+=e.prijs;
+  });
+  const lb=document.getElementById('landenB');lb.innerHTML='';
+  Object.entries(landenMap).sort((a,b)=>b[1].prijs-a[1].prijs).forEach(([land,d])=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class="tn">${land}</td><td class="tm">${d.n}</td><td class="tm">${d.nachten}</td><td class="tm">${fmt(d.prijs)}</td><td class="tb">${fmt(d.prijs/d.nachten)}</td>`;
+    lb.appendChild(tr);
+  });
+  if(!Object.keys(landenMap).length)lb.innerHTML=`<tr class="empty-r"><td colspan="5">Voeg een land toe bij camping registraties.</td></tr>`;
+}
+
+// ═══════════════════════════════════════
+// VARIABELE KOSTEN
+// ═══════════════════════════════════════
+function td(){
+  const d=document.getElementById('kC').value==='diesel';
+  ['fL','fPpl','fK'].forEach(id=>{const el=document.getElementById(id);el.style.opacity=d?'1':'.4';el.querySelector('input').disabled=!d;});
+}
+function addVar(){
+  const date=document.getElementById('kD').value,cat=document.getElementById('kC').value;
+  const omschr=document.getElementById('kO').value.trim(),prijs=parseFloat(document.getElementById('kP').value);
+  if(!date||isNaN(prijs)||prijs<=0){alert(t('alert_datum_bedrag'));return;}
+  const liters=parseFloat(document.getElementById('kL').value)||null,ppl=parseFloat(document.getElementById('kPl').value)||null,km2=parseInt(document.getElementById('kKm').value)||null;
+  const editId=document.getElementById('kEditId').value;
+  if(editId){
+    const idx=costs.findIndex(e=>e.id===parseInt(editId));
+    if(idx>-1)costs[idx]={...costs[idx],date,cat,omschr,prijs,liters,ppl,km:km2};
+    document.getElementById('kEditId').value='';
+    document.getElementById('kSaveBtn').textContent='Toevoegen';
+    document.getElementById('kCancelBtn').style.display='none';
+  } else {
+    costs.push({id:Date.now(),date,cat,omschr,prijs,liters,ppl,km:km2});
+  }
+  save();toast('✓ Kosten opgeslagen');
+  ['kO','kP','kL','kPl','kKm'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('kD').value=new Date().toISOString().slice(0,10);
+  td();rVar();rDash();rMaand();
+}
+function editVar(id){
+  const e=costs.find(c=>c.id===id);if(!e)return;
+  document.getElementById('kD').value=e.date;document.getElementById('kC').value=e.cat;
+  document.getElementById('kO').value=e.omschr||'';document.getElementById('kP').value=e.prijs;
+  document.getElementById('kL').value=e.liters||'';document.getElementById('kPl').value=e.ppl||'';
+  document.getElementById('kKm').value=e.km||'';
+  document.getElementById('kEditId').value=id;
+  document.getElementById('kSaveBtn').textContent='Opslaan';
+  document.getElementById('kCancelBtn').style.display='inline-flex';
+  td();document.getElementById('kO').focus();
+}
+function cancelEditVar(){
+  ['kO','kP','kL','kPl','kKm'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('kD').value=new Date().toISOString().slice(0,10);
+  document.getElementById('kEditId').value='';
+  document.getElementById('kSaveBtn').textContent='Toevoegen';
+  document.getElementById('kCancelBtn').style.display='none';
+  td();
+}
+function dVar(id){costs=costs.filter(e=>e.id!==id);save();rVar();rDash();rMaand();}
+function calcVb(filterYear=null){
+  const rows=costs.filter(r=>r.cat==='diesel'&&r.km&&r.liters&&(!filterYear||r.date.startsWith(filterYear+''))).sort((a,b)=>a.km-b.km),map={};
+  for(let i=1;i<rows.length;i++){const diff=rows[i].km-rows[i-1].km;if(diff>0)map[rows[i].id]=(rows[i].liters/diff)*100;}
+  return map;
+}
+function rVar(){
+  const rows=costs.filter(e=>e.date.startsWith(yr+'')).sort((a,b)=>a.date.localeCompare(b.date));
+  const vb=calcVb(yr),tb=document.getElementById('varB');tb.innerHTML='';
+  if(!rows.length){tb.innerHTML=`<tr class="empty-r"><td colspan="9">${t('empty_var')}${yr}.</td></tr>`;}
+  else rows.forEach(e=>{
+    const v=vb[e.id],tr=document.createElement('tr');
+    tr.innerHTML=`<td class="td">${e.date}</td><td><span class="pill ${PC_map()[e.cat]}">${CL()[e.cat]}</span></td><td style="font-size:13px;color:var(--txt2);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${e.omschr||'—'}</td><td class="tb">${fmt(e.prijs)}</td><td class="tm">${e.liters?fn(e.liters):'—'}</td><td class="tm">${e.ppl?fn(e.ppl,3):'—'}</td><td class="tm">${e.km?e.km.toLocaleString('nl'):'—'}</td><td class="tm">${v?fn(v):'—'}</td><td style="text-align:center;white-space:nowrap"><button class="bi" onclick="editVar(${e.id})" style="color:var(--muted)">&#9998;</button><button class="bi" onclick="dVar(${e.id})">&#10005;</button></td>`;
+    tb.appendChild(tr);
+  });
+  const tot=rows.reduce((s,e)=>s+e.prijs,0),vbVs=Object.values(vb).filter(v=>v>0&&v<30);
+  const gem=vbVs.length?vbVs.reduce((s,v)=>s+v,0)/vbVs.length:null;
+  document.getElementById('varS').innerHTML=`<div class="si"><div class="sl">${t('sl_totaal_var')}</div><div class="sv">${fmt(tot)}</div></div>${gem?`<div class="si"><div class="sl">${t('sl_gem_verbruik')}</div><div class="sv">${fn(gem)} L/100km</div></div><div class="si"><div class="sl">${t('sl_tankbeurten')}</div><div class="sv">${vbVs.length}</div></div>`:`<div class="si" style="font-size:12px;color:var(--muted);align-self:center">${t('verbruik_leeg')}</div>`}`;
+}
+
+// ═══════════════════════════════════════
+// KM
+// ═══════════════════════════════════════
+function saveKm(){km[yr]={b:parseInt(document.getElementById('kmB').value)||null,e:parseInt(document.getElementById('kmE').value)||null};save();rKm();}
+function rKm(){
+  const d=km[yr]||{};
+  document.getElementById('kmB').value=d.b||'';document.getElementById('kmE').value=d.e||'';
+  const el=document.getElementById('kmR');if(!el)return;
+  if(d.b&&d.e&&d.e>d.b){
+    const kdiff=d.e-d.b,T=gtot(yr),pkm=T/kdiff;
+    const brand=costs.filter(e=>e.cat==='diesel'&&e.date.startsWith(yr+'')).reduce((s,e)=>s+e.prijs,0);
+    const pkmD=brand?brand/kdiff:null;
+    el.innerHTML=`<div style="display:flex;gap:22px;flex-wrap:wrap"><div class="si"><div class="sl">${t('sl_gereden')}</div><div class="sv">${kdiff.toLocaleString('nl')} km</div></div><div class="si"><div class="sl">${t('sl_diesel_km')}</div><div class="sv">${pkmD?'€ '+fn(pkmD,3):'—'}</div></div><div class="si"><div class="sl">${t('sl_totaal_km')}</div><div class="sv" style="color:var(--acc-d)">€ ${fn(pkm,3)}</div></div></div>`;
+  } else el.innerHTML='';
+}
+
+// ═══════════════════════════════════════
+// ONDERHOUD
+// ═══════════════════════════════════════
+function addOnderhoud(){
+  const date=document.getElementById('oD').value,omschr=document.getElementById('oOmschr').value.trim();
+  const prijs=parseFloat(document.getElementById('oPrijs').value),km2=parseInt(document.getElementById('oKm').value)||null;
+  const editId=document.getElementById('oEditId').value;
+  if(!date||!omschr||isNaN(prijs)){alert(t('alert_verplicht'));return;}
+  if(editId){
+    const idx=onderhoud.findIndex(e=>e.id===parseInt(editId));
+    if(idx>-1)onderhoud[idx]={...onderhoud[idx],date,omschr,prijs,km:km2};
+    document.getElementById('oEditId').value='';
+    document.getElementById('oSaveBtn').textContent='Toevoegen';
+    document.getElementById('oCancelBtn').style.display='none';
+  } else {
+    onderhoud.push({id:Date.now(),date,omschr,prijs,km:km2});
+  }
+  save();toast('🔧 Onderhoud opgeslagen');
+  ['oOmschr','oPrijs','oKm'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('oD').value=new Date().toISOString().slice(0,10);
+  rOnderhoud();rDash();rMaand();
+}
+function editOnderhoud(id){
+  const e=onderhoud.find(o=>o.id===id);if(!e)return;
+  document.getElementById('oD').value=e.date;document.getElementById('oOmschr').value=e.omschr;
+  document.getElementById('oPrijs').value=e.prijs;document.getElementById('oKm').value=e.km||'';
+  document.getElementById('oEditId').value=id;
+  document.getElementById('oSaveBtn').textContent='Opslaan';
+  document.getElementById('oCancelBtn').style.display='inline-flex';
+  document.getElementById('oOmschr').focus();
+}
+function cancelOnderhoud(){
+  ['oOmschr','oPrijs','oKm'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('oD').value=new Date().toISOString().slice(0,10);
+  document.getElementById('oEditId').value='';
+  document.getElementById('oSaveBtn').textContent='Toevoegen';
+  document.getElementById('oCancelBtn').style.display='none';
+}
+function dOnderhoud(id){onderhoud=onderhoud.filter(e=>e.id!==id);save();rOnderhoud();rDash();rMaand();}
+function rOnderhoud(){
+  const rows=onderhoud.filter(e=>e.date.startsWith(yr+'')).sort((a,b)=>a.date.localeCompare(b.date));
+  const tb=document.getElementById('onderhoudB');tb.innerHTML='';
+  if(!rows.length){tb.innerHTML=`<tr class="empty-r"><td colspan="5">${t('empty_onderhoud')}${yr}.</td></tr>`;}
+  else rows.forEach(e=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class="td">${e.date}</td><td class="tn">${e.omschr}</td><td class="tb">${fmt(e.prijs)}</td><td class="tm">${e.km?e.km.toLocaleString('nl'):'—'}</td><td style="text-align:center;white-space:nowrap"><button class="bi" onclick="editOnderhoud(${e.id})" style="color:var(--muted)">&#9998;</button><button class="bi" onclick="dOnderhoud(${e.id})">&#10005;</button></td>`;
+    tb.appendChild(tr);
+  });
+  const tot=rows.reduce((s,e)=>s+e.prijs,0);
+  document.getElementById('onderhoudS').innerHTML=`<div class="si"><div class="sl">${t('v_onderhoud')} ${yr}</div><div class="sv">${fmt(tot)}</div></div><div class="si"><div class="sl">${t('sl_totaal')}</div><div class="sv">${rows.length}</div></div>`;
+}
+
+// ═══════════════════════════════════════
+// REISLOGBOEK
+// ═══════════════════════════════════════
+function addTrip(){
+  const naam=document.getElementById('trNaam').value.trim(),van=document.getElementById('trVan').value,tot2=document.getElementById('trTot').value;
+  const landen=document.getElementById('trLanden').value.trim(),note=document.getElementById('trNote').value.trim();
+  const editId=document.getElementById('trEditId').value;
+  if(!naam||!van){alert(t('alert_reis_verplicht'));return;}
+  if(editId){
+    const idx=trips.findIndex(e=>e.id===parseInt(editId));
+    if(idx>-1)trips[idx]={...trips[idx],naam,van,tot:tot2,landen,note};
+    document.getElementById('trEditId').value='';
+    document.getElementById('trSaveBtn').textContent='Toevoegen';
+    document.getElementById('trCancelBtn').style.display='none';
+  } else {
+    trips.push({id:Date.now(),naam,van,tot:tot2,landen,note});
+  }
+  save();toast('🗺️ Reis opgeslagen');
+  ['trNaam','trVan','trTot','trLanden','trNote'].forEach(id=>document.getElementById(id).value='');
+  rTrips();
+}
+function editTrip(id){
+  const e=trips.find(t=>t.id===id);if(!e)return;
+  document.getElementById('trNaam').value=e.naam;document.getElementById('trVan').value=e.van;
+  document.getElementById('trTot').value=e.tot||'';document.getElementById('trLanden').value=e.landen||'';
+  document.getElementById('trNote').value=e.note||'';
+  document.getElementById('trEditId').value=id;
+  document.getElementById('trSaveBtn').textContent='Opslaan';
+  document.getElementById('trCancelBtn').style.display='inline-flex';
+}
+function cancelTrip(){
+  ['trNaam','trVan','trTot','trLanden','trNote'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('trEditId').value='';
+  document.getElementById('trSaveBtn').textContent='Toevoegen';
+  document.getElementById('trCancelBtn').style.display='none';
+}
+function dTrip(id){trips=trips.filter(e=>e.id!==id);save();rTrips();}
+function rTrips(){
+  const el=document.getElementById('tripsList');
+  const sorted=[...trips].sort((a,b)=>b.van.localeCompare(a.van));
+  if(!sorted.length){el.innerHTML='<div style="text-align:center;padding:36px;color:var(--muted2);font-size:13px">Nog geen reizen toegevoegd. Voeg je eerste reis toe hierboven.</div>';return;}
+  el.innerHTML='';
+  sorted.forEach(t=>{
+    const van=t.van,tot=t.tot?` t/m ${t.tot}`:'';
+    const dagen=t.van&&t.tot?Math.round((new Date(t.tot)-new Date(t.van))/(1000*60*60*24))+' dagen':'';
+    // Bereken kosten tijdens deze reis
+    let tripKosten=0;
+    if(t.van&&t.tot){
+      costs.filter(e=>e.date>=t.van&&e.date<=t.tot).forEach(e=>tripKosten+=e.prijs);
+      camps.filter(e=>e.date>=t.van&&(t.tot?e.date<=t.tot:true)).forEach(e=>tripKosten+=e.prijs);
+    }
+    const landenArr=t.landen?t.landen.split(',').map(s=>s.trim()).filter(Boolean):[];
+    const div=document.createElement('div');
+    div.className='trip-item';
+    div.innerHTML=`
+      <div style="flex:1">
+        <div class="trip-name">${t.naam}</div>
+        <div class="trip-meta">${van}${tot}${dagen?' · '+dagen:''}</div>
+        ${landenArr.length?`<div class="trip-landen">${landenArr.map(l=>`<span class="land-tag">${l}</span>`).join('')}</div>`:''}
+        ${t.note?`<div style="font-size:12px;color:var(--muted);margin-top:6px">${t.note}</div>`:''}
+      </div>
+      <div style="text-align:right;flex-shrink:0">
+        ${tripKosten?`<div style="font-family:var(--mono);font-size:14px;font-weight:600;color:var(--acc-d)">${fmt(tripKosten)}</div><div style="font-size:11px;color:var(--muted)">${t('gem_reiskosten')}</div>`:''}
+        <div style="display:flex;gap:4px;margin-top:8px;justify-content:flex-end">
+          <button class="bi" onclick="editTrip(${t.id})" style="color:var(--muted)">&#9998;</button>
+          <button class="bi" onclick="dTrip(${t.id})">&#10005;</button>
+        </div>
+      </div>`;
+    el.appendChild(div);
+  });
+}
+
+// ═══════════════════════════════════════
+// BUDGET
+// ═══════════════════════════════════════
+function saveBudget(){
+  budget[yr]={
+    tot:parseFloat(document.getElementById('budgTot').value)||null,
+    brand:parseFloat(document.getElementById('budgBrand').value)||null,
+    camp:parseFloat(document.getElementById('budgCamp').value)||null,
+    onderh:parseFloat(document.getElementById('budgOnderh').value)||null
+  };
+  save();rBudget();
+}
+function rBudget(){
+  const b=budget[yr]||{};
+  document.getElementById('budgTot').value=b.tot||'';
+  document.getElementById('budgBrand').value=b.brand||'';
+  document.getElementById('budgCamp').value=b.camp||'';
+  document.getElementById('budgOnderh').value=b.onderh||'';
+  document.getElementById('budgetViewY').textContent=yr;
+  // Progress op budget pagina
+  let T={verz:0,mrb:0,stall:0,afschr:0,onderh:0,brand:0,camp:0,overig:0};
+  for(let m=1;m<=12;m++){const d=gm(yr,m);Object.keys(T).forEach(k=>{if(d[k]!==undefined)T[k]+=d[k];});}
+  const tot=T.verz+T.mrb+T.stall+T.afschr+T.onderh+T.brand+T.camp+T.overig;
+  const ond=onderhoud.filter(e=>e.date.startsWith(yr+'')).reduce((s,e)=>s+e.prijs,0);
+  const items=[
+    {label:'Totale kosten',spend:tot,budget:b.tot},
+    {label:'Brandstof',spend:T.brand,budget:b.brand},
+    {label:'Camping',spend:T.camp,budget:b.camp},
+    {label:'Onderhoud',spend:ond,budget:b.onderh}
+  ];
+  const detail=document.getElementById('budgetDetail');
+  detail.innerHTML=items.filter(i=>i.budget||i.spend>0).map(i=>{
+    const pct=i.budget?Math.min((i.spend/i.budget)*100,100):0;
+    const cls=pct>=100?'over':pct>=80?'warn':'ok';
+    return `<div class="budget-item">
+      <div class="budget-header">
+        <span class="budget-label">${i.label}</span>
+        <span class="budget-vals">${fmt(i.spend)} ${i.budget?'/ '+fmt(i.budget):''}</span>
+      </div>
+      ${i.budget?`<div class="progress-track"><div class="progress-fill ${cls}" style="width:${pct}%"></div></div>`:''}
+    </div>`;
+  }).join('');
+  if(!detail.innerHTML)detail.innerHTML='<p style="color:var(--muted);font-size:13px">Stel een budget in via het formulier hierboven.</p>';
+  // Dashboard budget
+  document.getElementById('budgetY').textContent=yr;
+  document.getElementById('budgetProgress').innerHTML=detail.innerHTML;
+  document.getElementById('budgetProgress').innerHTML=detail.innerHTML||'<p style="font-size:12px;color:var(--muted)">Nog geen budget ingesteld. <a href="#" onclick="sv(\'budget\',document.querySelector(\'[onclick*=budget]\'))" style="color:var(--acc)">Instellen →</a></p>';
+}
+
+// ═══════════════════════════════════════
+// MAANDOVERZICHT
+// ═══════════════════════════════════════
+function rMaand(){
+  document.getElementById('ms').textContent='Alle kosten per maand · '+yr;
+  // Populate compare year dropdown
+  const sel=document.getElementById('cmpYear');
+  const years=[...new Set([...Object.keys(vast).map(k=>parseInt(k.split('-')[0])),...camps.map(e=>parseInt(e.date.slice(0,4))),...costs.map(e=>parseInt(e.date.slice(0,4)))])].sort();
+  const cmpY=parseInt(sel.value)||0;
+  const opts=years.filter(y=>y!==yr).map(y=>`<option value="${y}"${y===cmpY?'selected':''}>${y}</option>`);
+  sel.innerHTML=`<option value="">— geen vergelijking —</option>${opts.join('')}`;
+  const cmpYr=parseInt(sel.value)||0;
+
+  // Build header
+  const head=document.getElementById('maandHead');
+  head.innerHTML=`<th>Maand</th><th class="r">Verzekering</th><th class="r">MRB</th><th class="r">Brandstof</th><th class="r">Onderhoud</th><th class="r">Camping</th><th class="r">Overig</th><th class="r" style="border-left:2px solid var(--bdr)">Kampeerkosten</th><th class="r" style="border-left:2px solid var(--bdr)">Stalling</th><th class="r" style="border-left:2px solid var(--bdr)">Afschrijving</th><th class="r" style="border-left:2px solid var(--bdr)">Totaal</th>${cmpYr?`<th class="r" style="border-left:2px solid var(--bdr);color:var(--blue)">${cmpYr}</th>`:''}`
+
+  const tb=document.getElementById('maandB');tb.innerHTML='';
+  const T={verz:0,mrb:0,stall:0,afschr:0,onderh:0,brand:0,camp:0,overig:0,tot:0,zs:0,kamp:0};
+  for(let m=1;m<=12;m++){
+    const d=gm(yr,m),tot=d.verz+d.mrb+d.stall+d.afschr+d.onderh+d.brand+d.camp+d.overig;
+    const zs=tot-d.stall,kamp=tot-d.stall-d.afschr;
+    Object.keys(T).forEach(k=>{if(d[k]!==undefined)T[k]+=d[k];});T.tot+=tot;T.zs+=zs;T.kamp+=kamp;
+    let cmpCell='';
+    if(cmpYr){const dc=gm(cmpYr,m),tc=dc.verz+dc.mrb+dc.stall+dc.afschr+dc.onderh+dc.brand+dc.camp+dc.overig;cmpCell=`<td class="tm" style="border-left:2px solid var(--bdr);color:var(--blue)">${tc?fmt(tc):'—'}</td>`;}
+    const tr=document.createElement('tr');
+    const now=new Date(),isHuidig=yr===now.getFullYear()&&m===now.getMonth()+1;
+    if(isHuidig)tr.classList.add('row-huidig');
+    tr.innerHTML=`<td class="tn">${MO()[m-1]}${isHuidig?' <span style="font-size:10px;color:var(--acc);font-weight:700">◀</span>':''}</td><td class="tm">${fmt(d.verz)}</td><td class="tm">${fmt(d.mrb)}</td><td class="tm">${fmt(d.brand)}</td><td class="tm">${fmt(d.onderh)}</td><td class="tm">${fmt(d.camp)}</td><td class="tm">${fmt(d.overig)}</td><td class="tg" style="border-left:2px solid var(--bdr)">${kamp?fmt(kamp):'—'}</td><td class="tmu" style="border-left:2px solid var(--bdr)">${fmt(d.stall)}</td><td class="tmu" style="border-left:2px solid var(--bdr)">${fmt(d.afschr)}</td><td class="ta" style="border-left:2px solid var(--bdr)">${tot?fmt(tot):'—'}</td>${cmpCell}`;
+    tb.appendChild(tr);
+  }
+  const tf=document.getElementById('maandF');
+  const cmpTot=cmpYr?`<td style="text-align:right;color:var(--blue);border-left:2px solid var(--bdr)">${fmt(gtot(cmpYr))}</td>`:'';
+  tf.innerHTML=`<td style="font-family:var(--font);font-weight:700">Totaal</td><td style="text-align:right">${fmt(T.verz)}</td><td style="text-align:right">${fmt(T.mrb)}</td><td style="text-align:right">${fmt(T.brand)}</td><td style="text-align:right">${fmt(T.onderh)}</td><td style="text-align:right">${fmt(T.camp)}</td><td style="text-align:right">${fmt(T.overig)}</td><td style="text-align:right;color:var(--grn);border-left:2px solid var(--bdr)">${fmt(T.kamp)}</td><td style="text-align:right;color:var(--muted);border-left:2px solid var(--bdr)">${fmt(T.stall)}</td><td style="text-align:right;color:var(--muted);border-left:2px solid var(--bdr)">${fmt(T.afschr)}</td><td style="text-align:right;color:var(--acc-d);border-left:2px solid var(--bdr)">${fmt(T.tot)}</td>${cmpTot}`;
+}
+
+// ═══════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════
+function rDash(){
+  document.getElementById('ky').textContent=yr;
+  document.getElementById('chY').textContent=yr;
+  document.getElementById('fuelChY').textContent=yr;
+  document.getElementById('co2Y').textContent=yr;
+  // Update translated labels
+  document.getElementById('kpiLbl0').textContent=t('kpi_totaal')+' ';
+  document.getElementById('kpiLbl1').textContent=t('kpi_kamp');
+  document.getElementById('kpiLbl2').textContent=t('kpi_zs');
+  document.getElementById('kpiLbl3').textContent=t('kpi_brand');
+  document.getElementById('kpiLbl4').textContent=t('kpi_camp');
+  document.getElementById('kpiLbl5').textContent=t('kpi_diesel_ppl');
+  document.getElementById('chartTitle').textContent=t('chart_title')+' ';
+  document.getElementById('fuelChTitle').textContent=t('fuel_chart_title')+' ';
+  document.getElementById('legBrand').textContent=t('leg_brandstof');
+  document.getElementById('legCamp').textContent=t('leg_camping');
+  document.getElementById('legVast').textContent=t('leg_vast');
+  document.getElementById('legOverig').textContent=t('leg_overig');
+  document.getElementById('legPpl').textContent=t('leg_ppl');
+  document.getElementById('dcsTitel').textContent=t('kosten_campings');
+  document.getElementById('dkmTitel').textContent=t('kilometers')+' ';
+  document.getElementById('co2Titel').textContent=t('co2_titel')+' ';
+  document.getElementById('budgetTitel').textContent=t('budget_titel')+' ';
+  document.getElementById('budgetInstelBtn').textContent=t('btn_instellen');
+  const monthly=[];let T={verz:0,mrb:0,stall:0,afschr:0,onderh:0,brand:0,camp:0,overig:0,tot:0,zs:0,kamp:0};
+  for(let m=1;m<=12;m++){
+    const d=gm(yr,m),tot=d.verz+d.mrb+d.stall+d.afschr+d.onderh+d.brand+d.camp+d.overig;
+    monthly.push({brand:d.brand,camp:d.camp,vast:d.verz+d.mrb+d.stall+d.afschr+d.onderh,overig:d.overig,tot,d,m});
+    Object.keys(T).forEach(k=>{if(d[k]!==undefined)T[k]+=d[k];});T.tot+=tot;T.zs+=tot-d.stall;T.kamp+=tot-d.stall-d.afschr;
+  }
+  const sk=(id,v)=>document.getElementById(id).textContent=fmt(v)!=='—'?fmt(v):'€ 0,00';
+  sk('kTot',T.tot);sk('kKamp',T.kamp);sk('kZS',T.zs);sk('kBrand',T.brand);sk('kCamp',T.camp);
+  // Gem. dieselprijs KPI
+  const tankMet=costs.filter(e=>e.cat==='diesel'&&e.ppl&&e.date.startsWith(yr+''));
+  const gemPpl=tankMet.length?tankMet.reduce((s,e)=>s+e.ppl,0)/tankMet.length:null;
+  document.getElementById('kDieselPpl').textContent=gemPpl?'€\u202f'+gemPpl.toFixed(3).replace('.',',')+'/L':'—';
+  // Vaste kosten per dag (basis: verzekering + MRB + stalling)
+  const vastPerDag=document.getElementById('vastPerDagEl');
+  if(vastPerDag){
+    const vastJaar=Object.entries(vast).filter(([k])=>k.startsWith(yr+'-')).reduce((s,[,v])=>s+(v.verz||0)+(v.mrb||0)+(v.stall||0),0);
+    vastPerDag.textContent=vastJaar>0?'Vaste lasten: €\u202f'+(vastJaar/365).toFixed(2).replace('.',',')+'/dag':'';
+  }
+  // APK waarschuwing
+  const apkEl=document.getElementById('apkAlert');
+  const actief=campersList.find(c=>c.actief)||camperSettings;
+  if(actief&&actief.apk){
+    const apkDate=new Date(actief.apk),now=new Date(),diff=Math.ceil((apkDate-now)/(1000*60*60*24));
+    if(diff<=60&&diff>0){
+      apkEl.innerHTML=`<div class="apk-alert"><span class="apk-alert-icon">⚠️</span><div><strong>${t('apk_binnenkort')}${diff}${t('apk_binnenkort2')}</strong> — ${actief.apk}. ${t('apk_tip')}</div></div>`;
+    } else if(diff<=0){
+      apkEl.innerHTML=`<div class="apk-alert" style="background:var(--red-s);border-color:#fca5a5;color:var(--red)"><span class="apk-alert-icon">🚨</span><div><strong>${t('apk_verlopen')}</strong> — ${actief.apk}. ${t('apk_fout')}</div></div>`;
+    } else {apkEl.innerHTML='';}
+  } else {apkEl.innerHTML='';}
+  // Print header
+  document.getElementById('printTitle').textContent=(actief?.naam||t('appName'))+' — '+t('v_dash_sub')+yr;
+  document.getElementById('printSub').textContent=new Date().toLocaleDateString();
+  // Camping stats
+  const cr=camps.filter(e=>e.date.startsWith(yr+'')),tn=cr.reduce((s,e)=>s+e.nachten,0),tp=cr.reduce((s,e)=>s+e.prijs,0);
+  document.getElementById('dcs').innerHTML=`<div class="si"><div class="sl">${t('sl_nachten')}</div><div class="sv">${tn||'—'}</div></div><div class="si"><div class="sl">${t('sl_totaal')}</div><div class="sv">${fmt(tp)}</div></div><div class="si"><div class="sl">${t('sl_gem_nacht')}</div><div class="sv">${tn?fmt(tp/tn):'—'}</div></div>`;
+  // KM stats
+  document.getElementById('dkmY').textContent=yr;
+  const kmd=km[yr]||{},kdiff=kmd.b&&kmd.e&&kmd.e>kmd.b?kmd.e-kmd.b:null;
+  const pkm=kdiff&&T.tot?T.tot/kdiff:null,pkmD=kdiff&&T.brand?T.brand/kdiff:null;
+  document.getElementById('dkm').innerHTML=kdiff
+    ?`<div class="si"><div class="sl">${t('sl_beginstand')}</div><div class="sv">${kmd.b.toLocaleString('nl')} km</div></div><div class="si"><div class="sl">${t('sl_eindstand')}</div><div class="sv">${kmd.e?kmd.e.toLocaleString('nl')+' km':'—'}</div></div><div class="si"><div class="sl">${t('sl_gereden')}</div><div class="sv">${kdiff.toLocaleString('nl')} km</div></div><div class="si"><div class="sl">${t('sl_diesel_km')}</div><div class="sv">${pkmD?'€ '+fn(pkmD,3):'—'}</div></div><div class="si"><div class="sl">${t('sl_totaal_km')}</div><div class="sv" style="color:var(--acc-d)">${pkm?'€ '+fn(pkm,3):'—'}</div></div>`
+    :`<div class="si" style="font-size:12px;color:var(--muted);align-self:center">${t('km_leeg')}</div>`;
+  // CO2
+  const totLiters=costs.filter(e=>e.cat==='diesel'&&e.liters&&e.date.startsWith(yr+'')).reduce((s,e)=>s+e.liters,0);
+  const co2kg=totLiters*2.64;
+  document.getElementById('co2Card').innerHTML=totLiters
+    ?`<div class="co2-val">${fn(co2kg/1000,2)} ton CO₂</div><div class="co2-sub">${fn(totLiters,1)}${t('co2_sub1')}</div>${kdiff?`<div class="co2-sub" style="margin-top:4px">${fn(co2kg/kdiff*100,1)}${t('co2_sub2')}</div>`:''}`
+    :`<p style="font-size:12px;color:var(--muted)">${t('co2_leeg')}</p>`;
+  drawChart(monthly);
+  drawFuelChart();
+}
+
+function drawChart(mo){
+  const svg=document.getElementById('chart');
+  const W=svg.parentElement.clientWidth||660,H=160,pL=42,pR=12,pT=8,pB=26;
+  const cW=W-pL-pR,cH=H-pT-pB,maxV=Math.max(...mo.map(m=>m.tot),1);
+  const bW=(cW/12)*.62,gap=(cW/12)*.38;
+  const COLS=['var(--c1)','var(--c6)','#8C95A6','var(--c2)'];
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.setAttribute('height',H);
+  let html='';
+  for(let i=0;i<=4;i++){const y=pT+(cH/4)*i,v=maxV*(1-i/4);
+    html+=`<line x1="${pL}" y1="${y}" x2="${W-pR}" y2="${y}" stroke="var(--bdr2)" stroke-width="1"/>`;
+    if(v>0)html+=`<text x="${pL-5}" y="${y+4}" text-anchor="end" font-size="9" fill="var(--muted)" font-family="JetBrains Mono,monospace">${v>=1000?(v/1000).toFixed(1)+'k':Math.round(v)}</text>`;}
+  mo.forEach((m,i)=>{
+    const x=pL+(cW/12)*i+gap/2;let cy2=pT+cH;
+    [m.brand,m.camp,m.vast,m.overig].forEach((val,si)=>{if(!val)return;const bh=(val/maxV)*cH;cy2-=bh;html+=`<rect x="${x}" y="${cy2}" width="${bW}" height="${bh}" fill="${COLS[si]}" rx="2" opacity=".92"/>`;});
+    // Invisible clickable overlay per month
+    html+=`<rect x="${pL+(cW/12)*i}" y="${pT}" width="${cW/12}" height="${cH+pB}" fill="transparent" style="cursor:pointer" onclick="showMaandPopup(${i},${x+bW/2},event)"/>`;
+    html+=`<text x="${x+bW/2}" y="${H-4}" text-anchor="middle" font-size="10" fill="var(--muted)" font-family="Inter,sans-serif">${MOS()[i]}</text>`;});
+  svg.innerHTML=html;
+  // Store monthly data for popup
+  svg._monthly=mo;
+}
+
+let _popupTimeout=null;
+function showMaandPopup(mi,cx,event){
+  const svg=document.getElementById('chart');
+  const mo=svg._monthly;if(!mo)return;
+  const m=mo[mi];if(!m||!m.tot)return;
+  // Remove existing popup
+  const old=document.getElementById('chartPopup');if(old)old.remove();
+  const div=document.createElement('div');
+  div.id='chartPopup';
+  div.style.cssText=`position:fixed;background:var(--surf);border:1px solid var(--bdr);border-radius:10px;box-shadow:var(--sh-md);padding:14px 16px;font-size:12px;min-width:180px;z-index:50;pointer-events:auto;`;
+  const rows=[
+    m.d.brand?`<div style="display:flex;justify-content:space-between;gap:20px;padding:3px 0"><span style="color:var(--muted)">Brandstof</span><strong>${fmt(m.d.brand)}</strong></div>`:'',
+    m.d.camp?`<div style="display:flex;justify-content:space-between;gap:20px;padding:3px 0"><span style="color:var(--muted)">Camping</span><strong>${fmt(m.d.camp)}</strong></div>`:'',
+    m.vast?`<div style="display:flex;justify-content:space-between;gap:20px;padding:3px 0"><span style="color:var(--muted)">Vaste kosten</span><strong>${fmt(m.vast)}</strong></div>`:'',
+    m.d.overig?`<div style="display:flex;justify-content:space-between;gap:20px;padding:3px 0"><span style="color:var(--muted)">Overig</span><strong>${fmt(m.d.overig)}</strong></div>`:'',
+    `<div style="display:flex;justify-content:space-between;gap:20px;padding:5px 0;margin-top:4px;border-top:1px solid var(--bdr2)"><span style="font-weight:600">Totaal</span><strong style="color:var(--acc-d)">${fmt(m.tot)}</strong></div>`
+  ].filter(Boolean).join('');
+  div.innerHTML=`<div style="font-weight:700;margin-bottom:8px">${MO[mi]} ${yr}</div>${rows}<div style="text-align:right;margin-top:8px"><button onclick="this.closest('#chartPopup').remove()" style="font-size:11px;border:none;background:var(--bdr);border-radius:4px;padding:2px 8px;cursor:pointer;font-family:var(--font)">Sluiten</button></div>`;
+  document.body.appendChild(div);
+  // Position near click
+  const rect=event.target.closest('svg').getBoundingClientRect();
+  let left=rect.left+cx-90;
+  const top=rect.top+event.offsetY-10;
+  left=Math.max(10,Math.min(left,window.innerWidth-200));
+  div.style.left=left+'px';div.style.top=(top-div.offsetHeight-10||top+20)+'px';
+  if(_popupTimeout)clearTimeout(_popupTimeout);
+  _popupTimeout=setTimeout(()=>{const p=document.getElementById('chartPopup');if(p)p.remove();},4000);
+}
+document.addEventListener('click',e=>{if(!e.target.closest('#chartPopup')&&!e.target.closest('svg')){{const p=document.getElementById('chartPopup');if(p)p.remove();}};});
+
+function drawFuelChart(){
+  const svg=document.getElementById('fuelChart');
+  const tankRows=costs.filter(e=>e.cat==='diesel'&&e.ppl&&e.date.startsWith(yr+'')).sort((a,b)=>a.date.localeCompare(b.date));
+  if(!tankRows.length){svg.innerHTML='<text x="50%" y="50%" text-anchor="middle" fill="var(--muted)" font-family="Inter,sans-serif" font-size="12">Geen tankbeurten met prijs per liter gevonden voor '+yr+'.</text>';return;}
+  const W=svg.parentElement.clientWidth||660,H=120,pL=42,pR=16,pT=10,pB=24;
+  const cW=W-pL-pR,cH=H-pT-pB;
+  const prices=tankRows.map(e=>e.ppl);
+  const minP=Math.min(...prices)*.97,maxP=Math.max(...prices)*1.03;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.setAttribute('height',H);
+  let html='';
+  // Grid
+  for(let i=0;i<=3;i++){const y=pT+(cH/3)*i,v=maxP-(maxP-minP)*(i/3);
+    html+=`<line x1="${pL}" y1="${y}" x2="${W-pR}" y2="${y}" stroke="var(--bdr2)" stroke-width="1"/>`;
+    html+=`<text x="${pL-4}" y="${y+4}" text-anchor="end" font-size="9" fill="var(--muted)" font-family="JetBrains Mono,monospace">${v.toFixed(2).replace('.',',')}</text>`;}
+  // Line
+  const pts=tankRows.map((e,i)=>{
+    const x=pL+(i/(tankRows.length-1||1))*cW;
+    const y=pT+cH-((e.ppl-minP)/(maxP-minP||1))*cH;
+    return{x,y,e};
+  });
+  if(pts.length>1){
+    const path=pts.map((p,i)=>`${i===0?'M':'L'}${p.x},${p.y}`).join(' ');
+    html+=`<path d="${path}" fill="none" stroke="var(--acc)" stroke-width="2" stroke-linejoin="round"/>`;
+  }
+  pts.forEach(p=>{
+    html+=`<circle cx="${p.x}" cy="${p.y}" r="4" fill="var(--acc)" stroke="white" stroke-width="1.5"/>`;
+    html+=`<title>${p.e.date}: €${p.e.ppl.toFixed(3)} /L</title>`;
+  });
+  // X labels
+  const step=Math.max(1,Math.floor(pts.length/6));
+  pts.forEach((p,i)=>{if(i%step===0)html+=`<text x="${p.x}" y="${H-4}" text-anchor="middle" font-size="9" fill="var(--muted)" font-family="Inter,sans-serif">${p.e.date.slice(5)}</text>`;});
+  svg.innerHTML=html;
+}
+
+// ═══════════════════════════════════════
+// BACKUP / IMPORT / CSV
+// ═══════════════════════════════════════
+function exportJSON(){
+  const data={vast,camps,costs,km,trips,onderhoud,budget,exportDate:new Date().toISOString()};
+  const a=document.createElement('a');
+  a.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(data,null,2));
+  a.download=`camperkosten-backup-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+}
+function importJSON(event){
+  const file=event.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const data=JSON.parse(e.target.result);
+      if(data.vast)vast=data.vast;
+      if(data.camps)camps=data.camps;
+      if(data.costs)costs=data.costs;
+      else if(data.kosten)costs=data.kosten;
+      if(data.km)km=data.km;
+      if(data.trips)trips=data.trips;
+      if(data.onderhoud)onderhoud=data.onderhoud;
+      if(data.budget)budget=data.budget;
+      save();ra();
+      alert(`${t('alert_import_ok')}${camps.length}${t('alert_import_deel')}${costs.length}${t('alert_import_deel2')}`);
+    }catch(err){alert(t('alert_import_fout')+err.message);}
+  };
+  reader.readAsText(file);event.target.value='';
+}
+function exportCSV(){
+  const rows=[['Maand','Verzekering','MRB','Brandstof','Onderhoud','Camping','Overige kosten','Kampeerkosten','Stalling','Afschrijving','Totaal']];
+  for(let m=1;m<=12;m++){const d=gm(yr,m),tot=d.verz+d.mrb+d.stall+d.afschr+d.onderh+d.brand+d.camp+d.overig;
+    rows.push([MO()[m-1],d.verz||'',d.mrb||'',d.brand||'',d.onderh||'',d.camp||'',d.overig||'',(tot-d.stall-d.afschr)||'',d.stall||'',d.afschr||'',tot||'']);}
+  const csv=rows.map(r=>r.map(v=>`"${v}"`).join(',')).join('\n');
+  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);a.download=`camperkosten-${yr}.csv`;a.click();
+}
+
+// ═══════════════════════════════════════
+// RENDER ALL
+// ═══════════════════════════════════════
+// INSTELLINGEN & RDW
+// ═══════════════════════════════════════
+function rInstellingen(){
+  const c=camperSettings;
+  document.getElementById('camperNaam').value=c.naam||'';
+  document.getElementById('camperMerk').value=c.merk||'';
+  document.getElementById('camperModel').value=c.model||'';
+  document.getElementById('camperJaar').value=c.jaar||'';
+  document.getElementById('camperBrandstof').value=c.brandstof||'';
+  document.getElementById('camperCc').value=c.cc||'';
+  document.getElementById('camperPk').value=c.pk||'';
+  document.getElementById('camperMassa').value=c.massa||'';
+  document.getElementById('camperApk').value=c.apk||'';
+  document.getElementById('rdwKenteken').value=c.kenteken||'';
+  // Render campers list
+  const el=document.getElementById('campersList');
+  if(!campersList.length){el.innerHTML='<div class="empty-r"><td>Geen campers toegevoegd.</td></div>';return;}
+  el.innerHTML=campersList.map(cam=>`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 20px;border-bottom:1px solid var(--bdr2)">
+      <div>
+        <div style="font-weight:600;font-size:14px">${cam.naam||cam.merk+' '+cam.model}</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:2px">${[cam.merk,cam.model,cam.jaar,cam.brandstof].filter(Boolean).join(' · ')}${cam.kenteken?' · '+cam.kenteken:''}</div>
+        ${cam.apk?`<div style="font-size:11px;color:var(--acc-d);margin-top:2px">APK: ${cam.apk}</div>`:''}
+      </div>
+      <div style="display:flex;gap:6px;align-items:center">
+        ${cam.actief?'<span style="font-size:11px;font-weight:600;color:var(--grn);background:var(--grn-s);padding:2px 9px;border-radius:20px;border:1px solid #a7f3d0">Actief</span>':'<button class="btn bg" style="height:28px;font-size:11px;padding:0 10px" onclick="setCamperActief('+cam.id+')">Activeren</button>'}
+        <button class="bi" onclick="editCamperFromList(${cam.id})" style="color:var(--muted)">&#9998;</button>
+        ${!cam.actief?`<button class="bi" onclick="delCamper(${cam.id})">&#10005;</button>`:''}
+      </div>
+    </div>`).join('');
+  // Update sidebar
+  const actief=campersList.find(c=>c.actief)||campersList[0];
+  if(actief){
+    document.querySelector('.sb-name').textContent=actief.naam||'Camperkosten';
+    document.querySelector('.sb-sub').textContent=actief.kenteken||'';
+  }
+}
+
+async function rdwOpzoeken(){
+  const kt=document.getElementById('rdwKenteken').value.replace(/[-\s]/g,'').toUpperCase();
+  if(!kt){alert(t('alert_datum_bedrag'));return;}
+  const btn=document.getElementById('rdwBtn');
+  btn.textContent='⏳ Ophalen...';btn.disabled=true;
+  document.getElementById('rdwResult').style.display='none';
+  document.getElementById('rdwError').style.display='none';
+  try{
+    const res=await fetch(`https://opendata.rdw.nl/resource/m9d7-ebf2.json?kenteken=${kt}`);
+    const data=await res.json();
+    if(!data||!data.length){throw new Error(t('alert_rdw_niet_gevonden'));}
+    const v=data[0];
+    // Fill fields
+    document.getElementById('camperMerk').value=v.merk||'';
+    document.getElementById('camperModel').value=(v.handelsbenaming||v.type||'');
+    document.getElementById('camperJaar').value=v.datum_eerste_toelating?v.datum_eerste_toelating.slice(0,4):'';
+    document.getElementById('camperBrandstof').value=''; // comes from separate endpoint
+    document.getElementById('camperCc').value=v.cilinderinhoud?v.cilinderinhoud+' cc':'';
+    document.getElementById('camperMassa').value=v.massa_rijklaar?v.massa_rijklaar+' kg':'';
+    // APK
+    if(v.vervaldatum_apk){
+      const apk=v.vervaldatum_apk;
+      document.getElementById('camperApk').value=apk.slice(0,4)+'-'+apk.slice(4,6)+'-'+apk.slice(6,8);
+    }
+    // Also fetch fuel type
+    try{
+      const fuelRes=await fetch(`https://opendata.rdw.nl/resource/8ys7-d773.json?kenteken=${kt}`);
+      const fuelData=await fuelRes.json();
+      if(fuelData&&fuelData.length)document.getElementById('camperBrandstof').value=fuelData[0].brandstof_omschrijving||'';
+    }catch(e){}
+    const naam=`${v.merk||''} ${v.handelsbenaming||v.type||''} ${v.datum_eerste_toelating?v.datum_eerste_toelating.slice(0,4):''}`.trim();
+    document.getElementById('camperNaam').value=naam;
+    document.getElementById('rdwResult').style.display='block';
+    document.getElementById('rdwResult').innerHTML=`<strong>${t('rdw_gevonden')}</strong>${naam}${t('rdw_gevonden2')}`;
+  }catch(err){
+    document.getElementById('rdwError').style.display='block';
+    document.getElementById('rdwError').textContent='⚠ '+err.message;
+  }
+  btn.textContent='🔍 Ophalen via RDW';btn.disabled=false;
+}
+
+function saveCamper(){
+  const c={
+    naam:document.getElementById('camperNaam').value.trim(),
+    merk:document.getElementById('camperMerk').value.trim(),
+    model:document.getElementById('camperModel').value.trim(),
+    jaar:document.getElementById('camperJaar').value,
+    brandstof:document.getElementById('camperBrandstof').value.trim(),
+    cc:document.getElementById('camperCc').value.trim(),
+    pk:document.getElementById('camperPk').value.trim(),
+    massa:document.getElementById('camperMassa').value.trim(),
+    apk:document.getElementById('camperApk').value,
+    kenteken:document.getElementById('rdwKenteken').value.trim()
+  };
+  camperSettings=c;
+  // Update or add to campersList
+  const active=campersList.find(x=>x.actief);
+  if(active){Object.assign(active,c);}
+  else{campersList.push({...c,id:Date.now(),actief:true});}
+  save();rInstellingen();
+  alert(t('alert_camper_opgeslagen'));
+}
+
+function addCamper(){
+  // Deactivate all, start fresh form
+  campersList.forEach(c=>c.actief=false);
+  ['camperNaam','camperMerk','camperModel','camperJaar','camperBrandstof','camperCc','camperPk','camperMassa','camperApk','rdwKenteken'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('rdwResult').style.display='none';
+  document.getElementById('rdwError').style.display='none';
+  alert(t('alert_camper_nieuw'));
+}
+
+function setCamperActief(id){
+  campersList.forEach(c=>c.actief=c.id===id);
+  const actief=campersList.find(c=>c.id===id);
+  if(actief)camperSettings=actief;
+  save();rInstellingen();
+}
+
+function editCamperFromList(id){
+  const c=campersList.find(x=>x.id===id);if(!c)return;
+  campersList.forEach(x=>x.actief=x.id===id);
+  camperSettings=c;
+  document.getElementById('camperNaam').value=c.naam||'';
+  document.getElementById('camperMerk').value=c.merk||'';
+  document.getElementById('camperModel').value=c.model||'';
+  document.getElementById('camperJaar').value=c.jaar||'';
+  document.getElementById('camperBrandstof').value=c.brandstof||'';
+  document.getElementById('camperCc').value=c.cc||'';
+  document.getElementById('camperPk').value=c.pk||'';
+  document.getElementById('camperMassa').value=c.massa||'';
+  document.getElementById('camperApk').value=c.apk||'';
+  document.getElementById('rdwKenteken').value=c.kenteken||'';
+  rInstellingen();
+}
+
+function delCamper(id){
+  if(!confirm('Camper verwijderen?'))return;
+  campersList=campersList.filter(c=>c.id!==id);
+  save();rInstellingen();
+}
+
+// ═══════════════════════════════════════
+// SNELLE INVOER MODAL
+// ═══════════════════════════════════════
+function openModal(){
+  document.getElementById('snelDatum').value=new Date().toISOString().slice(0,10);
+  ['snelBedrag','snelLiters','snelPpl','snelKm'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('snelModal').classList.add('open');
+  document.getElementById('snelBedrag').focus();
+}
+function sluitModal(){document.getElementById('snelModal').classList.remove('open');}
+function snelTanken(){
+  const date=document.getElementById('snelDatum').value;
+  const prijs=parseFloat(document.getElementById('snelBedrag').value);
+  if(!date||isNaN(prijs)||prijs<=0){alert(t('alert_datum_bedrag'));return;}
+  const liters=parseFloat(document.getElementById('snelLiters').value)||null;
+  const ppl=parseFloat(document.getElementById('snelPpl').value)||null;
+  const km2=parseInt(document.getElementById('snelKm').value)||null;
+  costs.push({id:Date.now(),date,cat:'diesel',omschr:'Diesel',prijs,liters,ppl,km:km2});
+  save();sluitModal();rDash();rVar();rMaand();
+  toast('⛽ Tankbeurt opgeslagen');
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')sluitModal();});
+
+// ═══════════════════════════════════════
+// PRINT / PDF
+// ═══════════════════════════════════════
+function printOverzicht(){
+  // Show maandoverzicht view for printing
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('print-show'));
+  document.getElementById('v-dash').classList.add('print-show');
+  document.getElementById('v-maand').classList.add('print-show');
+  window.print();
+  // Restore
+  setTimeout(()=>{
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('print-show'));
+  },1000);
+}
+
+// ═══════════════════════════════════════
+// MOBIELE NAV
+// ═══════════════════════════════════════
+function svMob(name,btn){
+  sv(name,document.querySelector(`.ni[onclick*="'${name}'"]`)||document.querySelector('.ni.on'));
+  document.querySelectorAll('.mob-nav-item').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+// ═══════════════════════════════════════
+// HANDLEIDING — DYNAMISCH PER TAAL
+// ═══════════════════════════════════════
+const HND = {
+nl:{
+  welkom:'🚐 Welkom bij Camperkosten',
+  intro:'Camperkosten helpt je alle kosten van je camper bijhouden — van verzekering en MRB tot brandstof, camping en onderhoud. Alles wordt lokaal opgeslagen in je browser. Maak regelmatig een back-up via de knop rechtsboven.',
+  t1_t:'⛽ Snel tanken', t1_d:'Gebruik de knop rechtsboven voor snelle invoer van een tankbeurt. Je kunt ook een foto van de bon maken.',
+  t2_t:'💾 Back-up maken', t2_d:'Download regelmatig een back-up via "Back-up" zodat je nooit data verliest.',
+  t3_t:'🖨️ PDF exporteren', t3_d:'Klik op 🖨️ rechtsboven voor een overzicht als PDF of afdruk.',
+  s_dash:'⊞ Dashboard', dash_intro:'Het dashboard geeft een direct overzicht van het geselecteerde jaar. Bovenin staan zes KPI-kaartjes:',
+  kpi:[['Totaal','De som van alle kosten in het geselecteerde jaar.'],['Kampeerkosten','Totaal minus stalling en afschrijving — de kosten die je daadwerkelijk maakt tijdens het gebruik.'],['Zonder stalling','Totaal minus stallingkosten.'],['Brandstof','Alle dieselkosten bij elkaar.'],['Camping','Alle campingkosten bij elkaar.'],['Gem. dieselprijs','De gemiddelde prijs per liter diesel over alle tankbeurten.']],
+  dash_chart:'<strong>Grafiek:</strong> Klik op een maand in het staafdiagram voor een uitsplitsing van die maand.',
+  dash_apk:'<strong>APK-waarschuwing:</strong> Als de APK binnen 60 dagen verloopt verschijnt er een oranje melding. Stel de APK-datum in via Instellingen.',
+  s_jaar:'📅 Jaar wisselen', jaar_t:'Gebruik de pijltjes linksboven in de zijbalk om tussen jaren te wisselen. Alle weergaven filteren automatisch op het geselecteerde jaar.',
+  s_vast:'🔒 Vaste kosten', vast_t:'Vaste kosten zijn maandelijkse lasten zoals verzekering, MRB en stalling. Voer ze per maand in.',
+  vast_items:[['Verzekering','Maandelijkse verzekeringspremie. Het bedrag verschilt vaak tussen de rijperiode en de stallingperiode.'],['MRB','Motorrijtuigenbelasting. Betaal je per kwartaal? Deel door 3 en vul per maand in.'],['Stalling','Kosten voor de stalling buiten het seizoen.'],['Afschrijving','Schatting van de waardedaling per maand.'],['Overig vast','Abonnementen en lidmaatschappen zoals ANWB of NKC.']],
+  vast_tip:'💡 Tip: klik op het potloodpictogram naast een maand om de gegevens te bewerken.',
+  s_camp:'⛺ Camping', camp_t:'Registreer elke camping met aankomstdatum, naam, land, aantal nachten en totaalprijs. De app berekent automatisch de prijs per nacht. Onderaan staat een tabel met de gemiddelde prijs per nacht per land.',
+  camp_tip:'💡 Tip: vul het land altijd in. Dan werkt de landenvergelijking het beste.',
+  s_var:'⛽ Variabele kosten', var_t:'Hier voer je alle kosten in die per rit of per aankoop variëren. Kies een categorie:',
+  var_diesel:'Bij <strong>Diesel</strong> kun je ook liters, €/liter en de kilometerstand invullen. De app berekent dan automatisch het verbruik in L/100km.',
+  var_calc:'<strong>Verbruiksberekening:</strong> de app vergelijkt twee opeenvolgende tankbeurten waarbij de kilometerstand bekend is. Vul bij elke tankbeurt de kilometerstand in voor de beste resultaten.',
+  var_tip:'💡 Tip: gebruik de knop "Snel tanken" rechtsboven voor snelle invoer onderweg. Je kunt ook een foto van de bon scannen.',
+  s_ond:'🔧 Onderhoud', ond_t:'Het onderhoudslogboek is bedoeld voor eenmalige kosten zoals APK, bandenwissels, een distributieriem of olie verversen. De onderhoudskosten worden meegenomen in het totaaloverzicht.',
+  s_reis:'🗺️ Reislogboek', reis_t:'Leg je reizen vast met een naam, vertrek- en terugkomstdatum, bezochte landen en notities. De app berekent automatisch de totale reiskosten op basis van camping- en variabele kosten in die periode.',
+  reis_tip:'💡 Tip: voeg landen in als kommalijst, bijv. "Duitsland, Zwitserland, Italië".',
+  s_budg:'🎯 Budget', budg_t:'Stel een jaarbudget in voor vier categorieën: totaal, brandstof, camping en onderhoud. Voortgangsbalken tonen hoeveel van het budget al is gebruikt.',
+  budg_items:['Groen — minder dan 80% van het budget gebruikt','Oranje — tussen 80% en 100%','Rood — budget overschreden'],
+  s_maand:'📅 Maandoverzicht', maand_t:'Het maandoverzicht toont alle kostenposten per maand in één tabel. Gebruik "Vergelijk met" om twee jaren naast elkaar te zetten. Met "CSV" exporteer je naar Excel of Google Sheets.',
+  s_inst:'⚙️ Instellingen', inst_t:'Voer je campergegevens in en kies een taal. In het Nederlands kun je ook het kenteken opzoeken via het RDW — de app haalt dan automatisch merk, model, bouwjaar en APK-datum op.',
+  inst_campers:'Heb je meerdere campers? Voeg ze toe via "+ Nieuwe camper toevoegen" en wissel via "Activeren".',
+  inst_note:'De kostendata is op dit moment gedeeld tussen alle campers.',
+  s_backup:'💾 Back-up en herstel', backup_t:'Alle data wordt opgeslagen in je browser. Wis je de cache, dan kan data verloren gaan. Maak daarom regelmatig een back-up:',
+  backup_steps:['Klik op <strong>↓ Back-up</strong> rechtsboven. Er wordt een .json-bestand gedownload.','Sla dit bestand op een veilige plek op, bijv. Google Drive of een USB-stick.','Wil je data herstellen? Klik op <strong>↑ Importeer</strong> en selecteer het bestand.'],
+  backup_tip:'💡 Maak een back-up na elke grotere invoer en zeker na een vakantie.',
+},
+en:{
+  welkom:'🚐 Welcome to CamperCosts',
+  intro:'CamperCosts helps you track all costs for your camper — from insurance and road tax to fuel, camping and maintenance. All data is stored locally in your browser. Make regular backups using the button in the top right.',
+  t1_t:'⛽ Quick fuel entry', t1_d:'Use the button in the top right for quick fuel entry. You can also take a photo of the receipt.',
+  t2_t:'💾 Make a backup', t2_d:'Regularly download a backup so you never lose data.',
+  t3_t:'🖨️ Export to PDF', t3_d:'Click 🖨️ in the top right for an overview as PDF or printout.',
+  s_dash:'⊞ Dashboard', dash_intro:'The dashboard gives a direct overview of the selected year. At the top are six KPI cards:',
+  kpi:[['Total','The sum of all costs in the selected year.'],['Camping costs','Total minus storage and depreciation — the costs you actually incur during use.'],['Without storage','Total minus storage costs.'],['Fuel','All diesel costs combined.'],['Camping','All camping costs combined.'],['Avg. diesel price','The average price per litre of diesel across all fuel entries.']],
+  dash_chart:'<strong>Chart:</strong> Click on a month in the bar chart to see a breakdown for that month.',
+  dash_apk:'<strong>MOT reminder:</strong> If the MOT expires within 60 days, an orange warning appears. Set the MOT date under Settings.',
+  s_jaar:'📅 Switching years', jaar_t:'Use the arrows in the top left of the sidebar to switch between years. All views filter automatically to the selected year.',
+  s_vast:'🔒 Fixed costs', vast_t:'Fixed costs are monthly expenses such as insurance, road tax and storage. Enter them per month.',
+  vast_items:[['Insurance','Monthly insurance premium. The amount often differs between the active season and storage period.'],['Road tax','Vehicle tax. Paying quarterly? Divide by 3 and enter monthly.'],['Storage','Storage costs outside the season.'],['Depreciation','Estimated monthly depreciation.'],['Other fixed','Subscriptions and memberships or other fixed monthly costs.']],
+  vast_tip:'💡 Tip: click the pencil icon next to a month to edit it.',
+  s_camp:'⛺ Camping', camp_t:'Register each campsite with arrival date, name, country, number of nights and total price. The app automatically calculates the price per night. At the bottom is a table with the average price per night per country.',
+  camp_tip:'💡 Tip: always fill in the country for the best country comparison.',
+  s_var:'⛽ Variable costs', var_t:'Enter all costs that vary per trip or purchase. Choose a category:',
+  var_diesel:'For <strong>Diesel</strong> you can also enter litres, €/litre and mileage. The app then automatically calculates consumption in L/100km.',
+  var_calc:'<strong>Consumption calculation:</strong> the app compares two consecutive fuel entries where mileage is known. Enter mileage at every fill-up for best results.',
+  var_tip:'💡 Tip: use the "Quick fuel entry" button for fast entry on the road. You can also scan a receipt photo.',
+  s_ond:'🔧 Maintenance', ond_t:'The maintenance log is for one-off costs such as MOT, tyres, timing belt or oil changes. Maintenance costs are included in the total and monthly overview.',
+  s_reis:'🗺️ Travel log', reis_t:'Record your trips with a name, departure and return date, countries visited and notes. The app automatically calculates total trip costs based on camping and variable costs within the travel period.',
+  reis_tip:'💡 Tip: enter countries as a comma list, e.g. "Germany, Switzerland, Italy".',
+  s_budg:'🎯 Budget', budg_t:'Set an annual budget for four categories: total, fuel, camping and maintenance. Progress bars show how much of the budget has been used.',
+  budg_items:['Green — less than 80% of budget used','Orange — between 80% and 100%','Red — budget exceeded'],
+  s_maand:'📅 Monthly overview', maand_t:'The monthly overview shows all cost items per month in one table. Use "Compare with" to put two years side by side. Use "CSV" to export to Excel or Google Sheets.',
+  s_inst:'⚙️ Settings', inst_t:'Enter your camper details and choose a language. In Dutch you can also look up the licence plate via the RDW — the app automatically retrieves make, model, year and MOT date.',
+  inst_campers:'Have multiple campers? Add them via "+ Add new camper" and switch with "Activate".',
+  inst_note:'Cost data is currently shared between all campers.',
+  s_backup:'💾 Backup and restore', backup_t:'All data is stored in your browser. Clearing the cache may cause data loss. Make regular backups:',
+  backup_steps:['Click <strong>↓ Backup</strong> in the top right. A .json file will be downloaded.','Save this file somewhere safe, e.g. Google Drive or a USB stick.','To restore data, click <strong>↑ Import</strong> and select the file.'],
+  backup_tip:'💡 Make a backup after every major entry and especially after a holiday.',
+},
+de:{
+  welkom:'🚐 Willkommen bei Camperkosten',
+  intro:'Camperkosten hilft Ihnen, alle Kosten für Ihr Wohnmobil zu verfolgen — von Versicherung und KFZ-Steuer bis hin zu Kraftstoff, Camping und Wartung. Alle Daten werden lokal in Ihrem Browser gespeichert. Erstellen Sie regelmäßig Sicherungskopien.',
+  t1_t:'⛽ Schnell tanken', t1_d:'Nutzen Sie die Schaltfläche oben rechts für schnelle Kraftstoffeingaben. Sie können auch ein Foto des Belegs machen.',
+  t2_t:'💾 Sicherung erstellen', t2_d:'Laden Sie regelmäßig eine Sicherungskopie herunter, damit Sie keine Daten verlieren.',
+  t3_t:'🖨️ PDF exportieren', t3_d:'Klicken Sie auf 🖨️ oben rechts für eine Übersicht als PDF oder Ausdruck.',
+  s_dash:'⊞ Dashboard', dash_intro:'Das Dashboard gibt einen direkten Überblick über das ausgewählte Jahr. Oben sind sechs KPI-Karten:',
+  kpi:[['Gesamt','Die Summe aller Kosten im ausgewählten Jahr.'],['Campingkosten','Gesamt abzüglich Lagerung und Abschreibung.'],['Ohne Lagerung','Gesamt abzüglich Lagerkosten.'],['Kraftstoff','Alle Dieselkosten zusammen.'],['Camping','Alle Campingkosten zusammen.'],['Ø Dieselpreis','Der durchschnittliche Preis pro Liter Diesel über alle Tankfüllungen.']],
+  dash_chart:'<strong>Diagramm:</strong> Klicken Sie auf einen Monat im Balkendiagramm für eine Aufschlüsselung.',
+  dash_apk:'<strong>HU-Erinnerung:</strong> Wenn die HU innerhalb von 60 Tagen abläuft, erscheint eine orange Warnung. HU-Datum unter Einstellungen festlegen.',
+  s_jaar:'📅 Jahr wechseln', jaar_t:'Verwenden Sie die Pfeile oben links in der Seitenleiste, um zwischen Jahren zu wechseln. Alle Ansichten filtern automatisch auf das ausgewählte Jahr.',
+  s_vast:'🔒 Fixkosten', vast_t:'Fixkosten sind monatliche Ausgaben wie Versicherung, KFZ-Steuer und Lagerung. Geben Sie sie pro Monat ein.',
+  vast_items:[['Versicherung','Monatliche Versicherungsprämie. Der Betrag unterscheidet sich oft zwischen Fahrsaison und Lagerzeit.'],['KFZ-Steuer','Fahrzeugsteuer. Quartalsweise? Durch 3 teilen und monatlich eingeben.'],['Lagerung','Lagerkosten außerhalb der Saison.'],['Abschreibung','Geschätzte monatliche Wertminderung.'],['Sonstige Fixkosten','Abonnements und Mitgliedschaften oder andere feste Monatskosten.']],
+  vast_tip:'💡 Tipp: Klicken Sie auf das Bleistiftsymbol neben einem Monat, um es zu bearbeiten.',
+  s_camp:'⛺ Camping', camp_t:'Erfassen Sie jeden Campingplatz mit Ankunftsdatum, Name, Land, Anzahl der Nächte und Gesamtpreis. Die App berechnet automatisch den Preis pro Nacht. Unten steht eine Tabelle mit dem durchschnittlichen Preis pro Nacht pro Land.',
+  camp_tip:'💡 Tipp: Füllen Sie immer das Land aus für den besten Ländervergleich.',
+  s_var:'⛽ Variable Kosten', var_t:'Geben Sie alle Kosten ein, die pro Fahrt oder Kauf variieren. Wählen Sie eine Kategorie:',
+  var_diesel:'Bei <strong>Diesel</strong> können Sie auch Liter, €/Liter und Kilometerstand eingeben. Die App berechnet dann den Verbrauch in L/100km.',
+  var_calc:'<strong>Verbrauchsberechnung:</strong> Die App vergleicht zwei aufeinanderfolgende Tankfüllungen mit bekanntem Kilometerstand. Geben Sie bei jeder Tankfüllung den Kilometerstand ein.',
+  var_tip:'💡 Tipp: Nutzen Sie "Schnell tanken" für schnelle Eingabe unterwegs. Sie können auch einen Kassenbon fotografieren.',
+  s_ond:'🔧 Wartung', ond_t:'Das Wartungsprotokoll ist für einmalige Kosten wie HU, Reifenwechsel, Zahnriemen oder Ölwechsel gedacht. Wartungskosten werden in der Gesamt- und Monatsübersicht berücksichtigt.',
+  s_reis:'🗺️ Reisetagebuch', reis_t:'Erfassen Sie Ihre Reisen mit Name, Ab- und Rückreisedatum, besuchten Ländern und Notizen. Die App berechnet automatisch die Gesamtreisekosten basierend auf Camping- und variablen Kosten im Reisezeitraum.',
+  reis_tip:'💡 Tipp: Länder als Kommaliste eingeben, z.B. "Deutschland, Schweiz, Italien".',
+  s_budg:'🎯 Budget', budg_t:'Legen Sie ein Jahresbudget für vier Kategorien fest: Gesamt, Kraftstoff, Camping und Wartung. Fortschrittsbalken zeigen, wie viel des Budgets bereits verwendet wurde.',
+  budg_items:['Grün — weniger als 80% des Budgets verwendet','Orange — zwischen 80% und 100%','Rot — Budget überschritten'],
+  s_maand:'📅 Monatsübersicht', maand_t:'Die Monatsübersicht zeigt alle Kostenpositionen pro Monat in einer Tabelle. Nutzen Sie "Vergleichen mit" für zwei Jahre nebeneinander. Mit "CSV" exportieren Sie nach Excel oder Google Sheets.',
+  s_inst:'⚙️ Einstellungen', inst_t:'Geben Sie Ihre Fahrzeugdaten ein und wählen Sie eine Sprache. Auf Niederländisch können Sie auch das Kennzeichen über das RDW nachschlagen.',
+  inst_campers:'Haben Sie mehrere Wohnmobile? Fügen Sie sie über "+ Neues Wohnmobil hinzufügen" ein und wechseln Sie mit "Aktivieren".',
+  inst_note:'Die Kostendaten werden derzeit zwischen allen Wohnmobilen geteilt.',
+  s_backup:'💾 Sicherung und Wiederherstellung', backup_t:'Alle Daten werden in Ihrem Browser gespeichert. Das Leeren des Caches kann zu Datenverlust führen. Erstellen Sie regelmäßig Sicherungskopien:',
+  backup_steps:['Klicken Sie auf <strong>↓ Sichern</strong> oben rechts. Eine .json-Datei wird heruntergeladen.','Speichern Sie diese Datei an einem sicheren Ort, z.B. Google Drive oder einem USB-Stick.','Zur Datenwiederherstellung klicken Sie auf <strong>↑ Importieren</strong> und wählen die Datei aus.'],
+  backup_tip:'💡 Erstellen Sie nach jeder größeren Eingabe und nach jedem Urlaub eine Sicherungskopie.',
+},
+fr:{
+  welkom:'🚐 Bienvenue dans Coûts Camping-Car',
+  intro:'Cette application vous aide à suivre tous les coûts de votre camping-car — de l\'assurance à la taxe, en passant par le carburant, le camping et l\'entretien. Toutes les données sont stockées localement. Faites des sauvegardes régulières.',
+  t1_t:'⛽ Plein rapide', t1_d:'Utilisez le bouton en haut à droite pour saisir rapidement un plein. Vous pouvez aussi prendre une photo du reçu.',
+  t2_t:'💾 Faire une sauvegarde', t2_d:'Téléchargez régulièrement une sauvegarde pour ne jamais perdre de données.',
+  t3_t:'🖨️ Exporter en PDF', t3_d:'Cliquez sur 🖨️ en haut à droite pour un aperçu en PDF ou imprimé.',
+  s_dash:'⊞ Tableau de bord', dash_intro:'Le tableau de bord donne un aperçu direct de l\'année sélectionnée. En haut se trouvent six indicateurs clés :',
+  kpi:[['Total','La somme de tous les coûts de l\'année sélectionnée.'],['Frais de camping','Total moins stockage et dépréciation.'],['Sans stockage','Total moins les frais de stockage.'],['Carburant','Tous les coûts diesel réunis.'],['Camping','Tous les frais de camping réunis.'],['Prix diesel moyen','Le prix moyen par litre de diesel sur tous les pleins.']],
+  dash_chart:'<strong>Graphique :</strong> Cliquez sur un mois dans le graphique pour voir la répartition de ce mois.',
+  dash_apk:'<strong>Rappel CT :</strong> Si le CT expire dans les 60 jours, un avertissement orange apparaît. Définissez la date du CT dans Paramètres.',
+  s_jaar:'📅 Changer d\'année', jaar_t:'Utilisez les flèches en haut à gauche pour naviguer entre les années. Toutes les vues filtrent automatiquement sur l\'année sélectionnée.',
+  s_vast:'🔒 Coûts fixes', vast_t:'Les coûts fixes sont des dépenses mensuelles comme l\'assurance, la taxe et le stockage. Saisissez-les par mois.',
+  vast_items:[['Assurance','Prime d\'assurance mensuelle. Le montant diffère souvent entre la saison de conduite et le stockage.'],['Taxe véhicule','Taxe sur le véhicule. Trimestrielle ? Divisez par 3 et saisissez mensuellement.'],['Stockage','Frais de stockage hors saison.'],['Dépréciation','Estimation mensuelle de la dépréciation.'],['Autres fixes','Abonnements et adhésions ou autres frais fixes mensuels.']],
+  vast_tip:'💡 Astuce : cliquez sur l\'icône crayon à côté d\'un mois pour le modifier.',
+  s_camp:'⛺ Camping', camp_t:'Enregistrez chaque camping avec la date d\'arrivée, le nom, le pays, le nombre de nuits et le prix total. L\'application calcule automatiquement le prix par nuit. En bas se trouve un tableau avec le prix moyen par nuit par pays.',
+  camp_tip:'💡 Astuce : remplissez toujours le pays pour une meilleure comparaison par pays.',
+  s_var:'⛽ Coûts variables', var_t:'Saisissez tous les coûts qui varient par trajet ou achat. Choisissez une catégorie :',
+  var_diesel:'Pour <strong>Diesel</strong>, vous pouvez aussi saisir les litres, €/litre et le kilométrage. L\'application calcule alors la consommation en L/100km.',
+  var_calc:'<strong>Calcul de consommation :</strong> l\'application compare deux pleins consécutifs avec kilométrage connu. Saisissez le kilométrage à chaque plein.',
+  var_tip:'💡 Astuce : utilisez "Plein rapide" pour une saisie rapide en déplacement. Vous pouvez aussi scanner un reçu.',
+  s_ond:'🔧 Entretien', ond_t:'Le journal d\'entretien est destiné aux coûts ponctuels comme le CT, les pneus, la courroie de distribution ou les vidanges. Les coûts d\'entretien sont inclus dans le total et la vue mensuelle.',
+  s_reis:'🗺️ Journal de voyage', reis_t:'Enregistrez vos voyages avec un nom, les dates de départ et retour, les pays visités et des notes. L\'application calcule automatiquement les coûts totaux du voyage.',
+  reis_tip:'💡 Astuce : saisissez les pays comme liste séparée par des virgules, ex. "Allemagne, Suisse, Italie".',
+  s_budg:'🎯 Budget', budg_t:'Définissez un budget annuel pour quatre catégories : total, carburant, camping et entretien. Des barres de progression indiquent l\'utilisation du budget.',
+  budg_items:['Vert — moins de 80% du budget utilisé','Orange — entre 80% et 100%','Rouge — budget dépassé'],
+  s_maand:'📅 Vue mensuelle', maand_t:'La vue mensuelle affiche tous les postes de coûts par mois dans un tableau. Utilisez "Comparer avec" pour afficher deux années côte à côte. Exportez en CSV pour Excel ou Google Sheets.',
+  s_inst:'⚙️ Paramètres', inst_t:'Saisissez les données de votre camping-car et choisissez une langue. En néerlandais, vous pouvez aussi rechercher la plaque d\'immatriculation via le RDW.',
+  inst_campers:'Plusieurs camping-cars ? Ajoutez-les via "+ Ajouter un nouveau camping-car" et basculez avec "Activer".',
+  inst_note:'Les données de coûts sont actuellement partagées entre tous les camping-cars.',
+  s_backup:'💾 Sauvegarde et restauration', backup_t:'Toutes les données sont stockées dans votre navigateur. Vider le cache peut entraîner une perte de données. Faites des sauvegardes régulières :',
+  backup_steps:['Cliquez sur <strong>↓ Sauvegarde</strong> en haut à droite. Un fichier .json sera téléchargé.','Enregistrez ce fichier en lieu sûr, ex. Google Drive ou une clé USB.','Pour restaurer, cliquez sur <strong>↑ Importer</strong> et sélectionnez le fichier.'],
+  backup_tip:'💡 Faites une sauvegarde après chaque saisie importante et surtout après des vacances.',
+},
+es:{
+  welkom:'🚐 Bienvenido a Costes Autocaravana',
+  intro:'Esta aplicación te ayuda a registrar todos los costes de tu autocaravana — desde el seguro hasta el carburante, camping y mantenimiento. Todos los datos se almacenan localmente. Haz copias de seguridad con regularidad.',
+  t1_t:'⛽ Repostar rápido', t1_d:'Usa el botón de arriba a la derecha para registrar un repostaje rápido. También puedes hacer una foto del recibo.',
+  t2_t:'💾 Hacer copia de seguridad', t2_d:'Descarga copias de seguridad con regularidad para no perder datos.',
+  t3_t:'🖨️ Exportar a PDF', t3_d:'Haz clic en 🖨️ arriba a la derecha para un resumen en PDF o impresión.',
+  s_dash:'⊞ Panel', dash_intro:'El panel da una visión directa del año seleccionado. Arriba hay seis indicadores clave:',
+  kpi:[['Total','La suma de todos los costes del año seleccionado.'],['Costes camping','Total menos almacenamiento y depreciación.'],['Sin almacenamiento','Total menos costes de almacenamiento.'],['Combustible','Todos los costes de diesel juntos.'],['Camping','Todos los costes de camping juntos.'],['Precio diesel medio','El precio medio por litro de diesel en todos los repostajes.']],
+  dash_chart:'<strong>Gráfico:</strong> Haz clic en un mes del gráfico de barras para ver el desglose de ese mes.',
+  dash_apk:'<strong>Recordatorio ITV:</strong> Si la ITV vence en 60 días, aparece un aviso naranja. Configura la fecha de la ITV en Ajustes.',
+  s_jaar:'📅 Cambiar de año', jaar_t:'Usa las flechas en la parte superior izquierda para cambiar entre años. Todas las vistas filtran automáticamente al año seleccionado.',
+  s_vast:'🔒 Costes fijos', vast_t:'Los costes fijos son gastos mensuales como seguro, impuesto y almacenamiento. Introdúcelos por mes.',
+  vast_items:[['Seguro','Prima mensual del seguro. El importe suele diferir entre la temporada de conducción y el almacenamiento.'],['Impuesto vehículo','Impuesto sobre el vehículo. ¿Trimestral? Divide entre 3 e introduce mensualmente.'],['Almacenamiento','Costes de almacenamiento fuera de temporada.'],['Depreciación','Estimación mensual de la depreciación.'],['Otros fijos','Suscripciones y membresías u otros costes fijos mensuales.']],
+  vast_tip:'💡 Consejo: haz clic en el icono del lápiz junto a un mes para editarlo.',
+  s_camp:'⛺ Camping', camp_t:'Registra cada camping con fecha de llegada, nombre, país, número de noches y precio total. La app calcula automáticamente el precio por noche. Abajo hay una tabla con el precio medio por noche por país.',
+  camp_tip:'💡 Consejo: introduce siempre el país para una mejor comparación por países.',
+  s_var:'⛽ Costes variables', var_t:'Introduce todos los costes que varían por viaje o compra. Elige una categoría:',
+  var_diesel:'Para <strong>Diesel</strong> también puedes introducir litros, €/litro y cuentakilómetros. La app calcula entonces el consumo en L/100km.',
+  var_calc:'<strong>Cálculo de consumo:</strong> la app compara dos repostajes consecutivos con cuentakilómetros conocido. Introduce el cuentakilómetros en cada repostaje.',
+  var_tip:'💡 Consejo: usa "Repostar rápido" para entrada rápida en carretera. También puedes escanear un recibo.',
+  s_ond:'🔧 Mantenimiento', ond_t:'El registro de mantenimiento es para costes puntuales como ITV, cambio de neumáticos, correa de distribución o cambio de aceite. Los costes de mantenimiento se incluyen en el resumen total y mensual.',
+  s_reis:'🗺️ Diario de viajes', reis_t:'Registra tus viajes con nombre, fechas de salida y regreso, países visitados y notas. La app calcula automáticamente los costes totales del viaje.',
+  reis_tip:'💡 Consejo: introduce los países como lista separada por comas, ej. "Alemania, Suiza, Italia".',
+  s_budg:'🎯 Presupuesto', budg_t:'Establece un presupuesto anual para cuatro categorías: total, combustible, camping y mantenimiento. Las barras de progreso muestran cuánto del presupuesto se ha utilizado.',
+  budg_items:['Verde — menos del 80% del presupuesto usado','Naranja — entre el 80% y el 100%','Rojo — presupuesto superado'],
+  s_maand:'📅 Vista mensual', maand_t:'La vista mensual muestra todos los gastos por mes en una tabla. Usa "Comparar con" para poner dos años uno al lado del otro. Exporta con "CSV" para Excel o Google Sheets.',
+  s_inst:'⚙️ Ajustes', inst_t:'Introduce los datos de tu autocaravana y elige un idioma. En neerlandés también puedes buscar la matrícula a través del RDW.',
+  inst_campers:'¿Varias autocaravanas? Añádelas con "+ Añadir nueva autocaravana" y cambia con "Activar".',
+  inst_note:'Los datos de costes se comparten actualmente entre todas las autocaravanas.',
+  s_backup:'💾 Copia de seguridad y restauración', backup_t:'Todos los datos se guardan en tu navegador. Limpiar la caché puede causar pérdida de datos. Haz copias de seguridad regularmente:',
+  backup_steps:['Haz clic en <strong>↓ Copia de seguridad</strong> arriba a la derecha. Se descargará un archivo .json.','Guarda este archivo en un lugar seguro, p. ej. Google Drive o una memoria USB.','Para restaurar, haz clic en <strong>↑ Importar</strong> y selecciona el archivo.'],
+  backup_tip:'💡 Haz una copia de seguridad después de cada entrada importante y especialmente después de las vacaciones.',
+}
+};
+
+function hndCard(title, body){
+  return `<div class="card" style="margin-bottom:16px"><div class="card-hd"><div class="card-t">${title}</div></div><div class="card-b" style="max-width:720px">${body}</div></div>`;
+}
+function hndRow(a,b){
+  return `<div style="display:flex;gap:12px;padding:10px 14px;background:var(--bg);border-radius:var(--rs)"><div style="font-weight:600;font-size:13px;min-width:130px;flex-shrink:0">${a}</div><div style="font-size:13px;color:var(--txt2)">${b}</div></div>`;
+}
+function hndStep(n,txt){
+  return `<div style="display:flex;gap:12px;align-items:flex-start"><div style="background:var(--acc);color:#fff;border-radius:6px;padding:4px 10px;font-size:12px;font-weight:600;flex-shrink:0">${n}</div><div style="font-size:13px;color:var(--txt2)">${txt}</div></div>`;
+}
+
+function rHandleiding(){
+  const el=document.getElementById('handleidingContent');
+  if(!el)return;
+  const h=HND[lang]||HND.nl;
+  const catLabels=Object.values(CL());
+  el.innerHTML=`
+    ${hndCard(h.welkom,`
+      <p style="font-size:14px;line-height:1.7;color:var(--txt2);margin-bottom:20px">${h.intro}</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px">
+        <div style="background:var(--acc-s);border:1px solid #fde68a;border-radius:var(--rs);padding:14px"><div style="font-size:18px;margin-bottom:6px">⛽</div><div style="font-weight:600;font-size:13px">${h.t1_t}</div><div style="font-size:12px;color:var(--muted);margin-top:3px">${h.t1_d}</div></div>
+        <div style="background:var(--grn-s);border:1px solid #a7f3d0;border-radius:var(--rs);padding:14px"><div style="font-size:18px;margin-bottom:6px">💾</div><div style="font-weight:600;font-size:13px">${h.t2_t}</div><div style="font-size:12px;color:var(--muted);margin-top:3px">${h.t2_d}</div></div>
+        <div style="background:var(--blue-s);border:1px solid #bfdbfe;border-radius:var(--rs);padding:14px"><div style="font-size:18px;margin-bottom:6px">🖨️</div><div style="font-weight:600;font-size:13px">${h.t3_t}</div><div style="font-size:12px;color:var(--muted);margin-top:3px">${h.t3_d}</div></div>
+      </div>`)}
+    ${hndCard(h.s_dash,`
+      <p style="font-size:13px;line-height:1.7;color:var(--txt2);margin-bottom:14px">${h.dash_intro}</p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">${h.kpi.map(([a,b])=>hndRow(a,b)).join('')}</div>
+      <p style="font-size:13px;line-height:1.7;color:var(--txt2)">${h.dash_chart}</p>
+      <p style="font-size:13px;line-height:1.7;color:var(--txt2);margin-top:10px">${h.dash_apk}</p>`)}
+    ${hndCard(h.s_jaar,`<p style="font-size:13px;line-height:1.7;color:var(--txt2)">${h.jaar_t}</p>`)}
+    ${hndCard(h.s_vast,`
+      <p style="font-size:13px;line-height:1.7;color:var(--txt2);margin-bottom:14px">${h.vast_t}</p>
+      <div style="background:var(--bg);border-radius:var(--rs);padding:14px 16px;font-size:13px;display:flex;flex-direction:column;gap:10px">${h.vast_items.map(([a,b])=>hndRow(a,b)).join('')}</div>
+      <p style="font-size:13px;color:var(--muted);margin-top:10px">${h.vast_tip}</p>`)}
+    ${hndCard(h.s_camp,`
+      <p style="font-size:13px;line-height:1.7;color:var(--txt2);margin-bottom:10px">${h.camp_t}</p>
+      <p style="font-size:13px;color:var(--muted)">${h.camp_tip}</p>`)}
+    ${hndCard(h.s_var,`
+      <p style="font-size:13px;line-height:1.7;color:var(--txt2);margin-bottom:14px">${h.var_t}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">${catLabels.map(l=>`<span class="pill pd">${l}</span>`).join('')}</div>
+      <p style="font-size:13px;line-height:1.7;color:var(--txt2);margin-bottom:10px">${h.var_diesel}</p>
+      <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:var(--rs);padding:12px 14px;font-size:13px;color:#92400e">${h.var_calc}</div>
+      <p style="font-size:13px;color:var(--muted);margin-top:10px">${h.var_tip}</p>`)}
+    ${hndCard(h.s_ond,`<p style="font-size:13px;line-height:1.7;color:var(--txt2)">${h.ond_t}</p>`)}
+    ${hndCard(h.s_reis,`
+      <p style="font-size:13px;line-height:1.7;color:var(--txt2);margin-bottom:10px">${h.reis_t}</p>
+      <p style="font-size:13px;color:var(--muted)">${h.reis_tip}</p>`)}
+    ${hndCard(h.s_budg,`
+      <p style="font-size:13px;line-height:1.7;color:var(--txt2);margin-bottom:12px">${h.budg_t}</p>
+      <div style="display:flex;flex-direction:column;gap:8px">${h.budg_items.map((item,i)=>`<div style="display:flex;align-items:center;gap:10px"><div style="width:60px;height:8px;border-radius:10px;background:${['var(--grn)','var(--acc)','var(--red)'][i]}"></div><span style="font-size:13px;color:var(--txt2)">${item}</span></div>`).join('')}</div>`)}
+    ${hndCard(h.s_maand,`<p style="font-size:13px;line-height:1.7;color:var(--txt2)">${h.maand_t}</p>`)}
+    ${hndCard(h.s_inst,`
+      <p style="font-size:13px;line-height:1.7;color:var(--txt2);margin-bottom:10px">${h.inst_t}</p>
+      <p style="font-size:13px;line-height:1.7;color:var(--txt2);margin-bottom:12px">${h.inst_campers}</p>
+      <div style="background:var(--blue-s);border:1px solid #bfdbfe;border-radius:var(--rs);padding:12px 14px;font-size:13px;color:#1e40af">${h.inst_note}</div>`)}
+    ${hndCard(h.s_backup,`
+      <p style="font-size:13px;line-height:1.7;color:var(--txt2);margin-bottom:14px">${h.backup_t}</p>
+      <div style="display:flex;flex-direction:column;gap:10px">${h.backup_steps.map((s,i)=>hndStep(i+1,s)).join('')}</div>
+      <div style="background:var(--grn-s);border:1px solid #a7f3d0;border-radius:var(--rs);padding:12px 14px;font-size:13px;color:#065f46;margin-top:14px">${h.backup_tip}</div>`)}
+  `;
+}
+
+// ═══════════════════════════════════════
+async function scanTankbon(event){
+  const file=event.target.files[0];
+  if(!file)return;
+  event.target.value='';
+
+  // Toon status
+  const status=document.getElementById('scanStatus');
+  const msg=document.getElementById('scanMsg');
+  status.style.display='flex';
+  msg.textContent='Bon wordt gelezen...';
+
+  try{
+    // Converteer afbeelding naar base64
+    const base64=await new Promise((res,rej)=>{
+      const r=new FileReader();
+      r.onload=()=>res(r.result.split(',')[1]);
+      r.onerror=rej;
+      r.readAsDataURL(file);
+    });
+
+    const mediaType=file.type||'image/jpeg';
+
+    // Stuur naar Claude API
+    const response=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        messages:[{
+          role:'user',
+          content:[
+            {type:'image',source:{type:'base64',media_type:mediaType,data:base64}},
+            {type:'text',text:`Dit is een tankbon of kassabon van een tankstation. Haal de volgende gegevens eruit en antwoord ALLEEN met geldig JSON, geen uitleg:
+{
+  "bedrag": <totaalbedrag in euro als getal, bijv. 98.50>,
+  "liters": <aantal liters als getal, bijv. 55.32>,
+  "ppl": <prijs per liter als getal, bijv. 1.789>,
+  "datum": <datum in formaat YYYY-MM-DD of null als niet leesbaar>
+}
+Als een waarde niet op de bon staat, gebruik dan null.`}
+          ]
+        }]
+      })
+    });
+
+    const data=await response.json();
+    const text=data.content?.find(c=>c.type==='text')?.text||'{}';
+    const clean=text.replace(/```json|```/g,'').trim();
+    const result=JSON.parse(clean);
+
+    // Vul velden in
+    if(result.bedrag)document.getElementById('snelBedrag').value=result.bedrag;
+    if(result.liters)document.getElementById('snelLiters').value=result.liters;
+    if(result.ppl)document.getElementById('snelPpl').value=result.ppl;
+    if(result.datum)document.getElementById('snelDatum').value=result.datum;
+
+    // Toon succes
+    msg.textContent='✓ Gegevens ingelezen! Controleer en sla op.';
+    document.getElementById('scanSpinner').style.display='none';
+    status.style.background='var(--grn-s)';
+    status.style.borderColor='#a7f3d0';
+    status.style.color='var(--grn)';
+    setTimeout(()=>{status.style.display='none';status.style.background='';status.style.borderColor='';status.style.color='';document.getElementById('scanSpinner').style.display='';},3000);
+
+  }catch(err){
+    msg.textContent='Kon bon niet lezen. Vul de gegevens handmatig in.';
+    document.getElementById('scanSpinner').style.display='none';
+    status.style.background='var(--red-s)';
+    status.style.borderColor='#fca5a5';
+    status.style.color='var(--red)';
+    setTimeout(()=>{status.style.display='none';status.style.background='';status.style.borderColor='';status.style.color='';document.getElementById('scanSpinner').style.display='';},3000);
+  }
+}
+
+function ra(){rDash();rMaand();rVast();rCamp();rVar();rKm();rOnderhoud();rTrips();rBudget();rInstellingen();rLangSelector();rHandleiding();}
+
+// ═══════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════
+let _toastTimer=null;
+function toast(msg,type='ok'){
+  const el=document.getElementById('toastEl');if(!el)return;
+  el.textContent=msg;
+  el.className='toast toast-'+type+' show';
+  if(_toastTimer)clearTimeout(_toastTimer);
+  _toastTimer=setTimeout(()=>{el.classList.remove('show');},2200);
+}
+
+// ═══════════════════════════════════════
+// PRIVACY MODE
+// ═══════════════════════════════════════
+function verwijderAlles(){
+  if(!confirm('⚠️ Weet je zeker dat je ALLE gegevens wilt verwijderen?\n\nDit omvat: vaste kosten, campings, variabele kosten, onderhoud, reizen, budget en camperinstellingen.\n\nDeze actie kan niet ongedaan worden gemaakt.'))return;
+  if(!confirm('Laatste waarschuwing: alle data wordt permanent gewist. Doorgaan?'))return;
+  vast={};camps=[];costs=[];km={};trips=[];onderhoud=[];budget={};
+  camperSettings={naam:'',merk:'',model:'',jaar:'',brandstof:'',cc:'',pk:'',massa:'',apk:'',kenteken:''};
+  campersList=[];
+  ['vast','camp','kosten','km','trips','onderhoud','budget','camper','campers'].forEach(k=>{
+    try{localStorage.removeItem('cv6-'+k);}catch(e){}
+    try{localStorage.removeItem('cv5-'+k);}catch(e){}
+  });
+  ra();
+  toast('🗑 Alle data verwijderd','err');
+}
+
+let privacyOn=false;
+function togglePrivacy(){
+  privacyOn=!privacyOn;
+  document.body.classList.toggle('privacy-on',privacyOn);
+  const btn=document.getElementById('privBtn');
+  if(btn)btn.classList.toggle('on',privacyOn);
+  toast(privacyOn?'👁 Privacy modus aan':'👁 Privacy modus uit');
+}
+
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+const today=new Date().toISOString().slice(0,10);
+document.getElementById('yv').textContent=yr;
+document.getElementById('psub').textContent=t('v_dash_sub')+yr;
+['cD','kD','oD'].forEach(id=>document.getElementById(id).value=today);
+document.getElementById('vM').value=new Date().getMonth()+1;
+td();
+applyLangToDOM();
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Enter')return;
+  const av=document.querySelector('.view.on');if(!av)return;
+  const id=av.id;
+  if(id==='v-camp')addCamp();else if(id==='v-var')addVar();
+  else if(id==='v-vast')saveVast();else if(id==='v-onderhoud')addOnderhoud();
+  else if(id==='v-trips')addTrip();
+});
+// ═══════════════════════════════════════
+// PWA — MANIFEST, SERVICE WORKER & INSTALL
+// ═══════════════════════════════════════
+
+// 1. Inline manifest via blob URL
+(function(){
+  const iconSvg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='114' fill='%23f59e0b'/><text x='256' y='340' text-anchor='middle' font-size='280' font-family='Arial'>🚐</text></svg>`;
+  const iconUrl = 'data:image/svg+xml,' + iconSvg;
+  const manifest = {
+    name: 'Camperkosten',
+    short_name: 'Camperkosten',
+    description: 'Houd alle kosten van je camper bij per maand en jaar.',
+    start_url: '.',
+    display: 'standalone',
+    background_color: '#f5f6f8',
+    theme_color: '#f59e0b',
+    orientation: 'portrait-primary',
+    lang: 'nl',
+    categories: ['finance', 'lifestyle', 'travel'],
+    icons: [
+      {src: iconUrl, sizes: '192x192', type: 'image/svg+xml', purpose: 'any maskable'},
+      {src: iconUrl, sizes: '512x512', type: 'image/svg+xml', purpose: 'any maskable'}
+    ],
+    shortcuts: [
+      {name: 'Snel tanken', short_name: 'Tanken', description: 'Snel een tankbeurt invoeren', url: '.'},
+      {name: 'Dashboard', short_name: 'Dashboard', description: 'Open het dashboard', url: '.'}
+    ]
+  };
+  const blob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  document.getElementById('pwaManifest').href = url;
+})();
+
+// 2. Service Worker — offline support
+if('serviceWorker' in navigator){
+  const swCode = `
+const CACHE = 'camperkosten-v5';
+const PRECACHE = [
+  'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap',
+  'https://fonts.gstatic.com'
+];
+// Cache-first for fonts/statics, network-first for HTML
+function isFontOrStatic(url){
+  return url.includes('fonts.googleapis') || url.includes('fonts.gstatic') || url.includes('cdn');
+}
+self.addEventListener('install', e => {
+  e.waitUntil(
+    caches.open(CACHE).then(c => c.addAll(PRECACHE).catch(()=>{}))
+  );
+  self.skipWaiting();
+});
+self.addEventListener('activate', e => {
+  e.waitUntil(caches.keys().then(keys =>
+    Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
+  ));
+  self.clients.claim();
+});
+self.addEventListener('fetch', e => {
+  if(e.request.method !== 'GET') return;
+  const url = e.request.url;
+  if(isFontOrStatic(url)){
+    // Cache-first for fonts
+    e.respondWith(
+      caches.match(e.request).then(cached => cached || fetch(e.request).then(resp => {
+        if(resp && resp.status === 200){
+          const clone = resp.clone();
+          caches.open(CACHE).then(c => c.put(e.request, clone));
+        }
+        return resp;
+      }).catch(() => new Response('', {status: 503})))
+    );
+  } else {
+    // Network-first with cache fallback for app
+    e.respondWith(
+      fetch(e.request).then(resp => {
+        if(resp && resp.status === 200 && resp.type !== 'opaque'){
+          const clone = resp.clone();
+          caches.open(CACHE).then(c => c.put(e.request, clone));
+        }
+        return resp;
+      }).catch(() => caches.match(e.request).then(cached => cached || new Response('Offline', {status: 503})))
+    );
+  }
+});
+  `;
+  const swBlob = new Blob([swCode], {type: 'application/javascript'});
+  const swUrl = URL.createObjectURL(swBlob);
+  navigator.serviceWorker.register(swUrl, {scope: './'})
+    .catch(()=>{});
+}
+
+// 3. Install prompt
+let deferredPrompt = null;
+const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+const isInStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  // Toon banner pas na 3 seconden
+  if(!localStorage.getItem('pwa-dismissed') && !isInStandalone){
+    setTimeout(() => {
+      document.getElementById('installBanner').style.display = 'block';
+    }, 3000);
+  }
+});
+
+function installPWA(){
+  document.getElementById('installBanner').style.display = 'none';
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(r => {
+      if(r.outcome === 'accepted') localStorage.setItem('pwa-installed','1');
+      deferredPrompt = null;
+    });
+  }
+}
+
+function dismissInstall(){
+  document.getElementById('installBanner').style.display = 'none';
+  localStorage.setItem('pwa-dismissed', '1');
+}
+
+// iOS: toon instructie als niet al geïnstalleerd
+if(isIos && !isInStandalone && !localStorage.getItem('pwa-dismissed')){
+  setTimeout(() => {
+    document.getElementById('installIos').style.display = 'block';
+  }, 4000);
+}
+
+window.addEventListener('appinstalled', () => {
+  document.getElementById('installBanner').style.display = 'none';
+  localStorage.setItem('pwa-installed','1');
+});
+
+window.addEventListener('resize',()=>{const av=document.querySelector('.view.on');if(av&&av.id==='v-dash')rDash();});
+(async()=>{await load();})();
+
+</script>
+<!-- PWA INSTALL BANNER (Android/Chrome) -->
+<div class="install-banner" id="installBanner">
+  <div class="install-banner-title">📱 Installeer Camperkosten</div>
+  <div class="install-banner-sub">Voeg de app toe aan je startscherm voor snelle toegang, ook zonder internet.</div>
+  <div class="install-banner-btns">
+    <button class="ib-ok" onclick="installPWA()">Installeren</button>
+    <button class="ib-nee" onclick="dismissInstall()">Niet nu</button>
+  </div>
+</div>
+
+<!-- iOS INSTALL INSTRUCTIE -->
+<div class="install-ios" id="installIos" style="display:none">
+  <div style="font-size:18px;font-weight:700;margin-bottom:8px">📲 Installeer als app</div>
+  <p id="iosInstallText" style="font-size:13px;line-height:1.7;color:rgba(255,255,255,.85)">Tik op het <strong>Deel-icoon</strong>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin:0 2px"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+    onderaan je scherm,<br>dan kies <strong>"Zet op beginscherm"</strong>.</p>
+  <button id="iosInstallBtn" onclick="document.getElementById('installIos').style.display='none';localStorage.setItem('pwa-dismissed','1')" style="margin-top:12px;background:var(--acc);color:#fff;border:none;border-radius:8px;padding:9px 24px;font-family:var(--font);font-weight:700;cursor:pointer;font-size:13px">Begrepen ✓</button>
+</div>
+
+<!-- MOBIELE BOTTOM NAV -->
+<nav class="mob-nav" id="mobNav" aria-label="Mobiele navigatie">
+  <button class="mob-nav-item on" id="mn-dash" onclick="svMob('dash',this)" aria-label="Dashboard"><span aria-hidden="true">⊞</span>Dashboard</button>
+  <button class="mob-nav-item" id="mn-maand" onclick="svMob('maand',this)" aria-label="Maandoverzicht"><span aria-hidden="true">📅</span>Maand</button>
+  <button class="mob-nav-item" id="mn-var" onclick="svMob('var',this)" aria-label="Variabele kosten"><span aria-hidden="true">⛽</span>Kosten</button>
+  <button class="mob-nav-item" id="mn-camp" onclick="svMob('camp',this)" aria-label="Camping"><span aria-hidden="true">⛺</span>Camping</button>
+  <button class="mob-nav-item" id="mn-instellingen" onclick="svMob('instellingen',this)" aria-label="Instellingen en meer"><span aria-hidden="true">⚙️</span>Meer</button>
+</nav>
+</body>
+</html>
