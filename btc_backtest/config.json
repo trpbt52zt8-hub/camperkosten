@@ -1,0 +1,34 @@
+{
+  "data": {
+    "symbol": "BTCUSDT",
+    "interval": "1h",
+    "limit": 2000,
+    "cache_file": "data/btcusdt_1h.csv"
+  },
+  "backtest": {
+    "initial_capital": 10000,
+    "risk_per_trade": 0.01,
+    "fee_rate": 0.001
+  },
+  "strategies": {
+    "smma_crossover": {
+      "fast_period": 20,
+      "slow_period": 50,
+      "atr_period": 14,
+      "atr_multiplier": 2.0
+    },
+    "rsi_mean_reversion": {
+      "rsi_period": 14,
+      "oversold": 30,
+      "overbought": 70,
+      "exit_level": 50,
+      "atr_period": 14,
+      "atr_multiplier": 2.0
+    },
+    "donchian_breakout": {
+      "channel_period": 20,
+      "atr_period": 14,
+      "atr_multiplier": 2.0
+    }
+  }
+}
