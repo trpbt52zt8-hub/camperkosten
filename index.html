@@ -390,6 +390,7 @@ body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bot
     <div class="nav-lbl">Beheer</div>
     <button class="ni" onclick="sv('instellingen',this)"><span class="ni-ic">⚙️</span>Instellingen</button>
     <button class="ni" onclick="sv('handleiding',this)"><span class="ni-ic">📖</span>Handleiding</button>
+    <button class="ni" onclick="sv('netwerk',this);initNetwerk()"><span class="ni-ic">📶</span>Netwerk</button>
   </nav>
   <div class="sb-ft">Gegevens lokaal opgeslagen</div>
 </div>
@@ -795,6 +796,11 @@ body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bot
       <div id="handleidingContent"></div>
     </div>
 
+    <!-- ═══ NETWERK ═══ -->
+    <div class="view" id="v-netwerk">
+      <div id="netwerkContent"></div>
+    </div>
+
   </div>
 </div>
 
@@ -826,6 +832,7 @@ nl: {
   v_budget:'Budget', v_budget_sub:'Jaarbudget instellen en voortgang bijhouden',
   v_instellingen:'Instellingen', v_instellingen_sub:'Campergegevens en kenteken',
   v_handleiding:'Handleiding', v_handleiding_sub:'Alles over het gebruik van deze app',
+  v_netwerk:'Netwerk analyse', v_netwerk_sub:'Informatie over je huidige wifi-verbinding',
   // KPI
   kpi_totaal:'Totaal', kpi_kamp:'Kampeerkosten', kpi_zs:'Zonder stalling',
   kpi_brand:'Brandstof', kpi_camp:'Camping', kpi_diesel_ppl:'Gem. dieselprijs',
@@ -969,6 +976,7 @@ en: {
   v_budget:'Budget', v_budget_sub:'Set annual budget and track progress',
   v_instellingen:'Settings', v_instellingen_sub:'Camper details and licence plate',
   v_handleiding:'User guide', v_handleiding_sub:'Everything about using this app',
+  v_netwerk:'Network analysis', v_netwerk_sub:'Information about your current wifi connection',
   kpi_totaal:'Total', kpi_kamp:'Camping costs', kpi_zs:'Without storage',
   kpi_brand:'Fuel', kpi_camp:'Camping', kpi_diesel_ppl:'Avg. diesel price',
   kosten_campings:'Camping costs', kilometers:'Kilometres',
@@ -1088,6 +1096,7 @@ de: {
   v_budget:'Budget', v_budget_sub:'Jahresbudget festlegen und Fortschritt verfolgen',
   v_instellingen:'Einstellungen', v_instellingen_sub:'Fahrzeugdaten und Kennzeichen',
   v_handleiding:'Anleitung', v_handleiding_sub:'Alles über die Nutzung dieser App',
+  v_netwerk:'Netzwerkanalyse', v_netwerk_sub:'Informationen zu deiner aktuellen WLAN-Verbindung',
   kpi_totaal:'Gesamt', kpi_kamp:'Campingkosten', kpi_zs:'Ohne Lagerung',
   kpi_brand:'Kraftstoff', kpi_camp:'Camping', kpi_diesel_ppl:'Ø Dieselpreis',
   kosten_campings:'Campingkosten', kilometers:'Kilometer',
@@ -1207,6 +1216,7 @@ fr: {
   v_budget:'Budget', v_budget_sub:'Définir le budget annuel et suivre les progrès',
   v_instellingen:'Paramètres', v_instellingen_sub:'Informations sur le camping-car et plaque d\'immatriculation',
   v_handleiding:'Guide d\'utilisation', v_handleiding_sub:'Tout sur l\'utilisation de cette application',
+  v_netwerk:'Analyse réseau', v_netwerk_sub:'Informations sur votre connexion wifi actuelle',
   kpi_totaal:'Total', kpi_kamp:'Frais de camping', kpi_zs:'Sans stockage',
   kpi_brand:'Carburant', kpi_camp:'Camping', kpi_diesel_ppl:'Prix diesel moyen',
   kosten_campings:'Frais de camping', kilometers:'Kilomètres',
@@ -1326,6 +1336,7 @@ es: {
   v_budget:'Presupuesto', v_budget_sub:'Establecer presupuesto anual y seguir el progreso',
   v_instellingen:'Ajustes', v_instellingen_sub:'Datos de la autocaravana y matrícula',
   v_handleiding:'Guía de uso', v_handleiding_sub:'Todo sobre el uso de esta aplicación',
+  v_netwerk:'Análisis de red', v_netwerk_sub:'Información sobre tu conexión wifi actual',
   kpi_totaal:'Total', kpi_kamp:'Costes camping', kpi_zs:'Sin almacenamiento',
   kpi_brand:'Combustible', kpi_camp:'Camping', kpi_diesel_ppl:'Precio diesel medio',
   kosten_campings:'Costes camping', kilometers:'Kilómetros',
@@ -1598,7 +1609,8 @@ function getViews(){return{
   'onderhoud':[t('v_onderhoud'),t('v_onderhoud_sub')],
   'budget':[t('v_budget'),t('v_budget_sub')],
   'instellingen':[t('v_instellingen'),t('v_instellingen_sub')],
-  'handleiding':[t('v_handleiding'),t('v_handleiding_sub')]
+  'handleiding':[t('v_handleiding'),t('v_handleiding_sub')],
+  'netwerk':[t('v_netwerk'),t('v_netwerk_sub')]
 };}
 const VIEWS={get:(k)=>getViews()[k]};
 function sv(name,btn){
@@ -2708,6 +2720,180 @@ Als een waarde niet op de bon staat, gebruik dan null.`}
     status.style.color='var(--red)';
     setTimeout(()=>{status.style.display='none';status.style.background='';status.style.borderColor='';status.style.color='';document.getElementById('scanSpinner').style.display='';},3000);
   }
+}
+
+// ═══════════════════════════════════════
+// NETWERK ANALYSE
+// ═══════════════════════════════════════
+function getLocalIP(){
+  return new Promise(resolve=>{
+    try{
+      const pc=new RTCPeerConnection({iceServers:[]});
+      pc.createDataChannel('');
+      pc.createOffer().then(o=>pc.setLocalDescription(o)).catch(()=>resolve(null));
+      let done=false;
+      pc.onicecandidate=ice=>{
+        if(done)return;
+        if(!ice||!ice.candidate||!ice.candidate.candidate){resolve(null);done=true;return;}
+        const m=ice.candidate.candidate.match(/(\d{1,3}\.){3}\d{1,3}/);
+        if(m&&!m[0].startsWith('0.')){done=true;resolve(m[0]);pc.onicecandidate=null;try{pc.close();}catch(e){}}
+      };
+      setTimeout(()=>{if(!done){done=true;resolve(null);}},2000);
+    }catch(e){resolve(null);}
+  });
+}
+
+function guessGateway(ip){
+  if(!ip)return null;
+  const parts=ip.split('.');
+  if(parts.length!==4)return null;
+  return parts[0]+'.'+parts[1]+'.'+parts[2]+'.1';
+}
+
+function connType(){
+  const nc=navigator.connection||navigator.mozConnection||navigator.webkitConnection;
+  if(!nc)return null;
+  return {type:nc.type||'—',eff:nc.effectiveType||'—',dl:nc.downlink,rtt:nc.rtt,save:nc.saveData};
+}
+
+async function initNetwerk(){
+  const el=document.getElementById('netwerkContent');
+  if(!el)return;
+
+  el.innerHTML=`<div class="card"><div class="card-b" style="text-align:center;padding:40px;color:var(--muted)">
+    <div style="font-size:32px;margin-bottom:12px;animation:spin 1.5s linear infinite;display:inline-block">📶</div>
+    <div style="font-size:13px">Netwerk wordt geanalyseerd...</div></div></div>`;
+
+  const online=navigator.onLine;
+  const nc=connType();
+  const localIP=await getLocalIP();
+  const gateway=guessGateway(localIP);
+
+  const statusClr=online?'var(--grn)':'var(--red)';
+  const statusTxt=online?'Verbonden':'Niet verbonden';
+  const statusBg=online?'var(--grn-s)':'var(--red-s)';
+
+  let connRows='';
+  if(nc){
+    if(nc.type&&nc.type!=='—')connRows+=row('Verbindingstype',nc.type==='wifi'?'📶 WiFi':nc.type==='cellular'?'📱 Mobiel':nc.type);
+    if(nc.eff&&nc.eff!=='—')connRows+=row('Effectief type',nc.eff.toUpperCase());
+    if(nc.dl!=null)connRows+=row('Geschatte snelheid',nc.dl+' Mbps');
+    if(nc.rtt!=null)connRows+=row('Latentie (RTT)',nc.rtt+' ms');
+    if(nc.save!=null)connRows+=row('Data-spaarstand',nc.save?'Aan':'Uit');
+  }
+  if(!connRows)connRows=`<div style="font-size:12px;color:var(--muted);padding:8px 0">Verbindingsinformatie niet beschikbaar in deze browser.</div>`;
+
+  let ipRows='';
+  if(localIP)ipRows+=row('Lokaal IP-adres',`<span style="font-family:var(--mono)">${localIP}</span>`);
+  if(gateway)ipRows+=row('Vermoedelijke router',`<span style="font-family:var(--mono)">${gateway}</span>`);
+
+  const routerLinks=gateway?`
+    <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+      <a href="http://${gateway}" target="_blank" rel="noopener" class="btn bg" style="text-decoration:none;font-size:12px;height:32px;padding:0 12px">
+        🔗 Open router admin (${gateway})
+      </a>
+      <a href="http://192.168.1.1" target="_blank" rel="noopener" class="btn bg" style="text-decoration:none;font-size:12px;height:32px;padding:0 12px">192.168.1.1</a>
+      <a href="http://192.168.0.1" target="_blank" rel="noopener" class="btn bg" style="text-decoration:none;font-size:12px;height:32px;padding:0 12px">192.168.0.1</a>
+    </div>`:
+    `<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+      <a href="http://192.168.1.1" target="_blank" rel="noopener" class="btn bg" style="text-decoration:none;font-size:12px;height:32px;padding:0 12px">192.168.1.1</a>
+      <a href="http://192.168.0.1" target="_blank" rel="noopener" class="btn bg" style="text-decoration:none;font-size:12px;height:32px;padding:0 12px">192.168.0.1</a>
+      <a href="http://10.0.0.1" target="_blank" rel="noopener" class="btn bg" style="text-decoration:none;font-size:12px;height:32px;padding:0 12px">10.0.0.1</a>
+    </div>`;
+
+  function row(label,val){
+    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--bdr2)">
+      <span style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.4px">${label}</span>
+      <span style="font-size:13px;color:var(--txt);font-weight:500">${val}</span></div>`;
+  }
+
+  el.innerHTML=`
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-hd">
+        <div>
+          <div class="card-t">Verbindingsstatus</div>
+          <div class="card-s">Huidige netwerkverbinding van dit apparaat</div>
+        </div>
+        <button class="btn bg" onclick="initNetwerk()" style="height:32px;padding:0 12px;font-size:12px">↻ Vernieuwen</button>
+      </div>
+      <div class="card-b">
+        <div style="display:inline-flex;align-items:center;gap:8px;background:${statusBg};border-radius:20px;padding:6px 14px;margin-bottom:16px">
+          <div style="width:8px;height:8px;border-radius:50%;background:${statusClr}"></div>
+          <span style="font-size:13px;font-weight:600;color:${statusClr}">${statusTxt}</span>
+        </div>
+        ${connRows}
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-hd"><div class="card-t">IP-adres informatie</div><div class="card-s">Jouw apparaat op het netwerk</div></div>
+      <div class="card-b">
+        ${localIP?ipRows:`<div style="font-size:12px;color:var(--muted)">IP-adres kon niet worden bepaald. Controleer of je browserrechten toestaat voor WebRTC.</div>`}
+        <div style="margin-top:8px;font-size:12px;color:var(--muted);line-height:1.6">
+          Het lokale IP-adres is bepaald via WebRTC. Dit is het adres van dit apparaat op het lokale netwerk.
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-hd"><div class="card-t">Apparaten op het netwerk bekijken</div><div class="card-s">Via de router admin-pagina</div></div>
+      <div class="card-b">
+        <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:var(--rs);padding:12px 14px;margin-bottom:14px;font-size:13px;color:#92400e;line-height:1.6">
+          <strong>Browserbeperking:</strong> Webbrowsers kunnen uit beveiligingsoverwegingen geen apparaten op het lokale netwerk scannen.
+          Om te zien welke apparaten er op jouw wifi zijn aangesloten, gebruik je de router admin-pagina of een speciale app.
+        </div>
+        <div style="font-size:13px;font-weight:600;color:var(--txt);margin-bottom:8px">Open de router admin-pagina:</div>
+        ${routerLinks}
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--bdr2)">
+          <div style="font-size:13px;font-weight:600;color:var(--txt);margin-bottom:10px">Aanbevolen apps voor netwerk scannen:</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="background:var(--bg);border-radius:var(--rs);padding:12px 14px;display:flex;align-items:center;gap:12px">
+              <span style="font-size:22px">📱</span>
+              <div><div style="font-weight:600;font-size:13px">Fing – Network Scanner</div><div style="font-size:12px;color:var(--muted);margin-top:2px">Gratis app voor iOS en Android. Toont alle apparaten op het netwerk met naam, IP en MAC-adres.</div></div>
+            </div>
+            <div style="background:var(--bg);border-radius:var(--rs);padding:12px 14px;display:flex;align-items:center;gap:12px">
+              <span style="font-size:22px">🌐</span>
+              <div><div style="font-weight:600;font-size:13px">Router admin-pagina</div><div style="font-size:12px;color:var(--muted);margin-top:2px">Log in op jouw router (zie links hierboven). Onder "Verbonden apparaten" of "DHCP clients" zie je alle apparaten.</div></div>
+            </div>
+            <div style="background:var(--bg);border-radius:var(--rs);padding:12px 14px;display:flex;align-items:center;gap:12px">
+              <span style="font-size:22px">💻</span>
+              <div><div style="font-weight:600;font-size:13px">nmap (gevorderd)</div><div style="font-size:12px;color:var(--muted);margin-top:2px">Commandoregel tool voor netwerkscan: <code style="background:var(--bdr);padding:1px 5px;border-radius:3px;font-family:var(--mono)">nmap -sn 192.168.1.0/24</code></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd"><div class="card-t">Verbindingstest</div><div class="card-s">Controleer je internetverbinding</div></div>
+      <div class="card-b">
+        <div id="pingResult" style="font-size:13px;color:var(--muted)">Druk op de knop om de internetverbinding te testen.</div>
+        <div style="margin-top:12px">
+          <button class="btn bp" onclick="doPingTest()" style="height:32px;padding:0 14px;font-size:12px">▶ Verbindingstest uitvoeren</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+async function doPingTest(){
+  const el=document.getElementById('pingResult');
+  if(!el)return;
+  el.innerHTML='<span style="animation:spin 1s linear infinite;display:inline-block">⏳</span> Verbinding testen...';
+  const urls=[
+    {label:'Cloudflare DNS',url:'https://1.1.1.1/cdn-cgi/trace'},
+    {label:'Google',url:'https://www.google.com/generate_204'}
+  ];
+  const results=[];
+  for(const {label,url} of urls){
+    const t0=Date.now();
+    try{
+      await fetch(url,{mode:'no-cors',cache:'no-store'});
+      results.push(`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--bdr2)"><span style="font-size:13px">${label}</span><span style="color:var(--grn);font-weight:600;font-family:var(--mono)">${Date.now()-t0} ms</span></div>`);
+    }catch(e){
+      results.push(`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--bdr2)"><span style="font-size:13px">${label}</span><span style="color:var(--red);font-weight:600">Mislukt</span></div>`);
+    }
+  }
+  el.innerHTML=results.join('');
 }
 
 function ra(){rDash();rMaand();rVast();rCamp();rVar();rKm();rOnderhoud();rTrips();rBudget();rInstellingen();rLangSelector();rHandleiding();}
