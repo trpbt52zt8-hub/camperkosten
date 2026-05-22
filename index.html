@@ -1533,10 +1533,9 @@ let campersList=[];
 // STORAGE
 // ═══════════════════════════════════════
 async function save(){
-  _gmCache={};
   const d={vast:JSON.stringify(vast),camp:JSON.stringify(camps),kosten:JSON.stringify(costs),km:JSON.stringify(km),trips:JSON.stringify(trips),onderhoud:JSON.stringify(onderhoud),budget:JSON.stringify(budget),camper:JSON.stringify(camperSettings),campers:JSON.stringify(campersList)};
-  try{Object.entries(d).forEach(([k,v])=>localStorage.setItem('cv6-'+k,v));}catch(e){}
-  try{await Promise.all(Object.entries(d).map(([k,v])=>window.storage.set('cv6-'+k,v)));}catch(e){}
+  try{for(const[k,v] of Object.entries(d))await window.storage.set('cv6-'+k,v);}catch(e){}
+  try{for(const[k,v] of Object.entries(d))localStorage.setItem('cv6-'+k,v);}catch(e){}
 }
 async function loadKey(k){
   // Probeer nieuwe sleutel (cv6-)
@@ -1575,15 +1574,12 @@ async function load(){
 // ═══════════════════════════════════════
 function fmt(v){if(!v||isNaN(v)||v===0)return'—';return'€\u202f'+v.toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');}
 function fn(v,d=2){return(v==null||isNaN(v))?'—':v.toFixed(d).replace('.',',');}
-let _gmCache={};
 function gm(y,m){
-  const key=y+'-'+m;
-  if(_gmCache[key])return _gmCache[key];
   const pre=y+'-'+String(m).padStart(2,'0'),v=vast[y+'-'+m]||{};
   const cp=camps.filter(e=>e.date.startsWith(pre)).reduce((s,e)=>s+e.prijs,0);
   const mk=costs.filter(e=>e.date.startsWith(pre));
   const ond=onderhoud.filter(e=>e.date.startsWith(pre)).reduce((s,e)=>s+e.prijs,0);
-  return _gmCache[key]={verz:v.verz||0,mrb:v.mrb||0,stall:v.stall||0,afschr:v.afschr||0,onderh:(v.onderh||0)+ond,
+  return{verz:v.verz||0,mrb:v.mrb||0,stall:v.stall||0,afschr:v.afschr||0,onderh:(v.onderh||0)+ond,
          brand:mk.filter(e=>e.cat==='diesel').reduce((s,e)=>s+e.prijs,0),
          camp:cp,overig:mk.filter(e=>e.cat!=='diesel').reduce((s,e)=>s+e.prijs,0)};
 }
@@ -1630,7 +1626,7 @@ function cy(d){
 function saveVast(){
   const m=parseInt(document.getElementById('vM').value);
   vast[yr+'-'+m]={verz:parseFloat(document.getElementById('vV').value)||0,mrb:parseFloat(document.getElementById('vR').value)||0,stall:parseFloat(document.getElementById('vS').value)||0,afschr:parseFloat(document.getElementById('vA').value)||0,onderh:parseFloat(document.getElementById('vO').value)||0};
-  save();ra();toast('✓ Opgeslagen');
+  save();rVast();rDash();rMaand();toast('✓ Opgeslagen');
   ['vV','vR','vS','vA','vO'].forEach(id=>document.getElementById(id).value='');
 }
 function eVast(key){
@@ -1639,7 +1635,7 @@ function eVast(key){
   document.getElementById('vV').value=d.verz||'';document.getElementById('vR').value=d.mrb||'';
   document.getElementById('vS').value=d.stall||'';document.getElementById('vA').value=d.afschr||'';document.getElementById('vO').value=d.onderh||'';
 }
-function dVast(key){delete vast[key];save();ra();}
+function dVast(key){delete vast[key];save();rVast();rDash();rMaand();}
 function rVast(){
   const tb=document.getElementById('vastB');tb.innerHTML='';let any=false;
   for(let m=1;m<=12;m++){
@@ -1674,7 +1670,7 @@ function addCamp(){
   save();toast('⛺ Camping opgeslagen');
   ['cN','cLand','cNa','cP','cNo'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('cD').value=new Date().toISOString().slice(0,10);
-  ra();
+  rCamp();rDash();rMaand();
 }
 function editCamp(id){
   const e=camps.find(c=>c.id===id);if(!e)return;
@@ -1694,7 +1690,7 @@ function cancelEdit(){
   document.getElementById('cSaveBtn').textContent='Toevoegen';
   document.getElementById('cCancelBtn').style.display='none';
 }
-function dCamp(id){camps=camps.filter(e=>e.id!==id);save();ra();}
+function dCamp(id){camps=camps.filter(e=>e.id!==id);save();rCamp();rDash();rMaand();}
 function rCamp(){
   const rows=camps.filter(e=>e.date.startsWith(yr+'')).sort((a,b)=>a.date.localeCompare(b.date));
   const tb=document.getElementById('campB');tb.innerHTML='';
@@ -1747,7 +1743,7 @@ function addVar(){
   save();toast('✓ Kosten opgeslagen');
   ['kO','kP','kL','kPl','kKm'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('kD').value=new Date().toISOString().slice(0,10);
-  td();ra();
+  td();rVar();rDash();rMaand();
 }
 function editVar(id){
   const e=costs.find(c=>c.id===id);if(!e)return;
@@ -1768,7 +1764,7 @@ function cancelEditVar(){
   document.getElementById('kCancelBtn').style.display='none';
   td();
 }
-function dVar(id){costs=costs.filter(e=>e.id!==id);save();ra();}
+function dVar(id){costs=costs.filter(e=>e.id!==id);save();rVar();rDash();rMaand();}
 function calcVb(filterYear=null){
   const rows=costs.filter(r=>r.cat==='diesel'&&r.km&&r.liters&&(!filterYear||r.date.startsWith(filterYear+''))).sort((a,b)=>a.km-b.km),map={};
   for(let i=1;i<rows.length;i++){const diff=rows[i].km-rows[i-1].km;if(diff>0)map[rows[i].id]=(rows[i].liters/diff)*100;}
@@ -1824,7 +1820,7 @@ function addOnderhoud(){
   save();toast('🔧 Onderhoud opgeslagen');
   ['oOmschr','oPrijs','oKm'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('oD').value=new Date().toISOString().slice(0,10);
-  ra();
+  rOnderhoud();rDash();rMaand();
 }
 function editOnderhoud(id){
   const e=onderhoud.find(o=>o.id===id);if(!e)return;
@@ -1842,7 +1838,7 @@ function cancelOnderhoud(){
   document.getElementById('oSaveBtn').textContent='Toevoegen';
   document.getElementById('oCancelBtn').style.display='none';
 }
-function dOnderhoud(id){onderhoud=onderhoud.filter(e=>e.id!==id);save();ra();}
+function dOnderhoud(id){onderhoud=onderhoud.filter(e=>e.id!==id);save();rOnderhoud();rDash();rMaand();}
 function rOnderhoud(){
   const rows=onderhoud.filter(e=>e.date.startsWith(yr+'')).sort((a,b)=>a.date.localeCompare(b.date));
   const tb=document.getElementById('onderhoudB');tb.innerHTML='';
@@ -2125,13 +2121,13 @@ function showMaandPopup(mi,cx,event){
   div.id='chartPopup';
   div.style.cssText=`position:fixed;background:var(--surf);border:1px solid var(--bdr);border-radius:10px;box-shadow:var(--sh-md);padding:14px 16px;font-size:12px;min-width:180px;z-index:50;pointer-events:auto;`;
   const rows=[
-    m.d.brand?`<div style="display:flex;justify-content:space-between;gap:20px;padding:3px 0"><span style="color:var(--muted)">${t('leg_brandstof')}</span><strong>${fmt(m.d.brand)}</strong></div>`:'',
-    m.d.camp?`<div style="display:flex;justify-content:space-between;gap:20px;padding:3px 0"><span style="color:var(--muted)">${t('leg_camping')}</span><strong>${fmt(m.d.camp)}</strong></div>`:'',
-    m.vast?`<div style="display:flex;justify-content:space-between;gap:20px;padding:3px 0"><span style="color:var(--muted)">${t('leg_vast')}</span><strong>${fmt(m.vast)}</strong></div>`:'',
-    m.d.overig?`<div style="display:flex;justify-content:space-between;gap:20px;padding:3px 0"><span style="color:var(--muted)">${t('leg_overig')}</span><strong>${fmt(m.d.overig)}</strong></div>`:'',
-    `<div style="display:flex;justify-content:space-between;gap:20px;padding:5px 0;margin-top:4px;border-top:1px solid var(--bdr2)"><span style="font-weight:600">${t('sl_totaal')}</span><strong style="color:var(--acc-d)">${fmt(m.tot)}</strong></div>`
+    m.d.brand?`<div style="display:flex;justify-content:space-between;gap:20px;padding:3px 0"><span style="color:var(--muted)">Brandstof</span><strong>${fmt(m.d.brand)}</strong></div>`:'',
+    m.d.camp?`<div style="display:flex;justify-content:space-between;gap:20px;padding:3px 0"><span style="color:var(--muted)">Camping</span><strong>${fmt(m.d.camp)}</strong></div>`:'',
+    m.vast?`<div style="display:flex;justify-content:space-between;gap:20px;padding:3px 0"><span style="color:var(--muted)">Vaste kosten</span><strong>${fmt(m.vast)}</strong></div>`:'',
+    m.d.overig?`<div style="display:flex;justify-content:space-between;gap:20px;padding:3px 0"><span style="color:var(--muted)">Overig</span><strong>${fmt(m.d.overig)}</strong></div>`:'',
+    `<div style="display:flex;justify-content:space-between;gap:20px;padding:5px 0;margin-top:4px;border-top:1px solid var(--bdr2)"><span style="font-weight:600">Totaal</span><strong style="color:var(--acc-d)">${fmt(m.tot)}</strong></div>`
   ].filter(Boolean).join('');
-  div.innerHTML=`<div style="font-weight:700;margin-bottom:8px">${MO()[mi]} ${yr}</div>${rows}<div style="text-align:right;margin-top:8px"><button onclick="this.closest('#chartPopup').remove()" style="font-size:11px;border:none;background:var(--bdr);border-radius:4px;padding:2px 8px;cursor:pointer;font-family:var(--font)">${t('btn_annuleer')}</button></div>`;
+  div.innerHTML=`<div style="font-weight:700;margin-bottom:8px">${MO[mi]} ${yr}</div>${rows}<div style="text-align:right;margin-top:8px"><button onclick="this.closest('#chartPopup').remove()" style="font-size:11px;border:none;background:var(--bdr);border-radius:4px;padding:2px 8px;cursor:pointer;font-family:var(--font)">Sluiten</button></div>`;
   document.body.appendChild(div);
   // Position near click
   const rect=event.target.closest('svg').getBoundingClientRect();
@@ -2377,7 +2373,7 @@ function snelTanken(){
   const ppl=parseFloat(document.getElementById('snelPpl').value)||null;
   const km2=parseInt(document.getElementById('snelKm').value)||null;
   costs.push({id:Date.now(),date,cat:'diesel',omschr:'Diesel',prijs,liters,ppl,km:km2});
-  save();sluitModal();ra();
+  save();sluitModal();rDash();rVar();rMaand();
   toast('⛽ Tankbeurt opgeslagen');
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')sluitModal();});
@@ -2714,14 +2710,7 @@ Als een waarde niet op de bon staat, gebruik dan null.`}
   }
 }
 
-function ra(){
-  const av=document.querySelector('.view.on');
-  rLangSelector();
-  if(!av)return;
-  const n=av.id.replace('v-','');
-  const map={dash:rDash,maand:rMaand,trips:rTrips,vast:rVast,camp:rCamp,var:()=>{rKm();rVar();},onderhoud:rOnderhoud,budget:rBudget,instellingen:rInstellingen,handleiding:rHandleiding};
-  if(map[n])map[n]();
-}
+function ra(){rDash();rMaand();rVast();rCamp();rVar();rKm();rOnderhoud();rTrips();rBudget();rInstellingen();rLangSelector();rHandleiding();}
 
 // ═══════════════════════════════════════
 // TOAST
