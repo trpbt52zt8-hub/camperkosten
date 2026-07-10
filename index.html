@@ -1574,6 +1574,7 @@ async function load(){
 // ═══════════════════════════════════════
 function fmt(v){if(!v||isNaN(v)||v===0)return'—';return'€\u202f'+v.toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');}
 function fn(v,d=2){return(v==null||isNaN(v))?'—':v.toFixed(d).replace('.',',');}
+function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function gm(y,m){
   const pre=y+'-'+String(m).padStart(2,'0'),v=vast[y+'-'+m]||{};
   const cp=camps.filter(e=>e.date.startsWith(pre)).reduce((s,e)=>s+e.prijs,0);
@@ -1697,7 +1698,7 @@ function rCamp(){
   if(!rows.length){tb.innerHTML=`<tr class="empty-r"><td colspan="8">${t('empty_camp')}${yr}.</td></tr>`;}
   else rows.forEach(e=>{
     const pn=e.prijs/e.nachten,tr=document.createElement('tr');
-    tr.innerHTML=`<td class="td">${e.date}</td><td class="tn">${e.naam}</td><td style="font-size:12px;color:var(--muted)">${e.land||'—'}</td><td class="tm">${e.nachten}</td><td class="tm">${fmt(e.prijs)}</td><td class="tb">${fmt(pn)}</td><td class="tnote" title="${e.note||''}">${e.note||'—'}</td><td style="text-align:center;white-space:nowrap"><button class="bi" onclick="editCamp(${e.id})" style="color:var(--muted)">&#9998;</button><button class="bi" onclick="dCamp(${e.id})">&#10005;</button></td>`;
+    tr.innerHTML=`<td class="td">${e.date}</td><td class="tn">${esc(e.naam)}</td><td style="font-size:12px;color:var(--muted)">${esc(e.land)||'—'}</td><td class="tm">${e.nachten}</td><td class="tm">${fmt(e.prijs)}</td><td class="tb">${fmt(pn)}</td><td class="tnote" title="${esc(e.note)}">${esc(e.note)||'—'}</td><td style="text-align:center;white-space:nowrap"><button class="bi" onclick="editCamp(${Number(e.id)})" style="color:var(--muted)">&#9998;</button><button class="bi" onclick="dCamp(${Number(e.id)})">&#10005;</button></td>`;
     tb.appendChild(tr);
   });
   const tn=rows.reduce((s,e)=>s+e.nachten,0),tp=rows.reduce((s,e)=>s+e.prijs,0);
@@ -1712,7 +1713,7 @@ function rCamp(){
   const lb=document.getElementById('landenB');lb.innerHTML='';
   Object.entries(landenMap).sort((a,b)=>b[1].prijs-a[1].prijs).forEach(([land,d])=>{
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td class="tn">${land}</td><td class="tm">${d.n}</td><td class="tm">${d.nachten}</td><td class="tm">${fmt(d.prijs)}</td><td class="tb">${fmt(d.prijs/d.nachten)}</td>`;
+    tr.innerHTML=`<td class="tn">${esc(land)}</td><td class="tm">${d.n}</td><td class="tm">${d.nachten}</td><td class="tm">${fmt(d.prijs)}</td><td class="tb">${fmt(d.prijs/d.nachten)}</td>`;
     lb.appendChild(tr);
   });
   if(!Object.keys(landenMap).length)lb.innerHTML=`<tr class="empty-r"><td colspan="5">Voeg een land toe bij camping registraties.</td></tr>`;
@@ -1776,7 +1777,7 @@ function rVar(){
   if(!rows.length){tb.innerHTML=`<tr class="empty-r"><td colspan="9">${t('empty_var')}${yr}.</td></tr>`;}
   else rows.forEach(e=>{
     const v=vb[e.id],tr=document.createElement('tr');
-    tr.innerHTML=`<td class="td">${e.date}</td><td><span class="pill ${PC_map()[e.cat]}">${CL()[e.cat]}</span></td><td style="font-size:13px;color:var(--txt2);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${e.omschr||'—'}</td><td class="tb">${fmt(e.prijs)}</td><td class="tm">${e.liters?fn(e.liters):'—'}</td><td class="tm">${e.ppl?fn(e.ppl,3):'—'}</td><td class="tm">${e.km?e.km.toLocaleString('nl'):'—'}</td><td class="tm">${v?fn(v):'—'}</td><td style="text-align:center;white-space:nowrap"><button class="bi" onclick="editVar(${e.id})" style="color:var(--muted)">&#9998;</button><button class="bi" onclick="dVar(${e.id})">&#10005;</button></td>`;
+    tr.innerHTML=`<td class="td">${e.date}</td><td><span class="pill ${PC_map()[e.cat]}">${CL()[e.cat]}</span></td><td style="font-size:13px;color:var(--txt2);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(e.omschr)||'—'}</td><td class="tb">${fmt(e.prijs)}</td><td class="tm">${e.liters?fn(e.liters):'—'}</td><td class="tm">${e.ppl?fn(e.ppl,3):'—'}</td><td class="tm">${e.km?e.km.toLocaleString('nl'):'—'}</td><td class="tm">${v?fn(v):'—'}</td><td style="text-align:center;white-space:nowrap"><button class="bi" onclick="editVar(${Number(e.id)})" style="color:var(--muted)">&#9998;</button><button class="bi" onclick="dVar(${Number(e.id)})">&#10005;</button></td>`;
     tb.appendChild(tr);
   });
   const tot=rows.reduce((s,e)=>s+e.prijs,0),vbVs=Object.values(vb).filter(v=>v>0&&v<30);
@@ -1845,7 +1846,7 @@ function rOnderhoud(){
   if(!rows.length){tb.innerHTML=`<tr class="empty-r"><td colspan="5">${t('empty_onderhoud')}${yr}.</td></tr>`;}
   else rows.forEach(e=>{
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td class="td">${e.date}</td><td class="tn">${e.omschr}</td><td class="tb">${fmt(e.prijs)}</td><td class="tm">${e.km?e.km.toLocaleString('nl'):'—'}</td><td style="text-align:center;white-space:nowrap"><button class="bi" onclick="editOnderhoud(${e.id})" style="color:var(--muted)">&#9998;</button><button class="bi" onclick="dOnderhoud(${e.id})">&#10005;</button></td>`;
+    tr.innerHTML=`<td class="td">${e.date}</td><td class="tn">${esc(e.omschr)}</td><td class="tb">${fmt(e.prijs)}</td><td class="tm">${e.km?e.km.toLocaleString('nl'):'—'}</td><td style="text-align:center;white-space:nowrap"><button class="bi" onclick="editOnderhoud(${Number(e.id)})" style="color:var(--muted)">&#9998;</button><button class="bi" onclick="dOnderhoud(${Number(e.id)})">&#10005;</button></td>`;
     tb.appendChild(tr);
   });
   const tot=rows.reduce((s,e)=>s+e.prijs,0);
@@ -1894,30 +1895,30 @@ function rTrips(){
   const sorted=[...trips].sort((a,b)=>b.van.localeCompare(a.van));
   if(!sorted.length){el.innerHTML='<div style="text-align:center;padding:36px;color:var(--muted2);font-size:13px">Nog geen reizen toegevoegd. Voeg je eerste reis toe hierboven.</div>';return;}
   el.innerHTML='';
-  sorted.forEach(t=>{
-    const van=t.van,tot=t.tot?` t/m ${t.tot}`:'';
-    const dagen=t.van&&t.tot?Math.round((new Date(t.tot)-new Date(t.van))/(1000*60*60*24))+' dagen':'';
+  sorted.forEach(trip=>{
+    const van=trip.van,tot=trip.tot?` t/m ${trip.tot}`:'';
+    const dagen=trip.van&&trip.tot?Math.round((new Date(trip.tot)-new Date(trip.van))/(1000*60*60*24))+' dagen':'';
     // Bereken kosten tijdens deze reis
     let tripKosten=0;
-    if(t.van&&t.tot){
-      costs.filter(e=>e.date>=t.van&&e.date<=t.tot).forEach(e=>tripKosten+=e.prijs);
-      camps.filter(e=>e.date>=t.van&&(t.tot?e.date<=t.tot:true)).forEach(e=>tripKosten+=e.prijs);
+    if(trip.van&&trip.tot){
+      costs.filter(e=>e.date>=trip.van&&e.date<=trip.tot).forEach(e=>tripKosten+=e.prijs);
+      camps.filter(e=>e.date>=trip.van&&(trip.tot?e.date<=trip.tot:true)).forEach(e=>tripKosten+=e.prijs);
     }
-    const landenArr=t.landen?t.landen.split(',').map(s=>s.trim()).filter(Boolean):[];
+    const landenArr=trip.landen?trip.landen.split(',').map(s=>s.trim()).filter(Boolean):[];
     const div=document.createElement('div');
     div.className='trip-item';
     div.innerHTML=`
       <div style="flex:1">
-        <div class="trip-name">${t.naam}</div>
+        <div class="trip-name">${esc(trip.naam)}</div>
         <div class="trip-meta">${van}${tot}${dagen?' · '+dagen:''}</div>
-        ${landenArr.length?`<div class="trip-landen">${landenArr.map(l=>`<span class="land-tag">${l}</span>`).join('')}</div>`:''}
-        ${t.note?`<div style="font-size:12px;color:var(--muted);margin-top:6px">${t.note}</div>`:''}
+        ${landenArr.length?`<div class="trip-landen">${landenArr.map(l=>`<span class="land-tag">${esc(l)}</span>`).join('')}</div>`:''}
+        ${trip.note?`<div style="font-size:12px;color:var(--muted);margin-top:6px">${esc(trip.note)}</div>`:''}
       </div>
       <div style="text-align:right;flex-shrink:0">
         ${tripKosten?`<div style="font-family:var(--mono);font-size:14px;font-weight:600;color:var(--acc-d)">${fmt(tripKosten)}</div><div style="font-size:11px;color:var(--muted)">${t('gem_reiskosten')}</div>`:''}
         <div style="display:flex;gap:4px;margin-top:8px;justify-content:flex-end">
-          <button class="bi" onclick="editTrip(${t.id})" style="color:var(--muted)">&#9998;</button>
-          <button class="bi" onclick="dTrip(${t.id})">&#10005;</button>
+          <button class="bi" onclick="editTrip(${Number(trip.id)})" style="color:var(--muted)">&#9998;</button>
+          <button class="bi" onclick="dTrip(${Number(trip.id)})">&#10005;</button>
         </div>
       </div>`;
     el.appendChild(div);
@@ -2184,20 +2185,28 @@ function exportJSON(){
   a.download=`camperkosten-backup-${new Date().toISOString().slice(0,10)}.json`;
   a.click();
 }
+function sanitizeImportRows(rows){
+  if(!Array.isArray(rows))return[];
+  return rows.filter(r=>r&&typeof r==='object'&&!Array.isArray(r)).map((r,i)=>{
+    const id=Number(r.id);
+    return{...r,id:Number.isFinite(id)?id:Date.now()+i};
+  });
+}
 function importJSON(event){
   const file=event.target.files[0];if(!file)return;
   const reader=new FileReader();
   reader.onload=e=>{
     try{
       const data=JSON.parse(e.target.result);
-      if(data.vast)vast=data.vast;
-      if(data.camps)camps=data.camps;
-      if(data.costs)costs=data.costs;
-      else if(data.kosten)costs=data.kosten;
-      if(data.km)km=data.km;
-      if(data.trips)trips=data.trips;
-      if(data.onderhoud)onderhoud=data.onderhoud;
-      if(data.budget)budget=data.budget;
+      if(!data||typeof data!=='object')throw new Error('Ongeldig back-upbestand');
+      if(data.vast&&typeof data.vast==='object'&&!Array.isArray(data.vast))vast=data.vast;
+      if(data.camps)camps=sanitizeImportRows(data.camps);
+      if(data.costs)costs=sanitizeImportRows(data.costs);
+      else if(data.kosten)costs=sanitizeImportRows(data.kosten);
+      if(data.km&&typeof data.km==='object'&&!Array.isArray(data.km))km=data.km;
+      if(data.trips)trips=sanitizeImportRows(data.trips);
+      if(data.onderhoud)onderhoud=sanitizeImportRows(data.onderhoud);
+      if(data.budget&&typeof data.budget==='object'&&!Array.isArray(data.budget))budget=data.budget;
       save();ra();
       alert(`${t('alert_import_ok')}${camps.length}${t('alert_import_deel')}${costs.length}${t('alert_import_deel2')}`);
     }catch(err){alert(t('alert_import_fout')+err.message);}
@@ -2235,14 +2244,14 @@ function rInstellingen(){
   el.innerHTML=campersList.map(cam=>`
     <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 20px;border-bottom:1px solid var(--bdr2)">
       <div>
-        <div style="font-weight:600;font-size:14px">${cam.naam||cam.merk+' '+cam.model}</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:2px">${[cam.merk,cam.model,cam.jaar,cam.brandstof].filter(Boolean).join(' · ')}${cam.kenteken?' · '+cam.kenteken:''}</div>
-        ${cam.apk?`<div style="font-size:11px;color:var(--acc-d);margin-top:2px">APK: ${cam.apk}</div>`:''}
+        <div style="font-weight:600;font-size:14px">${esc(cam.naam||(cam.merk+' '+cam.model))}</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:2px">${[cam.merk,cam.model,cam.jaar,cam.brandstof].filter(Boolean).map(esc).join(' · ')}${cam.kenteken?' · '+esc(cam.kenteken):''}</div>
+        ${cam.apk?`<div style="font-size:11px;color:var(--acc-d);margin-top:2px">APK: ${esc(cam.apk)}</div>`:''}
       </div>
       <div style="display:flex;gap:6px;align-items:center">
-        ${cam.actief?'<span style="font-size:11px;font-weight:600;color:var(--grn);background:var(--grn-s);padding:2px 9px;border-radius:20px;border:1px solid #a7f3d0">Actief</span>':'<button class="btn bg" style="height:28px;font-size:11px;padding:0 10px" onclick="setCamperActief('+cam.id+')">Activeren</button>'}
-        <button class="bi" onclick="editCamperFromList(${cam.id})" style="color:var(--muted)">&#9998;</button>
-        ${!cam.actief?`<button class="bi" onclick="delCamper(${cam.id})">&#10005;</button>`:''}
+        ${cam.actief?'<span style="font-size:11px;font-weight:600;color:var(--grn);background:var(--grn-s);padding:2px 9px;border-radius:20px;border:1px solid #a7f3d0">Actief</span>':'<button class="btn bg" style="height:28px;font-size:11px;padding:0 10px" onclick="setCamperActief('+Number(cam.id)+')">Activeren</button>'}
+        <button class="bi" onclick="editCamperFromList(${Number(cam.id)})" style="color:var(--muted)">&#9998;</button>
+        ${!cam.actief?`<button class="bi" onclick="delCamper(${Number(cam.id)})">&#10005;</button>`:''}
       </div>
     </div>`).join('');
   // Update sidebar
@@ -2286,7 +2295,7 @@ async function rdwOpzoeken(){
     const naam=`${v.merk||''} ${v.handelsbenaming||v.type||''} ${v.datum_eerste_toelating?v.datum_eerste_toelating.slice(0,4):''}`.trim();
     document.getElementById('camperNaam').value=naam;
     document.getElementById('rdwResult').style.display='block';
-    document.getElementById('rdwResult').innerHTML=`<strong>${t('rdw_gevonden')}</strong>${naam}${t('rdw_gevonden2')}`;
+    document.getElementById('rdwResult').innerHTML=`<strong>${t('rdw_gevonden')}</strong>${esc(naam)}${t('rdw_gevonden2')}`;
   }catch(err){
     document.getElementById('rdwError').style.display='block';
     document.getElementById('rdwError').textContent='⚠ '+err.message;
