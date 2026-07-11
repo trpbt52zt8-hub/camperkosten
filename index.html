@@ -294,7 +294,6 @@ body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bot
   animation:modalIn .2s var(--ease) forwards;
 }
 @keyframes modalIn{from{opacity:0;transform:scale(.95) translateY(10px);}to{opacity:1;transform:none;}}
-@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
 .modal-hd{padding:16px 16px 14px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;}
 .modal-title{font-size:16px;font-weight:700;color:var(--txt);}
 .modal-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);padding:4px;border-radius:6px;transition:all .15s;}
@@ -400,17 +399,7 @@ body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bot
     <div class="modal">
       <div class="modal-hd">
         <div class="modal-title">⛽ Snel tanken</div>
-        <div style="display:flex;gap:8px;align-items:center">
-          <label class="btn bg" style="cursor:pointer;height:32px;padding:0 12px;font-size:12px;margin:0" title="Scan tankbon met camera">
-            📷 Scan bon
-            <input type="file" accept="image/*" capture="environment" onchange="scanTankbon(event)" style="display:none">
-          </label>
-          <button class="modal-close" onclick="sluitModal()">✕</button>
-        </div>
-      </div>
-      <div id="scanStatus" style="display:none;padding:10px 16px;background:var(--acc-s);border-bottom:1px solid #fde68a;font-size:12px;color:var(--acc-d);align-items:center;gap:8px">
-        <span id="scanSpinner" style="animation:spin 1s linear infinite;display:inline-block">⏳</span>
-        <span id="scanMsg">Bon wordt gelezen...</span>
+        <button class="modal-close" onclick="sluitModal()">✕</button>
       </div>
       <div class="modal-b">
         <div class="fg modal-grid">
@@ -2644,81 +2633,6 @@ function rHandleiding(){
 }
 
 // ═══════════════════════════════════════
-async function scanTankbon(event){
-  const file=event.target.files[0];
-  if(!file)return;
-  event.target.value='';
-
-  // Toon status
-  const status=document.getElementById('scanStatus');
-  const msg=document.getElementById('scanMsg');
-  status.style.display='flex';
-  msg.textContent='Bon wordt gelezen...';
-
-  try{
-    // Converteer afbeelding naar base64
-    const base64=await new Promise((res,rej)=>{
-      const r=new FileReader();
-      r.onload=()=>res(r.result.split(',')[1]);
-      r.onerror=rej;
-      r.readAsDataURL(file);
-    });
-
-    const mediaType=file.type||'image/jpeg';
-
-    // Stuur naar Claude API
-    const response=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        messages:[{
-          role:'user',
-          content:[
-            {type:'image',source:{type:'base64',media_type:mediaType,data:base64}},
-            {type:'text',text:`Dit is een tankbon of kassabon van een tankstation. Haal de volgende gegevens eruit en antwoord ALLEEN met geldig JSON, geen uitleg:
-{
-  "bedrag": <totaalbedrag in euro als getal, bijv. 98.50>,
-  "liters": <aantal liters als getal, bijv. 55.32>,
-  "ppl": <prijs per liter als getal, bijv. 1.789>,
-  "datum": <datum in formaat YYYY-MM-DD of null als niet leesbaar>
-}
-Als een waarde niet op de bon staat, gebruik dan null.`}
-          ]
-        }]
-      })
-    });
-
-    const data=await response.json();
-    const text=data.content?.find(c=>c.type==='text')?.text||'{}';
-    const clean=text.replace(/```json|```/g,'').trim();
-    const result=JSON.parse(clean);
-
-    // Vul velden in
-    if(result.bedrag)document.getElementById('snelBedrag').value=result.bedrag;
-    if(result.liters)document.getElementById('snelLiters').value=result.liters;
-    if(result.ppl)document.getElementById('snelPpl').value=result.ppl;
-    if(result.datum)document.getElementById('snelDatum').value=result.datum;
-
-    // Toon succes
-    msg.textContent='✓ Gegevens ingelezen! Controleer en sla op.';
-    document.getElementById('scanSpinner').style.display='none';
-    status.style.background='var(--grn-s)';
-    status.style.borderColor='#a7f3d0';
-    status.style.color='var(--grn)';
-    setTimeout(()=>{status.style.display='none';status.style.background='';status.style.borderColor='';status.style.color='';document.getElementById('scanSpinner').style.display='';},3000);
-
-  }catch(err){
-    msg.textContent='Kon bon niet lezen. Vul de gegevens handmatig in.';
-    document.getElementById('scanSpinner').style.display='none';
-    status.style.background='var(--red-s)';
-    status.style.borderColor='#fca5a5';
-    status.style.color='var(--red)';
-    setTimeout(()=>{status.style.display='none';status.style.background='';status.style.borderColor='';status.style.color='';document.getElementById('scanSpinner').style.display='';},3000);
-  }
-}
-
 function ra(){rDash();rMaand();rVast();rCamp();rVar();rKm();rOnderhoud();rTrips();rBudget();rInstellingen();rLangSelector();rHandleiding();}
 
 // ═══════════════════════════════════════
